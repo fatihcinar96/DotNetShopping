@@ -1,0 +1,58 @@
+﻿@model  DotNetShopping.Models.ProductBoxModel
+
+
+<div class="owl-item" style="width: 240px;">
+    <div class="item">
+        <div class="item-area">
+            <div class="product-image-area">
+                <div class="loader-container">
+                    <div class="loader">
+                        <i class="ajax-loader medium animate-spin"></i>
+                    </div>
+                </div>
+                <a href="" class="quickview-icon"><i class="icon-export"></i><span>Quick View</span></a>
+                <a href="" title="Sheer Blouse - Black" class="product-image">
+                    <img class="porto-lazyload porto-lazyload-loaded" data-src="~/ProductImage/@Model.PhotoName" style="display: inline;" src="~/ProductImage/@Model.PhotoName" width="200" height="200">
+                </a>
+                <div class="product-label"><span class="sale-product-icon">-10%</span></div>
+            </div>
+            <div class="details-area">
+                <h2 class="product-name"><a href="" title="Sheer Blouse - Black">@Html.DisplayFor(model => model.ProductName)</a></h2>
+                <div class="ratings">
+                    <div class="rating-box">
+                        <div class="rating" style="width:0"></div>
+                    </div>
+                </div>
+                <div class="price-box">
+                    <p class="old-price">
+                        <span class="price-label">Regular Price:</span>
+                        <span class="price" id="old-price-388">
+                           @Decimal.Round(Model.RegularPrice,2) $ 
+                        </span>
+                    </p>
+                    <p class="special-price">
+                        <span class="price-label">Special Price</span>
+                        <span class="price" id="product-price-388">
+                            @Html.DisplayFor(model => model.UnitPrice) $
+                        </span>
+                    </p>
+                </div>
+                <div class="actions">
+                    <div class="qty-field">
+                        <label for="qty">Qty:</label>
+                        <div class="qty-holder">
+                            <input type="text" name="qty" id="qty_388_4z5" maxlength="12" value="0" title="Qty" class="input-text qty">
+                            <div class="qty-changer">
+                                <a href="javascript:void(0)" class="qty_inc"><i class="icon-up-dir"></i></a>
+                                <a href="javascript:void(0)" class="qty_dec"><i class="icon-down-dir"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="javascript:void(0)" onclick="" class="addtowishlist" title="Add to Wishlist"><i class="icon-wishlist"></i></a>
+                    <a href="javascript:void(0)" class="addtocart" title="Add to Cart" onclick=""><i class="icon-cart"></i><span>&nbsp;Add to Cart</span></a>
+                    <div class="clearer"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

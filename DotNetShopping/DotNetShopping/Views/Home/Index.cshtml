@@ -1,0 +1,35 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+<div class="sliderBox">
+    <div class="slider"></div>
+</div>
+<div class="categoryRow row">
+    <div class="col-sm-4 categoryCol1">
+        <div class="categoryTitle">Sunglasses</div>
+        <a class="categoryButton" href="#">SHOP NOW</a>
+    </div>
+    <div class="col-sm-4 categoryCol2">
+        <div class="categoryTitle">Woman Dress</div>
+        <a class="categoryButton" href="#">SHOP NOW</a>
+    </div>
+    <div class="col-sm-4 categoryCol3">
+        <div class="categoryTitle">Woman Bags</div>
+        <a class="categoryButton" href="#">SHOP NOW</a>
+    </div>
+</div>
+<div class="featuredTitle">WEEKLY FEATURED PRODUCTS</div>
+<div class="owl-items">
+    <div class="col-sm-3">
+        @Html.Partial("_ProductPartial", (DotNetShopping.Models.ProductBoxModel)ViewBag.newProducts[0]))
+    </div>
+    <div class="col-sm-3">
+        @Html.Partial("_ProductPartial", (DotNetShopping.Models.ProductBoxModel)ViewBag.newProducts[1]))
+    </div>
+    <div class="col-sm-3">
+        @Html.Partial("_ProductPartial", (DotNetShopping.Models.ProductBoxModel)ViewBag.newProducts[2]))
+    </div>
+    <div class="col-sm-3">
+        @Html.Partial("_ProductPartial", (DotNetShopping.Models.ProductBoxModel)ViewBag.newProducts[2]))
+    </div>
+</div>

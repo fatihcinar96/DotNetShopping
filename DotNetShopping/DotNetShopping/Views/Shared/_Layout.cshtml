@@ -1,0 +1,115 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - DotNetShopping</title>
+    @Styles.Render("~/Content/Site/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link href="https://fonts.googleapis.com/css?family=Oswald|Roboto" rel="stylesheet">
+</head>
+<body>
+    <div class="navbar navbar-inverse">
+        <div class="container">
+            <div class="menu">
+                <div class="menuLeft">@Html.ActionLink("Shopping", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })</div>
+                <div class="menuRight">
+                    <div class="menuAbsolute">
+                        <div class="row">
+                            <div class="navbar-header">
+                                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>
+                            </div>
+                            <div class="navbar-collapse collapse">
+                                <ul class="navTop nav navbar-nav">
+                                    <li class="searchBox"><input type="text" class="searchInput" placeholder="Search a product.." /><i class="searchIcon glyphicon glyphicon-search"></i></li>
+                                    <li>@Html.ActionLink("DEALS", "Products", "Home")</li>
+                                </ul>
+                                @Html.Partial("_LoginPartial")
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="navbar-collapse collapse">
+                                <ul class="navBottom nav navbar-nav">
+                                    <li>@Html.ActionLink("HOME", "Index", "Home")</li>
+                                    <li>@Html.ActionLink("CATEGORIES", "Categories", "Home")</li>
+                                    <li>@Html.ActionLink("PRODUCTS", "Products", "Home")</li>
+                                    <li>@Html.ActionLink("ABOUT", "About", "Home")</li>
+                                    <li>@Html.ActionLink("CONTACT", "About", "Home")</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="header"></div>
+    </div>
+
+    <div class="container body-content">
+        <div class="content">
+            @RenderBody()
+        </div>
+
+        <hr />
+
+    </div>
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="footerTitle">CONTACT INFORMATION</div>
+                    <ul class="contact-info">
+                        <li><i class="glyphicon glyphicon-map-marker">&nbsp;</i><p><b style="color: #fff;text-transform:uppercase;">Address</b><br>Cincin Street 119, Esenler,Istanbul </p></li>
+                        <li><i class="glyphicon glyphicon-phone">&nbsp;</i><p><b style="color: #fff;text-transform:uppercase;">Phone</b><br>(507) 072 8003</p></li>
+                        <li><i class="glyphicon glyphicon-envelope">&nbsp;</i><p><b style="color: #fff;text-transform:uppercase;">Email</b><br><a href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;tf=1&amp;to=fatihcinar96@gmail.com" target="_blank">fatihcinar96@gmail.com</a></p></li>
+                        <li><i class="glyphicon glyphicon-time">&nbsp;</i><p><b style="color: #fff;text-transform:uppercase;">Working Days/Hours</b><br>Mon - Sun / 9:00AM - 8:00PM</p></li>
+                    </ul>
+                </div>
+                <div class="col-sm-2">
+                    <div class="footerTitle">MY ACCOUNT</div>
+                    <ul class="account-info">
+                        <li><i class="glyphicon glyphicon-triangle-right"></i><a href="#" title="About us">About us</a></li>
+                        <li><i class="glyphicon glyphicon-triangle-right"></i><a href="#" title="Contact Us">Contact us</a></li>
+                        <li><i class="glyphicon glyphicon-triangle-right"></i><a href="#" title="My Account">My Account</a></li>
+                        <li><i class="glyphicon glyphicon-triangle-right"></i><a href="#" title="My Account">Order history</a></li>
+                        <li><i class="glyphicon glyphicon-triangle-right"></i><a href="#" title="Contact us">Advanced search</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-3">
+                    <div class="footerTitle">PRODUCTS</div>
+                    <ul class="account-info">
+                        <li><i class="glyphicon glyphicon-triangle-right"></i><a href="#" title="About us">Women Bags</a></li>
+                        <li><i class="glyphicon glyphicon-triangle-right"></i><a href="#" title="Contact Us">Sunglasses</a></li>
+                        <li><i class="glyphicon glyphicon-triangle-right"></i><a href="#" title="My Account">Women Shoes</a></li>
+                        <li><i class="glyphicon glyphicon-triangle-right"></i><a href="#" title="My Account">Women Dress</a></li>
+                        <li><i class="glyphicon glyphicon-triangle-right"></i><a href="#" title="Contact us">Women Hats</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-3">
+                    <div class="footerTitle">BE THE FIRST TO KNOW</div>
+                    <div class="block-content">
+                        <p style="margin-bottom: 35px;">Get all the latest information on Events, Sales and Offers. Sign up for newsletter today.</p>
+                        <form action="https://www.portotheme.com/magento/porto/index.php/demo2_en/newsletter/subscriber/new/" method="post" id="home-sidebar-newsletter-validate-detail" onsubmit="setNewsletterCookie()">
+                            <div class="input-box">
+                                <input type="text" name="email" id="newsletter" title="Sign up for our newsletter" class="input-text required-entry validate-email" placeholder="Email Address">
+                                <button type="submit" title="Go!" class="button"><span><span>Go!</span></span></button>
+                                <div class="clearer"></div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright row">
+                <p>&copy; @DateTime.Now.Year - DotNet Shopping</p>
+            </div>
+        </div>
+    </footer>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

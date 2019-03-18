@@ -1,0 +1,9 @@
+﻿body {
+}
+.navbar-right {
+    margin-right: -10px;
+}
+.error{
+    color:red;
+    font-weight:bold;
+}

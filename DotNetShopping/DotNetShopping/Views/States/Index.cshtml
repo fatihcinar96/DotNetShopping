@@ -1,0 +1,64 @@
+﻿@model IEnumerable<DotNetShopping.Models.State>
+
+@{
+    ViewBag.Title = "States";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>States</h2>
+
+<p style="float:left;">
+    @Html.ActionLink("Create New", "Create")
+</p>
+<p style="float:right; padding-right:20px">
+    @Html.ActionLink("Countries", "Index", "Countries")
+</p>
+<p style="float:right; padding-right:20px">
+    @Html.ActionLink("Cities", "Index", "Cities")
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Country.Code)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Code)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Country.Code)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Code)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.StateId }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.StateId }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.StateId })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@section head{
+    <link href="http://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css">
+}
+@section scripts{
+    <script src="http://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+}
+@section scriptsready{
+    $('.table').DataTable();
+}
