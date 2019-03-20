@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web;
+using System.Web.Helpers;
 using System.Web.Mvc;
 
 namespace DotNetShopping.Controllers
@@ -67,7 +68,7 @@ namespace DotNetShopping.Controllers
             }
         }
 
-        public ActionResult Delete(Int64 id, Int64 VariantId)
+        public ActionResult Delete(Int64 id, Int64 VariantId, Int64 ProductId)
         {
             try
             {
@@ -76,20 +77,35 @@ namespace DotNetShopping.Controllers
                 {
                     db.ProductImages.Remove(productImage);
                     db.SaveChanges();
-                    string path = Path.Combine(System.Web.HttpContext.Current.Server.MapPath("~/ProductImage"), productImage.FileName);
+
+                    string path = Path.Combine(System.Web.HttpContext.Current.Server.MapPath("~/ProductImage"), productImage.FileName + ".jpg");
                     if (System.IO.File.Exists(path))
                     {
                         System.IO.File.Delete(path);
                     }
-                    return RedirectToAction("Index", new { id = VariantId });
+                    for (int i = 1; i <= 10; i++)
+                    {
+                        DeleteForSize(productImage, productImage.FileName, i);
+                    }
+                    return RedirectToAction("Index", new { id = VariantId, ProductId = ProductId });
                 }
                 throw new Exception("Product Image Not Found!");
             }
             catch(Exception ex)
             {
-                return RedirectToAction("Index", new { id = VariantId, Error = ex.Message });
+                return RedirectToAction("Index", new { id = VariantId, ProductId = ProductId, Error = ex.Message });
             }
         }
+
+        private static void DeleteForSize(ProductImage productImage, string name, int i)
+        {
+            string path = Path.Combine(System.Web.HttpContext.Current.Server.MapPath("~/ProductImage"), name + "-" + i + ".jpg");
+            if (System.IO.File.Exists(path))
+            {
+                System.IO.File.Delete(path);
+            }
+        }
+
         public ActionResult Sequence(string direction, Int64 imageId)
         {
             var image = db.ProductImages.Find(imageId);

@@ -6,13 +6,12 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Drawing.Drawing2D;
-
+using System.Web.Helpers;
 
 namespace DotNetShopping.Helpers 
 {
     public class ImageHelper
     {
-        //Overload for crop that default starts top left of the image.
         private static Image resizeImage(Image imgToResize, Size size)
         {
             int sourceWidth = imgToResize.Width;
@@ -56,38 +55,33 @@ namespace DotNetShopping.Helpers
             }
             return null;
         }
-
         public static void SaveImage(string name, System.Drawing.Image Image)
         {
-
             ImageCodecInfo jgpEncoder = GetEncoder(ImageFormat.Jpeg);
             Encoder myEncoder = Encoder.Quality;
             EncoderParameters myEncoderParameters = new EncoderParameters(1);
-            EncoderParameter myEncoderParameter = new EncoderParameter(myEncoder,
-                50L);
+            EncoderParameter myEncoderParameter = new EncoderParameter(myEncoder, 80L);
             myEncoderParameters.Param[0] = myEncoderParameter;
-            SaveImageForSize(name + "-"  + ".jpg", Image, 1000, false, jgpEncoder, myEncoderParameters);
 
-            for (int i = 10; i> 0; i--)
+            SaveImageForSize(name + ".jpg", Image, 1000, false, jgpEncoder, myEncoderParameters);
+            for(int i=10; i>0; i--)
             {
-                SaveImageForSize(name + "-"+ i+ ".jpg", Image, i*100, true, jgpEncoder, myEncoderParameters);
-
+                SaveImageForSize(name + "-" + i + ".jpg", Image, i * 100, true, jgpEncoder, myEncoderParameters);
             }
         }
 
-        private static void SaveImageForSize(string name, Image Image,int size,bool waterMark ,ImageCodecInfo jgpEncoder, EncoderParameters myEncoderParameters)
+        private static void SaveImageForSize(string name, Image Image, int size, bool watermark, ImageCodecInfo jgpEncoder, EncoderParameters myEncoderParameters)
         {
             string path = Path.Combine(System.Web.HttpContext.Current.Server.MapPath("~/ProductImage"), name);
-
             Image = resizeImage(Image, new Size(size, size));
-            if (waterMark)
+            if(watermark)
             {
-                Image = WatermarkText(Image, "DotNet19",size /10);
+                Image = WatermarkText(Image, "DotNet19", size/10);
             }
             Image.Save(path, jgpEncoder, myEncoderParameters);
         }
 
-        public static Image WatermarkText(Image image, string watermark,int size)
+        public static Image WatermarkText(Image image, string watermark, int size)
         {
             FontFamily family = new FontFamily("Arial");
             Color color = Color.FromArgb(50, 0, 0, 0);
@@ -96,6 +90,7 @@ namespace DotNetShopping.Helpers
             SolidBrush brush = new SolidBrush(color);
             SolidBrush brush2 = new SolidBrush(color2);
             Graphics graphics = Graphics.FromImage(image);
+
             StringFormat sf = new StringFormat();
             sf.Alignment = StringAlignment.Center;
             sf.LineAlignment = StringAlignment.Center;

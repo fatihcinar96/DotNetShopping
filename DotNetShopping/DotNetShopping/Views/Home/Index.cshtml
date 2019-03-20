@@ -1,8 +1,13 @@
 ﻿@{
+    /**/
+
     ViewBag.Title = "Home Page";
 }
 <div class="sliderBox">
-    <div class="slider"></div>
+    <div class="slider">
+        <img src="~/images/slider/slide1.jpg" />
+        <img src="~/images/slider/slide2.jpg" />
+    </div>
 </div>
 <div class="categoryRow row">
     <div class="col-sm-4 categoryCol1">
@@ -19,17 +24,69 @@
     </div>
 </div>
 <div class="featuredTitle">WEEKLY FEATURED PRODUCTS</div>
-<div class="owl-items">
-    <div class="col-sm-3">
-        @Html.Partial("_ProductPartial", (DotNetShopping.Models.ProductBoxModel)ViewBag.newProducts[0]))
-    </div>
-    <div class="col-sm-3">
-        @Html.Partial("_ProductPartial", (DotNetShopping.Models.ProductBoxModel)ViewBag.newProducts[1]))
-    </div>
-    <div class="col-sm-3">
-        @Html.Partial("_ProductPartial", (DotNetShopping.Models.ProductBoxModel)ViewBag.newProducts[2]))
-    </div>
-    <div class="col-sm-3">
-        @Html.Partial("_ProductPartial", (DotNetShopping.Models.ProductBoxModel)ViewBag.newProducts[2]))
-    </div>
+
+<div class="products-slider">
+    @foreach (DotNetShopping.Models.ProductBoxModel product in ViewBag.NewProducts)
+    {
+        <div>
+            @Html.Partial("_ProductPartial", product)
+
+        </div>
+
+    }
 </div>
+
+
+@section head {
+    <link href="~/Content/Site/slick.css" rel="stylesheet" />
+    <link href="~/Content/Site/slick-theme.css" rel="stylesheet" />
+}
+@section scripts {
+    <script src="~/Scripts/slick.min.js"></script>
+}
+@section scriptsready {
+    $('.slider').slick({
+    arrows: true,
+    lazyLoad : 'ondemand',
+    autoplay: true,
+    autoplaySpeed: 4000,
+    fade : true
+    });
+    $('.products-slider').slick({
+    infinite: true,
+    arrows: false,
+    lazyLoad : 'ondemand',
+    slidesToShow: 4,
+    slidesToScroll: 4,
+    autoplay: true,
+    autoplaySpeed: 4000,
+    responsive: [
+    {
+    breakpoint: 1200,
+    settings: {
+    slidesToShow: 3,
+    slidesToScroll: 3,
+    infinite: true,
+    dots: true
+    }
+    },
+    {
+    breakpoint: 800,
+    settings: {
+    slidesToShow: 2,
+    slidesToScroll: 2
+    }
+    },
+    {
+    breakpoint: 480,
+    settings: {
+    slidesToShow: 1,
+    slidesToScroll: 1
+    }
+    }
+    // You can unslick at a given breakpoint now by adding:
+    // settings: "unslick"
+    // instead of a settings object
+    ]
+    });
+}

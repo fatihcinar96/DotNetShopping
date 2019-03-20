@@ -29,7 +29,7 @@
             <td>
                 @if (item.FileName != "")
                 {
-                    <img src="~/ProductImage/@item.FileName" width="200" />
+                    <img src="~/ProductImage/@(item.FileName)-2.jpg" />
                 }
             </td>
             <td>
@@ -45,7 +45,7 @@
                 </div>
             </td>
             <td>
-                @Html.ActionLink("Delete", "Delete", new { id = item.ImageId, VariantId = item.VariantId }, new { @class = "deleteImage" })
+                @Html.ActionLink("Delete", "Delete", new { id = item.ImageId, VariantId = item.VariantId, ProductId = item.ProductId }, new { @class = "deleteImage" })
             </td>
         </tr>
     }

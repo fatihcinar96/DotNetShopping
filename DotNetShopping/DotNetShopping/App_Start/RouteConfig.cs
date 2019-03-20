@@ -14,10 +14,18 @@ namespace DotNetShopping
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+                name: "Product",
+                url: "p/{id}/{name}",
+                defaults: new { controller = "ProductDetail", action = "Product", name = UrlParameter.Optional }
+                );
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+
+            
         }
     }
 }

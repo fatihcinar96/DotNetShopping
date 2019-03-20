@@ -1,7 +1,9 @@
-﻿@model  DotNetShopping.Models.ProductBoxModel
-
-
-<div class="owl-item" style="width: 240px;">
+﻿@model DotNetShopping.Models.ProductBoxModel
+@{
+    var productName = DotNetShopping.Helpers.StringHelper.ClearFileName(Model.VariantName + " " + Model.ProductName);
+}
+<a href="@Url.Action("Product","ProductDetail",new { id = Model.VariantId, name = productName })">
+<div class="owl-item" style="width: 240px; cursor:pointer">
     <div class="item">
         <div class="item-area">
             <div class="product-image-area">
@@ -12,28 +14,23 @@
                 </div>
                 <a href="" class="quickview-icon"><i class="icon-export"></i><span>Quick View</span></a>
                 <a href="" title="Sheer Blouse - Black" class="product-image">
-                    <img class="porto-lazyload porto-lazyload-loaded" data-src="~/ProductImage/@Model.PhotoName" style="display: inline;" src="~/ProductImage/@Model.PhotoName" width="200" height="200">
+                    <img class="porto-lazyload porto-lazyload-loaded" data-src="~/ProductImage/@(Model.PhotoName).jpg" style="display: inline;" src="~/ProductImage/@(Model.PhotoName)-2.jpg">
                 </a>
                 <div class="product-label"><span class="sale-product-icon">-10%</span></div>
             </div>
             <div class="details-area">
-                <h2 class="product-name"><a href="" title="Sheer Blouse - Black">@Html.DisplayFor(model => model.ProductName)</a></h2>
+                <h2 class="product-name"><a href="" title="@Model.VariantName - @Model.ProductName">@Model.VariantName - @Model.ProductName</a></h2>
                 <div class="ratings">
                     <div class="rating-box">
                         <div class="rating" style="width:0"></div>
                     </div>
                 </div>
                 <div class="price-box">
-                    <p class="old-price">
-                        <span class="price-label">Regular Price:</span>
-                        <span class="price" id="old-price-388">
-                           @Decimal.Round(Model.RegularPrice,2) $ 
-                        </span>
-                    </p>
+                
                     <p class="special-price">
                         <span class="price-label">Special Price</span>
                         <span class="price" id="product-price-388">
-                            @Html.DisplayFor(model => model.UnitPrice) $
+                            $@Model.UnitPrice
                         </span>
                     </p>
                 </div>
