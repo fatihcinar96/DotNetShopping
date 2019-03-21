@@ -175,6 +175,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\ApiController.cs" />
     <Compile Include="Controllers\BrandsController.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\CitiesController.cs" />
@@ -204,9 +205,14 @@
     <Compile Include="Migrations\201903151634078_userdates.Designer.cs">
       <DependentUpon>201903151634078_userdates.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201903211651531_cart.cs" />
+    <Compile Include="Migrations\201903211651531_cart.Designer.cs">
+      <DependentUpon>201903211651531_cart.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BrandModel.cs" />
+    <Compile Include="Models\CartModel.cs" />
     <Compile Include="Models\CategoryModel.cs" />
     <Compile Include="Models\CityModel.cs" />
     <Compile Include="Models\CountryModel.cs" />
@@ -398,6 +404,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="ProductImage\" />
+    <Folder Include="Views\Api\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff2" />
@@ -421,6 +428,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201903151634078_userdates.resx">
       <DependentUpon>201903151634078_userdates.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903211651531_cart.resx">
+      <DependentUpon>201903211651531_cart.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

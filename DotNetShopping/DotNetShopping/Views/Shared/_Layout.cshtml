@@ -63,11 +63,11 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-4">
-                    <div class="footerTitle">CONACT INFORMATION</div>
+                    <div class="footerTitle">CONTACT INFORMATION</div>
                     <ul class="contact-info">
-                        <li><i class="glyphicon glyphicon-map-marker">&nbsp;</i><p><b style="color: #fff;text-transform:uppercase;">Address</b><br>123 Street Name, City, England</p></li>
-                        <li><i class="glyphicon glyphicon-phone">&nbsp;</i><p><b style="color: #fff;text-transform:uppercase;">Phone</b><br>(123) 456-7890</p></li>
-                        <li><i class="glyphicon glyphicon-envelope">&nbsp;</i><p><b style="color: #fff;text-transform:uppercase;">Email</b><br><a href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;tf=1&amp;to=mail@example.com" target="_blank">mail@example.com</a></p></li>
+                        <li><i class="glyphicon glyphicon-map-marker">&nbsp;</i><p><b style="color: #fff;text-transform:uppercase;">Address</b><br>Cincin St, 119 Esenler , Istanbul</p></li>
+                        <li><i class="glyphicon glyphicon-phone">&nbsp;</i><p><b style="color: #fff;text-transform:uppercase;">Phone</b><br>(507) 072-8003</p></li>
+                        <li><i class="glyphicon glyphicon-envelope">&nbsp;</i><p><b style="color: #fff;text-transform:uppercase;">Email</b><br><a href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;tf=1&amp;to=fatihcinar96@gmail.com" target="_blank">fatihcinar96@gmail.com</a></p></li>
                         <li><i class="glyphicon glyphicon-time">&nbsp;</i><p><b style="color: #fff;text-transform:uppercase;">Working Days/Hours</b><br>Mon - Sun / 9:00AM - 8:00PM</p></li>
                     </ul>
                 </div>
@@ -119,7 +119,16 @@
     <script type="text/javascript">
         $(document).ready(function () {
             @RenderSection("scriptsready", required: false)
-            
+            $.ajaxSetup({
+                beforeSend: function () {
+                    $('#loader').show();
+                    $('#loading').show();
+                },
+                complete: function () {
+                    $('#loader').hide();
+                    $('#loading').hide();
+                }
+            })
         });
     </script>
 </body>
