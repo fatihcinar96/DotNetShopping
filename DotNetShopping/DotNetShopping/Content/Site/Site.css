@@ -741,3 +741,20 @@ button.button {
     padding-top : 15px;
     position : relative;
 }
+
+.cartContent {
+    position: absolute;
+    top: 35px;
+    right: 0px;
+    width: 300px;
+    height: 200px;
+    background-color: white;
+    display: none;
+}
+
+.productImage{
+    width : 50%;
+    float : left;
+    height : 100%;
+    background-color : green;
+}
