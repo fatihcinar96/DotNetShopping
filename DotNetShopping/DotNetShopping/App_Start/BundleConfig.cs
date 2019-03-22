@@ -32,6 +32,9 @@ namespace DotNetShopping
                       "~/Content/Admin/light-bootstrap-dashboard.css",
                       "~/Content/Admin/pe-icon-7-stroke.css",
                       "~/Content/Admin/Admin.css"));
+
+            bundles.Add(new ScriptBundle("~/bundles/shopping").Include(
+                "~/Scripts/Shopping.js"));
         }
     }
 }

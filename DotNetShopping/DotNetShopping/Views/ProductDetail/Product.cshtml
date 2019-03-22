@@ -38,7 +38,7 @@
 
                         </div>
                     </div>
-                    <button type="button" title="Add to Cart" class="button btn-cart" onclick="AddToCart(@Model.VariantId)"><span><span>Add to Cart</span></span></button>
+                    <button type="button" title="Add to Cart" class="button btn-cart" onclick="addToCart(@Model.VariantId,parseInt($('#qty').val()));"><span><span>Add to Cart</span></span></button>
                     <span id="ajax_loader" style="display:none"><i class="ajax-loader small animate-spin"></i></span>
                 </div>
                 <ul class="add-to-links">
@@ -81,22 +81,22 @@
         </script>
 
     <script>
-        function AddToCart(variantId) {
-            var qty = parseInt($('#qty').val());
-            var dataToPost = {
-                VariantId: variantId,
-                Qty: qty
-            };
-            $.post('/Api/AddToCart', dataToPost)
-                .done(function (response, status, jqxhr) {
-                    // this is the "success" callback
-                    alert(response['userId']);
-                })
-                .fail(function (jqxhr, status, error) {
-                    // this is the ""error"" callback
-                    alert('Error!');
-                })
-        }
+        //function AddToCart(variantId) {
+        //    var qty = parseInt($('#qty').val());
+        //    var dataToPost = {
+        //        VariantId: variantId,
+        //        Qty: qty
+        //    };
+        //    $.post('/Api/AddToCart', dataToPost)
+        //        .done(function (response, status, jqxhr) {
+        //            // this is the "success" callback
+        //            alert(response['userId']);
+        //        })
+        //        .fail(function (jqxhr, status, error) {
+        //            // this is the ""error"" callback
+        //            alert('Error!');
+        //        })
+        //}
     </script>
 }
 @section scriptsready {

@@ -708,3 +708,36 @@ button.button {
         transform: rotate(360deg);
     }
 }
+
+.cartIcon{
+    color : white;
+    font-size : 14pt;
+    float : left;
+    cursor : pointer;
+}
+
+.cartQty{
+    float : left;
+    color : white;
+    background-color : red;
+    position : absolute;
+    top : 5px;
+    left : 16px;
+    padding-left : 3px;
+    padding-right : 3px;
+    border-radius : 5px;
+    font-size : 8pt;
+}
+
+.cartText{
+    float : left;
+    color : white;
+    padding-left : 15px;
+    padding-right : 15px;
+    cursor : pointer;
+}
+
+.cart{
+    padding-top : 15px;
+    position : relative;
+}

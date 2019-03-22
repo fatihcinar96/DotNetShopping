@@ -41,6 +41,13 @@
                                     <li>@Html.ActionLink("PRODUCTS", "Products", "Home")</li>
                                     <li>@Html.ActionLink("ABOUT", "About", "Home")</li>
                                     <li>@Html.ActionLink("CONTACT", "About", "Home")</li>
+                                    <li>
+                                        <div class="cart">
+                                            <i class="cartIcon glyphicon glyphicon-shopping-cart"></i>
+                                            <span class="cartQty" id="cartQty">0</span>
+                                            <div class="cartText">ITEMS</div>
+                                        </div>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -112,13 +119,14 @@
     </footer>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
-
+    @Scripts.Render("~/bundles/shopping")
 
 
     @RenderSection("scripts", required: false)
     <script type="text/javascript">
         $(document).ready(function () {
             @RenderSection("scriptsready", required: false)
+            loadShoppingCart();
             $.ajaxSetup({
                 beforeSend: function () {
                     $('#loader').show();
