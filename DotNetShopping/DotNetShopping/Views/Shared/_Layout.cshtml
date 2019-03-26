@@ -1,16 +1,21 @@
-﻿<!DOCTYPE html>
+﻿
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
     <title>@ViewBag.Title - DotNetShopping</title>
     @Styles.Render("~/Content/Site/css")
     @Scripts.Render("~/bundles/modernizr")
     @RenderSection("head", required: false)
+    
 
     <link href="https://fonts.googleapis.com/css?family=Oswald|Roboto" rel="stylesheet">
 </head>
 <body>
+    <div id="loader"></div>
+    <div id="loading"></div>
     <div class="navbar navbar-inverse">
         <div class="container">
             <div class="menu">
@@ -46,8 +51,8 @@
                                             <i class="cartIcon glyphicon glyphicon-shopping-cart"></i>
                                             <span class="cartQty" id="cartQty">0</span>
                                             <div class="cartText">ITEMS</div>
-                                            <div class="cartContent">
-                                                <div class="productImage">@Html.Partial("")</div>
+                                            <div class="cartContent" id="cartContent">
+                                                
                                             </div>
                                         </div>
                                     </li>
