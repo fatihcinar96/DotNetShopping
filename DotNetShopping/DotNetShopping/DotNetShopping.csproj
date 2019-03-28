@@ -178,6 +178,7 @@
     <Compile Include="Controllers\ApiController.cs" />
     <Compile Include="Controllers\BrandsController.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
+    <Compile Include="Controllers\CheckoutController.cs" />
     <Compile Include="Controllers\CitiesController.cs" />
     <Compile Include="Controllers\CountriesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -209,6 +210,10 @@
     <Compile Include="Migrations\201903211651531_cart.Designer.cs">
       <DependentUpon>201903211651531_cart.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201903281717019_Orders.cs" />
+    <Compile Include="Migrations\201903281717019_Orders.Designer.cs">
+      <DependentUpon>201903281717019_Orders.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BrandModel.cs" />
@@ -218,6 +223,8 @@
     <Compile Include="Models\CountryModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\OrderModel.cs" />
+    <Compile Include="Models\OrderProductModel.cs" />
     <Compile Include="Models\ProductImageModel.cs" />
     <Compile Include="Models\ProductModel.cs" />
     <Compile Include="Models\StateModel.cs" />
@@ -404,6 +411,8 @@
     <Content Include="Views\User\CreateRole.cshtml" />
     <Content Include="Views\User\Edit.cshtml" />
     <Content Include="Views\ProductDetail\Product.cshtml" />
+    <Content Include="Views\Checkout\Cart.cshtml" />
+    <Content Include="Views\Checkout\Checkout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -435,6 +444,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201903211651531_cart.resx">
       <DependentUpon>201903211651531_cart.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903281717019_Orders.resx">
+      <DependentUpon>201903281717019_Orders.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

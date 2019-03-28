@@ -24,7 +24,7 @@ namespace DotNetShopping.Controllers
             {
                 var UserId = User.Identity.GetUserId();
                 var cart = db.Carts.Where(x => x.UserId == UserId && x.VariantId == VariantId).FirstOrDefault();
-                if(cart != null)
+                if (cart != null)
                 {
                     cart.Quantity += Qty;
                     db.SaveChanges();
@@ -38,11 +38,13 @@ namespace DotNetShopping.Controllers
                     db.Carts.Add(newCart);
                     db.SaveChanges();
                 }
-                model = GetCart(UserId);
+                CartListModel co = new CartListModel();
+
+                model = co.GetCart(UserId);
                 return Json(new { Success = true, Cart = model });
 
             }
-            return Json(new { Success = true});
+            return Json(new { Success = true });
 
         }
 
@@ -50,46 +52,13 @@ namespace DotNetShopping.Controllers
         public ActionResult GetShoppingCart()
         {
             var UserId = User.Identity.GetUserId();
-            var model = GetCart(UserId);
-            if(model != null)
-            {
-                return Json(new { Success = true, Cart = model }, JsonRequestBehavior.AllowGet);
+            CartListModel co = new CartListModel();
+            var model = co.GetCart(UserId);
+            return Json(new { Success = true, Cart = model }, JsonRequestBehavior.AllowGet);
 
-            }
-            else
-            {
-                return Json(new { Success = true });
-            }
         }
 
-        private IEnumerable<CartListModel> GetCart(string UserId)
-        {
-            if(UserId != null)
-            {
-                var model = db.Carts
-               .Join(db.Variants, c => c.VariantId, v => v.VariantId, (c, v) => new { Cart = c, Variant = v })
-               .Join(db.Products, cv => cv.Variant.ProductId, p => p.ProductId, (cv, p) => new { cv, Product = p })
-               .Where(x => x.cv.Cart.UserId == UserId)
-               .Select(x => new CartListModel
-               {
-                   ProductId = x.cv.Variant.ProductId,
-                   ProductName = x.cv.Variant.Product.Name,
-                   Quantity = x.cv.Cart.Quantity,
-                   VariantId = x.cv.Variant.VariantId,
-                   VariantName = x.cv.Variant.Name,
-                   UserId = x.cv.Cart.UserId,
-                   UnitPrice = x.cv.Variant.UnitPrice,
-                   TotalPrice = (x.cv.Variant.UnitPrice) * (x.cv.Cart.Quantity),
-                   PhotoName = db.ProductImages.Where(pi => pi.VariantId == x.cv.Variant.VariantId).OrderBy(pi => pi.Sequence).FirstOrDefault().FileName
-
-               }).ToList();
-                return model;
-            }
-            return null;
-           
-            
-        }
-
+        
 
         [HttpPost]
         public ActionResult RemoveCart(Int64 variantId)
@@ -100,12 +69,11 @@ namespace DotNetShopping.Controllers
             {
                 db.Carts.Remove(cart);
                 db.SaveChanges();
-                
+
             }
-            var model = GetCart(UserId);
+            CartListModel co = new CartListModel();
+            var model = co.GetCart(UserId);
             return Json(new { Success = true, Cart = model });
-
         }
-
     }
 }

@@ -4,12 +4,12 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <title>@ViewBag.Title - DotNetShopping</title>
     @Styles.Render("~/Content/Site/css")
     @Scripts.Render("~/bundles/modernizr")
     @RenderSection("head", required: false)
-    
+
 
     <link href="https://fonts.googleapis.com/css?family=Oswald|Roboto" rel="stylesheet">
 </head>
@@ -48,12 +48,13 @@
                                     <li>@Html.ActionLink("CONTACT", "About", "Home")</li>
                                     <li>
                                         <div class="cart">
-                                            <i class="cartIcon glyphicon glyphicon-shopping-cart"></i>
-                                            <span class="cartQty" id="cartQty">0</span>
-                                            <div class="cartText">ITEMS</div>
-                                            <div class="cartContent" id="cartContent">
+                                            <a href="@Url.Action("Cart","Checkout")">
+                                                <i class="cartIcon glyphicon glyphicon-shopping-cart"></i>
+                                                <span class="cartQty" id="cartQty">0</span>
+                                                <div class="cartText">ITEMS</div>
+                                            </a>
                                                 
-                                            </div>
+                                                <div class="cartContent" id="cartContent"></div>
                                         </div>
                                     </li>
                                 </ul>
@@ -137,22 +138,31 @@
             loadShoppingCart();
             $.ajaxSetup({
                 beforeSend: function () {
-                    $('#loader').show();
-                    $('#loading').show();
+                    $("#loader").show();
+                    $("#loading").show();
                 },
                 complete: function () {
-                    $('#loader').hide();
-                    $('#loading').hide();
+                    $("#loader").hide();
+                    $("#loading").hide();
                 }
             });
+
             $('.cart').mouseover(function (e) {
-                $(this).children('.cartContent').fadeIn(200);
+                if ($(window).width() > 768) {
+                    $(this).children('.cartContent').fadeIn(200);
+                    $(this).children('.cartArea').fadeIn(200);
+
+                }
                 return false;
             }).mouseleave(function (e) {
                 $(this).children('.cartContent').fadeOut(200);
+                $(this).children('.cartArea').fadeIn(200);
+
                 return false;
             });
         });
     </script>
+
 </body>
 </html>
+

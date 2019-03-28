@@ -33,12 +33,28 @@
                     <div class="qty-holder">
                         <input type="text" name="qty" id="qty" maxlength="12" value="1" title="Qty" class="input-text qty">
                         <div class="qty-changer">
-                            <a href="javascript:void(0)" class="qty_inc" id="qty_inc" onclick="increase()"><i class="glyphicon glyphicon-plus" ></i></a>
+                            <a href="javascript:void(0)" class="qty_inc" id="qty_inc" onclick="increase()"><i class="glyphicon glyphicon-plus"></i></a>
                             <a href="javascript:void(0)" class="qty_dec" id="qty_dec" onclick="decrease()"><i class="glyphicon glyphicon-minus"></i></a>
 
                         </div>
                     </div>
-                    <button type="button" title="Add to Cart" class="button btn-cart" onclick="addToCart(@Model.VariantId,parseInt($('#qty').val()));"><span><span>Add to Cart</span></span></button>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <button type="button" title="Add to Cart" class="button btn-cart" onclick="addToCart(@Model.VariantId,parseInt($('#qty').val()));"><span><span>Add to Cart</span></span></button>
+                    }
+                    else
+                    {
+                        <button type="button" title="Add to Cart" class="button btn-cart" onclick="window.location= '@Url.Action("Login","Account",
+                             new { returnUrl = Url.Action("Product","ProductDetail",new { id = Model.VariantId,
+                             name = DotNetShopping.Helpers.StringHelper.ClearFileName(Model.VariantName + " " + Model.ProductName)})})';">
+                            <i class="glyphicon glyphicon-shopping-cart"></i>
+                            <span>
+                                <span>Add to Cart</span>
+                            </span>
+                        </button>
+
+                    }
+
                     <span id="ajax_loader" style="display:none"><i class="ajax-loader small animate-spin"></i></span>
                 </div>
                 <ul class="add-to-links">
@@ -80,25 +96,9 @@
         }
         </script>
 
-    <script>
-        //function AddToCart(variantId) {
-        //    var qty = parseInt($('#qty').val());
-        //    var dataToPost = {
-        //        VariantId: variantId,
-        //        Qty: qty
-        //    };
-        //    $.post('/Api/AddToCart', dataToPost)
-        //        .done(function (response, status, jqxhr) {
-        //            // this is the "success" callback
-        //            alert(response['userId']);
-        //        })
-        //        .fail(function (jqxhr, status, error) {
-        //            // this is the ""error"" callback
-        //            alert('Error!');
-        //        })
-        //}
-    </script>
+
 }
+
 @section scriptsready {
     $('.slider-for').slick({
     slidesToShow: 1,
