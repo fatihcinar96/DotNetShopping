@@ -69,6 +69,15 @@ namespace DotNetShopping.Controllers
 
         public ActionResult Checkout()
         {
+            var countries = db.Countries.OrderBy(x => x.Name).ToList();
+            var selectCountry = new Country();
+            selectCountry.Name = "Please Select";
+            countries.Insert(0, selectCountry);
+            ViewBag.BillingCountryId = new SelectList(countries, "CountryId", "Name");
+            ViewBag.ShippingCountryId = new SelectList(countries, "CountryId", "Name");
+            var selectState = new List<string>();
+            selectState.Add("Select Country");
+            ViewBag.BillingStateId = new SelectList(selectState);
             return View();
         }
     }

@@ -1020,11 +1020,13 @@ button.button:hover span {
     display: block;
     padding: 10px;
     font-size: 14px;
+    font-family : 'Oswald';
 }
 
     .checkoutContent input {
         max-width: unset;
         border-radius: 0;
+        margin-bottom : 5px;
     }
 
     .checkoutContent .input-label {
@@ -1040,6 +1042,8 @@ button.button:hover span {
     .checkoutContent .input-editor {
         display: block;
     }
+    
+
 
 
 #loading {

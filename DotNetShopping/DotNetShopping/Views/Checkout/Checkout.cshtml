@@ -36,8 +36,76 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="input-label">
+                                    @Html.LabelFor(model => model.BillingCompany, htmlAttributes: new { @class = "control-label" })
+                                </div>
+                                <div class="input-editor">
+                                    @Html.EditorFor(model => model.BillingCompany, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.BillingCompany, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="input-label">
+                                    @Html.LabelFor(model => model.BillingEmail, htmlAttributes: new { @class = "control-label" })
+                                </div>
+                                <div class="input-editor">
+                                    @Html.EditorFor(model => model.BillingEmail, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.BillingEmail, "", new { @class = "text-danger" })
+                                </div>
+
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="input-label">
+                                    @Html.LabelFor(model => model.BillingStreet1, htmlAttributes: new { @class = "control-label" })
+                                </div>
+                                <div class="input-editor">
+                                    @Html.EditorFor(model => model.BillingStreet1, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.BillingStreet1, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="input-editor">
+                                    @Html.EditorFor(model => model.BillingStreet2, new { htmlAttributes = new {@class = "form-control"}})
+                                    @Html.ValidationMessageFor(model => model.BillingStreet2,"",new { @class = "text-danger"})
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="input-label">
+                                    @Html.LabelFor(model => model.BillingStateId, htmlAttributes: new { @class = "control-label" })
+                                </div>
+                                <div class="input-editor">
+                                    @Html.DropDownList("BillingStateId", null, htmlAttributes: new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.BillingStateId, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <div class="input-label">
+                                    @Html.LabelFor(model => model.BillingCountryId, htmlAttributes: new { @class = "control-label" })
+                                </div>
+                                <div class="input-editor">
+                                    @Html.DropDownList("BillingCountryId", null, htmlAttributes: new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.BillingCountryId, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+
                     </div>
+
+
                 </li>
+
+
                 <li id="opc-shipping" class="section">
                     <div class="step-title">
                         <span class="number">2</span>
