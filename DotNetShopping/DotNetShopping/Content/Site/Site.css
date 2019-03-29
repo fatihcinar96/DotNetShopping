@@ -985,34 +985,61 @@ button.button:hover span {
 .opc {
     list-style: none;
     font: 13px/1 'Open Sans',Arial,Helvetica,sans-serif;
+    padding: 0;
 }
 
-.opc li.section{
-    margin-bottom : 5px;
-    box-shadow : 0 2px 3px rgba(0,0,0,0.2);
-    border-radius : 0;
+    .opc li.section {
+        margin-bottom: 5px;
+        box-shadow: 0 2px 3px rgba(0,0,0,0.20);
+        border-radius: 0;
+    }
+
+    .opc .step-title {
+        cursor: default;
+        border-bottom-width: 0;
+        border-radius: 0;
+        background: #f6f6f6;
+        color: black;
+        height: 45px;
+        padding: 15px;
+    }
+
+        .opc .step-title .title {
+            float: left;
+            line-height: 1;
+            font-size: 16px;
+        }
+
+        .opc .step-title .number {
+            float: left;
+            padding-right: 10px;
+            font-size: 16px;
+            line-height: 1;
+        }
+.checkoutContent {
+    display: block;
+    padding: 10px;
+    font-size: 14px;
 }
 
-.opc .active .step-title{
-    cursor : default;
-    border-bottom-width : 0;
-    border-radius : 0;
-    background : #f6f6f6;
-    color : #777;
-}
+    .checkoutContent input {
+        max-width: unset;
+        border-radius: 0;
+    }
 
-.opc .step-title .title{
-    float : left;
-    line-height : 1;
-    font-size : 16px;
-}
+    .checkoutContent .input-label {
+        display: block;
+        margin-top: 20px;
+        margin-bottom: 5px;
+    }
 
-.opc .step-title .number{
-    float : left;
-    padding : 0;
-    font-size : 16px;
-    line-height : 1;
-}
+        .checkoutContent .input-label label {
+            font-weight: 400;
+        }
+
+    .checkoutContent .input-editor {
+        display: block;
+    }
 
 
 #loading {
