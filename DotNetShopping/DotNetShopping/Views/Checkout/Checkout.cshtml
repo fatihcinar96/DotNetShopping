@@ -61,7 +61,7 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <div class="input-label">
-                                    @Html.LabelFor(model => model.BillingStreet1, htmlAttributes: new { @class = "control-label" })
+                                    @Html.LabelFor(model => model.BillingStreet1, "Address", htmlAttributes: new { @class = "control-label" })
                                 </div>
                                 <div class="input-editor">
                                     @Html.EditorFor(model => model.BillingStreet1, new { htmlAttributes = new { @class = "form-control" } })
@@ -72,29 +72,55 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <div class="input-editor">
-                                    @Html.EditorFor(model => model.BillingStreet2, new { htmlAttributes = new {@class = "form-control"}})
-                                    @Html.ValidationMessageFor(model => model.BillingStreet2,"",new { @class = "text-danger"})
+                                    @Html.EditorFor(model => model.BillingStreet2, "Address", new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.BillingStreet2, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                         </div>
                         <div class="row">
+
+
                             <div class="col-sm-6">
                                 <div class="input-label">
-                                    @Html.LabelFor(model => model.BillingStateId, htmlAttributes: new { @class = "control-label" })
+                                    @Html.LabelFor(model => model.BillingCountryId, "Billing Country", htmlAttributes: new { @class = "control-label" })
+                                </div>
+                                <div class="input-editor">
+                                    @Html.DropDownList("BillingCountryId", null, htmlAttributes: new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.BillingCountryId, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <div class="input-label">
+                                    @Html.LabelFor(model => model.BillingStateId, "Billing State", htmlAttributes: new { @class = "control-label" })
                                 </div>
                                 <div class="input-editor">
                                     @Html.DropDownList("BillingStateId", null, htmlAttributes: new { @class = "form-control" })
                                     @Html.ValidationMessageFor(model => model.BillingStateId, "", new { @class = "text-danger" })
                                 </div>
                             </div>
+                        </div>
+
+                        <div class="row">
+
 
                             <div class="col-sm-6">
                                 <div class="input-label">
-                                    @Html.LabelFor(model => model.BillingCountryId, htmlAttributes: new { @class = "control-label" })
+                                    @Html.LabelFor(model => model.BillingCityId, "Billing City", htmlAttributes: new { @class = "control-label" })
                                 </div>
                                 <div class="input-editor">
-                                    @Html.DropDownList("BillingCountryId", null, htmlAttributes: new { @class = "form-control" })
-                                    @Html.ValidationMessageFor(model => model.BillingCountryId, "", new { @class = "text-danger" })
+                                    @Html.DropDownList("BillingCityId",null, htmlAttributes : new { @class = "form-control" } )
+                                    @Html.ValidationMessageFor(model => model.BillingCityId, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <div class="input-label">
+                                    @Html.LabelFor(model => model.BillingZip, "Billing Zip", htmlAttributes: new { @class = "control-label" })
+                                </div>
+                                <div class="input-editor">
+                                    @Html.EditorFor(model => model.BillingZip, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.BillingZip, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                         </div>
@@ -149,3 +175,68 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+
+<script>
+    @section scriptsready{
+        //Get States
+        $("#BillingCountryId").change(function () {
+            var countryId = this.value;
+        $('#BillingStateId').empty();
+            if (countryId > 0) {
+                var dataToPost = {
+                    CountryId: countryId
+                };
+                $.post('/Api/GetStatesFor', dataToPost)
+                    .done(function (response, status, jqxr) {
+                        if (response['States'].length > 0) {
+                            $('#BillingStateId').prop("disabled", false);
+                            $('#BillingStateId').append($("<option />").val(0).text('Select Country'));
+
+                        }
+                        else {
+                            $('#BillingStateId').append($("<option />").val(0).text('No State'));
+                            $('#BillingStateId').prop("disabled", true);
+
+                        }
+                        $.each(response.States, function () {
+                            $('#BillingStateId').append($("<option />").val(this.StateId).text(this.Name))
+                        })
+                    })
+                    .fail(function (jqxhr, status, error) {
+                        alert(error);
+                    })
+            } else {
+            }
+    })
+        //Get Cities
+        $("#BillingCountryId").change(function () {
+        var countryId = this.value;
+        $('#BillingCityId').empty();
+        if (countryId > 0) {
+            var dataToPost = {
+                CountryId: countryId
+            };
+            $.post('/Api/GetCitiesFor', dataToPost)
+                .done(function (response, status, jqxhr) {
+                    if (response['Cities'].length > 0) {
+                        $('#BillingCityId').prop("disabled", false);
+                        //$('#BillingCityId').append($("<option />").val(0).text("Select Country"));
+                    }
+                    else {
+                        $('#BillingCityId').append($("<option />").val(0).text('No City'));
+                        $('#BillingCityId').prop("disabled", true);
+                    }
+                    $.each(response.Cities, function () {
+                        $('#BillingCityId').append($("<option />").val(this.CityId).text(this.Name))
+                    })
+                })
+                .fail(function (jqxhr, status, error) {
+                    alert(error);
+                });
+        }
+    });
+
+
+    }
+
+</script>

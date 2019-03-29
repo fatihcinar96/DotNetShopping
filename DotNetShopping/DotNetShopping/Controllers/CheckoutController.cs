@@ -75,6 +75,11 @@ namespace DotNetShopping.Controllers
             countries.Insert(0, selectCountry);
             ViewBag.BillingCountryId = new SelectList(countries, "CountryId", "Name");
             ViewBag.ShippingCountryId = new SelectList(countries, "CountryId", "Name");
+
+            var selectCity = new List<string>();
+            selectCity.Add("Select City");
+            ViewBag.BillingCityId = new SelectList(selectCity);
+
             var selectState = new List<string>();
             selectState.Add("Select Country");
             ViewBag.BillingStateId = new SelectList(selectState);
