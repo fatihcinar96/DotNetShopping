@@ -12,7 +12,7 @@
             <div class="slider-for">
                 @foreach (DotNetShopping.Models.ProductImage pi in Model.Images)
                 {
-                    <img src="~/ProductImage/@(pi.FileName).jpg" />
+                    <img src="~/ProductImage/@(pi.FileName)-6.jpg" />
                 }
             </div>
             <div class="slider-nav">
@@ -33,72 +33,53 @@
                     <div class="qty-holder">
                         <input type="text" name="qty" id="qty" maxlength="12" value="1" title="Qty" class="input-text qty">
                         <div class="qty-changer">
-                            <a href="javascript:void(0)" class="qty_inc" id="qty_inc" onclick="increase()"><i class="glyphicon glyphicon-plus"></i></a>
-                            <a href="javascript:void(0)" class="qty_dec" id="qty_dec" onclick="decrease()"><i class="glyphicon glyphicon-minus"></i></a>
-
+                            <a href="javascript:plusClick();" class="qty_inc"><i class="glyphicon glyphicon-plus"></i></a>
+                            <a href="javascript:minusClick();" class="qty_dec"><i class="glyphicon glyphicon-minus"></i></a>
                         </div>
                     </div>
+
                     @if (User.Identity.IsAuthenticated)
                     {
-                        <button type="button" title="Add to Cart" class="button btn-cart" onclick="addToCart(@Model.VariantId,parseInt($('#qty').val()));"><span><span>Add to Cart</span></span></button>
+                        <button type="button" title="Add to Cart" class="button btn-cart" onclick="addToCart(@Model.VariantId, parseInt($('#qty').val()));"><span><span>Add to Cart</span></span></button>
                     }
                     else
                     {
-                        <button type="button" title="Add to Cart" class="button btn-cart" onclick="window.location= '@Url.Action("Login","Account",
-                             new { returnUrl = Url.Action("Product","ProductDetail",new { id = Model.VariantId,
-                             name = DotNetShopping.Helpers.StringHelper.ClearFileName(Model.VariantName + " " + Model.ProductName)})})';">
-                            <i class="glyphicon glyphicon-shopping-cart"></i>
-                            <span>
-                                <span>Add to Cart</span>
-                            </span>
-                        </button>
-
+                        <button type="button" title="Add to Cart" class="button btn-cart" onclick="window.location = '@Url.Action("Login", "Account", new { returnUrl = Url.Action("Product", "ProductDetail", new { id = Model.VariantId, name = DotNetShopping.Helpers.StringHelper.ClearFileName(Model.VariantName + " " + Model.ProductName) }) })';"><span><span>Add to Cart</span></span></button>
                     }
 
-                    <span id="ajax_loader" style="display:none"><i class="ajax-loader small animate-spin"></i></span>
                 </div>
                 <ul class="add-to-links">
                     <li><a href="#" onclick="" class="link-wishlist"><i class="glyphicon glyphicon-heart"></i><span>Add to Wishlist</span></a></li>
                     <li><a href="#" onclick="" class="link-compare"><i class="glyphicon glyphicon-signal"></i><span>Add to Compare</span></a></li>
+
                 </ul>
             </div>
         </div>
     </div>
 </div>
-
-
-
 @section head {
     <link href="~/Content/Site/slick.css" rel="stylesheet" />
     <link href="~/Content/Site/slick-theme.css" rel="stylesheet" />
 }
 @section scripts {
     <script src="~/Scripts/slick.min.js"></script>
-    
-    @* Quantity handler *@
-    <script>
-        var num = document.getElementById("qty").textContent;
-        var text = document.getElementById("qty");
-
-        function increase() {
-            if (num < @Model.Stock) {
-                num++;
-                text.value = num;
+    <script type="text/javascript">
+        function minusClick() {
+            var qty = parseInt($('#qty').val());
+            if (qty > 1) {
+                qty--;
+                $('#qty').val(qty);
             }
-            
         }
-        function decrease() {
-            if (num > 1) {
-                num--;
-                text.value = num;
+        function plusClick() {
+            var qty = parseInt($('#qty').val());
+            if (qty < @Model.Stock) {
+                qty++;
+                $('#qty').val(qty);
             }
-            
         }
-        </script>
-
-
+    </script>
 }
-
 @section scriptsready {
     $('.slider-for').slick({
     slidesToShow: 1,
@@ -115,4 +96,5 @@
     centerMode: true,
     focusOnSelect: true
     });
+
 }

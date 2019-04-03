@@ -183,9 +183,12 @@
     <Compile Include="Controllers\CountriesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\PaymentMethodsController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\ProductDetailController.cs" />
     <Compile Include="Controllers\ProductImageController.cs" />
+    <Compile Include="Controllers\ShippingCostsController.cs" />
+    <Compile Include="Controllers\ShippingMethodsController.cs" />
     <Compile Include="Controllers\StatesController.cs" />
     <Compile Include="Controllers\SuppliersController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -206,17 +209,21 @@
     <Compile Include="Migrations\201903151634078_userdates.Designer.cs">
       <DependentUpon>201903151634078_userdates.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201903211651531_cart.cs" />
-    <Compile Include="Migrations\201903211651531_cart.Designer.cs">
-      <DependentUpon>201903211651531_cart.cs</DependentUpon>
+    <Compile Include="Migrations\201903211651428_cart.cs" />
+    <Compile Include="Migrations\201903211651428_cart.Designer.cs">
+      <DependentUpon>201903211651428_cart.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201903281717019_Orders.cs" />
-    <Compile Include="Migrations\201903281717019_Orders.Designer.cs">
-      <DependentUpon>201903281717019_Orders.cs</DependentUpon>
+    <Compile Include="Migrations\201903281716543_Orders.cs" />
+    <Compile Include="Migrations\201903281716543_Orders.Designer.cs">
+      <DependentUpon>201903281716543_Orders.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201903291410555_required-fields.cs" />
-    <Compile Include="Migrations\201903291410555_required-fields.Designer.cs">
-      <DependentUpon>201903291410555_required-fields.cs</DependentUpon>
+    <Compile Include="Migrations\201903291402008_required-fields.cs" />
+    <Compile Include="Migrations\201903291402008_required-fields.Designer.cs">
+      <DependentUpon>201903291402008_required-fields.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904011456573_shipping.cs" />
+    <Compile Include="Migrations\201904011456573_shipping.Designer.cs">
+      <DependentUpon>201904011456573_shipping.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -229,8 +236,10 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\OrderModel.cs" />
     <Compile Include="Models\OrderProductModel.cs" />
+    <Compile Include="Models\PaymentModel.cs" />
     <Compile Include="Models\ProductImageModel.cs" />
     <Compile Include="Models\ProductModel.cs" />
+    <Compile Include="Models\ShippingModel.cs" />
     <Compile Include="Models\StateModel.cs" />
     <Compile Include="Models\SupplierModel.cs" />
     <Compile Include="Models\User.cs" />
@@ -248,6 +257,7 @@
     <Content Include="Content\Admin\light-bootstrap-dashboard.css" />
     <Content Include="Content\Admin\pe-icon-7-stroke.css" />
     <Content Include="Content\Site\ajax-loader.gif" />
+    <Content Include="Content\Site\fonts\slick.svg" />
     <Content Include="Content\Site\slick-theme.css" />
     <Content Include="Content\Site\slick.css" />
     <Content Include="favicon.ico" />
@@ -317,10 +327,17 @@
     <Content Include="Content\Admin\sass\lbd\_typography.scss" />
     <Content Include="Content\Admin\sass\lbd\_variables.scss" />
     <Content Include="Content\Admin\sass\light-bootstrap-dashboard.scss" />
+    <Content Include="Content\Site\fonts\slick.eot" />
     <Content Include="Content\Site\fonts\slick.ttf" />
     <Content Include="Content\Site\fonts\slick.woff" />
+    <Content Include="Content\Site\config.rb" />
+    <Content Include="Content\Site\slick-theme.less" />
+    <Content Include="Content\Site\slick-theme.scss" />
+    <Content Include="Content\Site\slick.less" />
+    <Content Include="Content\Site\slick.scss" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\chartist.min.js" />
+    <Content Include="Scripts\checkout.js" />
     <Content Include="Scripts\demo.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -333,7 +350,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\light-bootstrap-dashboard.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
-    <Content Include="Scripts\Shopping.js" />
+    <Content Include="Scripts\shopping.js" />
     <Content Include="Scripts\slick.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -417,6 +434,21 @@
     <Content Include="Views\ProductDetail\Product.cshtml" />
     <Content Include="Views\Checkout\Cart.cshtml" />
     <Content Include="Views\Checkout\Checkout.cshtml" />
+    <Content Include="Views\ShippingMethods\Create.cshtml" />
+    <Content Include="Views\ShippingMethods\Delete.cshtml" />
+    <Content Include="Views\ShippingMethods\Details.cshtml" />
+    <Content Include="Views\ShippingMethods\Edit.cshtml" />
+    <Content Include="Views\ShippingMethods\Index.cshtml" />
+    <Content Include="Views\ShippingCosts\Create.cshtml" />
+    <Content Include="Views\ShippingCosts\Delete.cshtml" />
+    <Content Include="Views\ShippingCosts\Details.cshtml" />
+    <Content Include="Views\ShippingCosts\Edit.cshtml" />
+    <Content Include="Views\ShippingCosts\Index.cshtml" />
+    <Content Include="Views\PaymentMethods\Create.cshtml" />
+    <Content Include="Views\PaymentMethods\Delete.cshtml" />
+    <Content Include="Views\PaymentMethods\Details.cshtml" />
+    <Content Include="Views\PaymentMethods\Edit.cshtml" />
+    <Content Include="Views\PaymentMethods\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -446,14 +478,17 @@
     <EmbeddedResource Include="Migrations\201903151634078_userdates.resx">
       <DependentUpon>201903151634078_userdates.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201903211651531_cart.resx">
-      <DependentUpon>201903211651531_cart.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201903211651428_cart.resx">
+      <DependentUpon>201903211651428_cart.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201903281717019_Orders.resx">
-      <DependentUpon>201903281717019_Orders.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201903281716543_Orders.resx">
+      <DependentUpon>201903281716543_Orders.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201903291410555_required-fields.resx">
-      <DependentUpon>201903291410555_required-fields.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201903291402008_required-fields.resx">
+      <DependentUpon>201903291402008_required-fields.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904011456573_shipping.resx">
+      <DependentUpon>201904011456573_shipping.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

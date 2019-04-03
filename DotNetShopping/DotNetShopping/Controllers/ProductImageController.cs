@@ -59,7 +59,7 @@ namespace DotNetShopping.Controllers
                         }
                     }
                 }
-                return RedirectToAction("Index", new { id = model.VariantId });
+                return RedirectToAction("Index", new { id = model.VariantId, ProductId = model.ProductId });
             }
             catch (Exception ex)
             {

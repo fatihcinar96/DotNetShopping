@@ -10,7 +10,6 @@ namespace DotNetShopping.Controllers
     public class ProductDetailController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-
         // GET: ProductDetail
         public ActionResult Product(Int64 id, string name)
         {
@@ -21,7 +20,7 @@ namespace DotNetShopping.Controllers
                 c => c.CategoryId, (v, c) => new { Variant = v, Category = c })
                 .Select(x => new ProductDetailModel
                 {
-                    ProductId = x.Variant.Product.ProductId,
+                    ProductId = x.Variant.ProductId,
                     VariantId = x.Variant.VariantId,
                     ProductName = x.Variant.Product.Name,
                     VariantName = x.Variant.Name,
@@ -29,7 +28,7 @@ namespace DotNetShopping.Controllers
                     CategoryName = x.Category.Name,
                     UnitPrice = x.Variant.UnitPrice,
                     BrandId = x.Variant.Product.BrandId,
-                    CategoryId = x.Category.CategoryId,
+                    CategoryId = x.Variant.Product.CategoryId,
                     Description = x.Variant.Product.Description,
                     OnSale = x.Variant.Product.OnSale,
                     Stock = x.Variant.Stock,
@@ -37,7 +36,6 @@ namespace DotNetShopping.Controllers
                     Images = db.ProductImages
                     .Where(i => i.VariantId == x.Variant.VariantId)
                     .OrderBy(i => i.Sequence).ToList()
-
                 }).FirstOrDefault();
             if (model == null)
             {
@@ -45,7 +43,6 @@ namespace DotNetShopping.Controllers
             }
             return View(model);
         }
-
 
         
     }

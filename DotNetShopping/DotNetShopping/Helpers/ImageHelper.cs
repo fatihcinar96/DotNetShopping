@@ -73,7 +73,7 @@ namespace DotNetShopping.Helpers
         private static void SaveImageForSize(string name, Image Image, int size, bool watermark, ImageCodecInfo jgpEncoder, EncoderParameters myEncoderParameters)
         {
             string path = Path.Combine(System.Web.HttpContext.Current.Server.MapPath("~/ProductImage"), name);
-            Image = resizeImage(Image, new Size(size, size));
+            Image = resizeImage(Image, new Size(size, size/2*3));
             if(watermark)
             {
                 Image = WatermarkText(Image, "DotNet19", size/10);

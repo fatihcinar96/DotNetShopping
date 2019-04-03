@@ -18,17 +18,19 @@ namespace DotNetShopping.Models
             Delivered = 3
         }
 
+
         [HiddenInput(DisplayValue = false)]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Int64 OrderId { get; set; }
         public string UserId { get; set; }
+        public string BillingEmail { get; set; }
+        [Required]
         [Display(Name = "First Name")]
         public string BillingFirstName { get; set; }
         [Required]
         [Display(Name = "Last Name")]
         public string BillingLastName { get; set; }
         public string BillingCompany { get; set; }
-        public string BillingEmail { get; set; }
         public string BillingStreet1 { get; set; }
         public string BillingStreet2 { get; set; }
         public Int16 BillingCityId { get; set; }
@@ -36,8 +38,6 @@ namespace DotNetShopping.Models
         public Int16 BillingCountryId { get; set; }
         public string BillingZip { get; set; }
         public string BillingTelephone { get; set; }
-
-
         public string ShippingFirstName { get; set; }
         public string ShippingLastName { get; set; }
         public string ShippingCompany { get; set; }
@@ -50,9 +50,6 @@ namespace DotNetShopping.Models
         public string ShippingTelephone { get; set; }
         public Int16 ShippingMethodId { get; set; }
         public Decimal ShippingCost { get; set; }
-        public DateTime ShippingDate { get; set; }
-
-
         public Int16 PaymentMethodId { get; set; }
         public string CardHolderName { get; set; }
         public string CardAccount { get; set; }
@@ -60,8 +57,8 @@ namespace DotNetShopping.Models
         public Decimal TotalPrice { get; set; }
         public Decimal TotalProfit { get; set; }
         public DateTime OrderDate { get; set; }
+        public DateTime ShippingDate { get; set; }
         public OrderStatuses OrderStatus { get; set; }
         public bool Paid { get; set; }
-
     }
 }

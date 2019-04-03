@@ -19,13 +19,12 @@ namespace DotNetShopping.Controllers
         public async Task<ActionResult> Index()
         {
             var cities = db.Cities.Include(c => c.Country)
-                .GroupJoin(db.States, c => c.StateId, s => s.StateId,
-                (c, s) => new { City = c, State = s })
+                .GroupJoin(db.States, c => c.StateId, s => s.StateId, 
+                (c, s) => new {City = c, State = s})
                 .SelectMany(
                         x => x.State.DefaultIfEmpty(),
                         (x, y) => new { City = x.City, State = y })
-               .Select(cs => new CityListModel
-               {
+               .Select(cs => new CityListModel{
                    CityId = cs.City.CityId,
                    Name = cs.City.Name,
                    Code = cs.City.Code,
@@ -56,7 +55,7 @@ namespace DotNetShopping.Controllers
         public ActionResult Create()
         {
             var states = db.States.OrderBy(x => x.Name).ToList();
-            states.Insert(0, new State { Name = "No State" });
+            states.Insert(0, new State { Name = "No State" });           
             ViewBag.StateId = new SelectList(states, "StateId", "Name");
             ViewBag.CountryId = new SelectList(db.Countries.OrderBy(x => x.Name), "CountryId", "Name");
             return View();

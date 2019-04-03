@@ -36,13 +36,11 @@ namespace DotNetShopping.Controllers
                 .ToList();
                 ViewBag.NewProducts = newProducts;
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
                 ViewBag.NewProducts = new List<ProductBoxModel>();
                 ViewBag.Error = ex.Message;
-                
             }
-           
             return View();
         }
 

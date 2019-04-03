@@ -114,11 +114,10 @@ namespace DotNetShopping.Models
         public Decimal UnitPrice { get; set; }
         public string PhotoName { get; set; }
     }
-
     public class ProductDetailModel
     {
-        public Int64 VariantId { get; set; }
         public Int64 ProductId { get; set; }
+        public Int64 VariantId { get; set; }
         [Display(Name = "Product Name")]
         public string ProductName { get; set; }
         public Int16 BrandId { get; set; }

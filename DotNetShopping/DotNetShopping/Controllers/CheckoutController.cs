@@ -10,7 +10,7 @@ namespace DotNetShopping.Controllers
 {
     public class CheckoutController : Controller
     {
-        ApplicationDbContext db = new ApplicationDbContext();
+        private ApplicationDbContext db = new ApplicationDbContext();
         // GET: Checkout
         public ActionResult Cart()
         {
@@ -18,7 +18,6 @@ namespace DotNetShopping.Controllers
             var cart = co.GetCart(User.Identity.GetUserId());
             return View(cart);
         }
-
         [HttpPost]
         public ActionResult Cart(List<CartListModel> cartForm)
         {
@@ -26,8 +25,8 @@ namespace DotNetShopping.Controllers
             var carts = db.Carts.Where(x => x.UserId == userId).ToList();
             foreach(Cart cart in carts)
             {
-                var formValue = cartForm.Where(x => x.VariantId == cart.VariantId).FirstOrDefault().Quantity;
-                if(cart.Quantity != formValue)
+                int formValue = cartForm.Where(x => x.VariantId == cart.VariantId).FirstOrDefault().Quantity;
+                if (cart.Quantity != formValue)
                 {
                     cart.Quantity = formValue;
                 }
@@ -37,36 +36,35 @@ namespace DotNetShopping.Controllers
             var model = co.GetCart(User.Identity.GetUserId());
             return View(model);
         }
-
         public ActionResult DeleteCart(Int64 VariantId)
         {
             if (User.Identity.IsAuthenticated)
             {
                 var UserId = User.Identity.GetUserId();
-                var cart = db.Carts.Where(x => x.VariantId == VariantId && x.UserId == UserId).FirstOrDefault();
+                var cart = db.Carts.Where(x => x.UserId == UserId &&
+                x.VariantId == VariantId).FirstOrDefault();
                 if (cart != null)
                 {
                     db.Carts.Remove(cart);
                     db.SaveChanges();
                 }
             }
-            return RedirectToAction("Cart");      
+            return RedirectToAction("Cart");
         }
-
-        public ActionResult ClearCart()
+        public ActionResult DeleteAllCart()
         {
             if (User.Identity.IsAuthenticated)
             {
-                var userId = User.Identity.GetUserId();
-                var cart = db.Carts.Where(x => x.UserId == userId).ToList();
-               
-                    db.Carts.RemoveRange(cart);
+                var UserId = User.Identity.GetUserId();
+                var carts = db.Carts.Where(x => x.UserId == UserId).ToList();
+                if (carts != null)
+                {
+                    db.Carts.RemoveRange(carts);
                     db.SaveChanges();
-                
+                }
             }
             return RedirectToAction("Cart");
         }
-
         public ActionResult Checkout()
         {
             var countries = db.Countries.OrderBy(x => x.Name).ToList();
@@ -76,13 +74,20 @@ namespace DotNetShopping.Controllers
             ViewBag.BillingCountryId = new SelectList(countries, "CountryId", "Name");
             ViewBag.ShippingCountryId = new SelectList(countries, "CountryId", "Name");
 
-            var selectCity = new List<string>();
-            selectCity.Add("Select City");
-            ViewBag.BillingCityId = new SelectList(selectCity);
-
             var selectState = new List<string>();
             selectState.Add("Select Country");
             ViewBag.BillingStateId = new SelectList(selectState);
+            ViewBag.ShippingStateId = new SelectList(selectState);
+
+            var selectCity = new List<string>();
+            selectCity.Add("Select Country/State");
+            ViewBag.BillingCityId = new SelectList(selectCity);
+            ViewBag.ShippingCityId = new SelectList(selectCity);
+
+            CartListModel co = new CartListModel();
+            var cart = co.GetCart(User.Identity.GetUserId());
+            ViewBag.Cart = cart;
+
             return View();
         }
     }

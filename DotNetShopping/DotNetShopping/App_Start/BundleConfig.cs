@@ -22,6 +22,9 @@ namespace DotNetShopping
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/shopping").Include(
+                      "~/Scripts/shopping.js"));
+
             bundles.Add(new StyleBundle("~/Content/Site/css").Include(
                       "~/Content/Bootstrap/bootstrap.css",
                       "~/Content/Site/Site.css"));
@@ -32,9 +35,6 @@ namespace DotNetShopping
                       "~/Content/Admin/light-bootstrap-dashboard.css",
                       "~/Content/Admin/pe-icon-7-stroke.css",
                       "~/Content/Admin/Admin.css"));
-
-            bundles.Add(new ScriptBundle("~/bundles/shopping").Include(
-                "~/Scripts/Shopping.js"));
         }
     }
 }

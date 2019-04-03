@@ -1,17 +1,13 @@
-﻿
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>@ViewBag.Title - DotNetShopping</title>
     @Styles.Render("~/Content/Site/css")
     @Scripts.Render("~/bundles/modernizr")
-    @RenderSection("head", required: false)
-
-
     <link href="https://fonts.googleapis.com/css?family=Oswald|Roboto" rel="stylesheet">
+    @RenderSection("head", required: false)
 </head>
 <body>
     <div id="loader"></div>
@@ -44,23 +40,25 @@
                                     <li>@Html.ActionLink("HOME", "Index", "Home")</li>
                                     <li>@Html.ActionLink("CATEGORIES", "Categories", "Home")</li>
                                     <li>@Html.ActionLink("PRODUCTS", "Products", "Home")</li>
-                                    <li>@Html.ActionLink("ABOUT", "About", "Home")</li>
                                     <li>@Html.ActionLink("CONTACT", "About", "Home")</li>
                                     <li>
                                         <div class="cart">
-                                            <a href="@Url.Action("Cart","Checkout")">
+                                            <a href="@Url.Action("Cart", "Checkout")">
                                                 <i class="cartIcon glyphicon glyphicon-shopping-cart"></i>
                                                 <span class="cartQty" id="cartQty">0</span>
                                                 <div class="cartText">ITEMS</div>
                                             </a>
-                                                
-                                                <div class="cartContent" id="cartContent"></div>
+                                            <div class="cartArea"></div>
+                                            <div class="cartContent" id="cartContent"></div>
                                         </div>
                                     </li>
                                 </ul>
                             </div>
+
                         </div>
+
                     </div>
+                    
                 </div>
             </div>
         </div>
@@ -71,19 +69,17 @@
         <div class="content">
             @RenderBody()
         </div>
-
         <hr />
-
     </div>
     <footer>
         <div class="container">
             <div class="row">
                 <div class="col-sm-4">
-                    <div class="footerTitle">CONTACT INFORMATION</div>
+                    <div class="footerTitle">CONACT INFORMATION</div>
                     <ul class="contact-info">
-                        <li><i class="glyphicon glyphicon-map-marker">&nbsp;</i><p><b style="color: #fff;text-transform:uppercase;">Address</b><br>Cincin St, 119 Esenler , Istanbul</p></li>
-                        <li><i class="glyphicon glyphicon-phone">&nbsp;</i><p><b style="color: #fff;text-transform:uppercase;">Phone</b><br>(507) 072-8003</p></li>
-                        <li><i class="glyphicon glyphicon-envelope">&nbsp;</i><p><b style="color: #fff;text-transform:uppercase;">Email</b><br><a href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;tf=1&amp;to=fatihcinar96@gmail.com" target="_blank">fatihcinar96@gmail.com</a></p></li>
+                        <li><i class="glyphicon glyphicon-map-marker">&nbsp;</i><p><b style="color: #fff;text-transform:uppercase;">Address</b><br>123 Street Name, City, England</p></li>
+                        <li><i class="glyphicon glyphicon-phone">&nbsp;</i><p><b style="color: #fff;text-transform:uppercase;">Phone</b><br>(123) 456-7890</p></li>
+                        <li><i class="glyphicon glyphicon-envelope">&nbsp;</i><p><b style="color: #fff;text-transform:uppercase;">Email</b><br><a href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;tf=1&amp;to=mail@example.com" target="_blank">mail@example.com</a></p></li>
                         <li><i class="glyphicon glyphicon-time">&nbsp;</i><p><b style="color: #fff;text-transform:uppercase;">Working Days/Hours</b><br>Mon - Sun / 9:00AM - 8:00PM</p></li>
                     </ul>
                 </div>
@@ -126,11 +122,10 @@
             </div>
         </div>
     </footer>
+
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/shopping")
-
-
     @RenderSection("scripts", required: false)
     <script type="text/javascript">
         $(document).ready(function () {
@@ -151,13 +146,11 @@
                 if ($(window).width() > 768) {
                     $(this).children('.cartContent').fadeIn(200);
                     $(this).children('.cartArea').fadeIn(200);
-
                 }
                 return false;
             }).mouseleave(function (e) {
                 $(this).children('.cartContent').fadeOut(200);
-                $(this).children('.cartArea').fadeIn(200);
-
+                $(this).children('.cartArea').fadeOut(200);
                 return false;
             });
         });
@@ -165,4 +158,3 @@
 
 </body>
 </html>
-

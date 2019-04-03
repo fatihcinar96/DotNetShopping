@@ -62,15 +62,15 @@
                         </a>
                     </li>
                     <li>
-                        <a href="maps.html">
+                        <a href="@Url.Action("Index", "ShippingMethods")">
                             <i class="pe-7s-map-marker"></i>
-                            <p>Maps</p>
+                            <p>Shipping Methods</p>
                         </a>
                     </li>
                     <li>
-                        <a href="notifications.html">
+                        <a href="@Url.Action("Index", "PaymentMethods")">
                             <i class="pe-7s-bell"></i>
-                            <p>Notifications</p>
+                            <p>Payment Methods</p>
                         </a>
                     </li>
                     <li class="active-pro">
@@ -92,7 +92,7 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" href="#">Dashboard</a>
+                        <a class="navbar-brand" href="@Url.Action("Index", "Home")" target="_blank">View Site</a>
                     </div>
                     <div class="collapse navbar-collapse">
                         <ul class="nav navbar-nav navbar-left">
