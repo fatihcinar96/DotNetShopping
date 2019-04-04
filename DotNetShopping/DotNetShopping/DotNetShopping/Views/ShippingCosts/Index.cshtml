@@ -1,0 +1,58 @@
+﻿@model IEnumerable<DotNetShopping.Models.ShippingCost>
+
+@{
+    ViewBag.Title = "Shipping Costs";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Shipping Costs</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.CostHalf)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CostOne)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CostOneHalf)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CostTwo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CostTwoHalf)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.CostHalf)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CostOne)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CostOneHalf)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CostTwo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CostTwoHalf)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>
+    </tr>
+}
+
+</table>

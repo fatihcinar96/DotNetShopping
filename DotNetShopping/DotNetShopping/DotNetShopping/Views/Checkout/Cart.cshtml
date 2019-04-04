@@ -1,0 +1,144 @@
+﻿@model List<DotNetShopping.Models.CartListModel>
+@{
+    ViewBag.Title = "Cart";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Cart</h2>
+
+<div class="row">
+    <div class="col-sm-9">
+        <div class="cartBox">
+            @using (Html.BeginForm())
+            {
+                <table class="cartTable">
+                    <thead>
+                        <tr>
+                            <th colspan="2"></th>
+                            <th>Product Name</th>
+                            <th>Unit Price</th>
+                            <th>Qty</th>
+                            <th>Subtotal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (int i = 0; i < Model.Count; i++)
+                        {
+                            <tr>
+                                <td>
+                                    <a href="@Url.Action("DeleteCart", "Checkout", new { VariantId = Model[i].VariantId })" class="deleteProduct">
+                                        <i class="glyphicon glyphicon-remove-circle"></i>
+                                    </a>
+                                </td>
+                                <td><img src="~/ProductImage/@(Model[i].PhotoName)-1.jpg" /></td>
+                                <td>@Model[i].VariantName @Model[i].ProductName</td>
+                                <td>$@Model[i].UnitPrice</td>
+                                <td>
+                                    <div class="qty-holder">
+                                        <a href="javascript:minusClick(@Model[i].VariantId);" class="table_qty_dec">-</a>
+                                        @Html.TextBoxFor(m => Model[i].Quantity, new { @class = "input-text qty", @id = "cart[" + Model[i].VariantId + "][qty]" })
+                                        <a href="javascript:plusClick(@Model[i].VariantId, @Model[i].Stock);" class="table_qty_inc">+</a>
+                                        @Html.HiddenFor(m => Model[i].VariantId)
+                                    </div>
+                                </td>
+                                <td>$@Model[i].TotalPrice</td>
+                            </tr>
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="2">
+                                <button type="button" onclick="window.location = '@Url.Action("Index", "Home")';" title="CONTINUE SHOPPING" class="button" id=""><span><span>CONTINUE SHOPPING</span></span></button>
+                            </td>
+                            <td></td>
+                            <td colspan="3">
+                                <button type="button" onclick="clearAllClick();" title="CLEAR SHOPPING CART" class="button" id=""><span><span>CLEAR SHOPPING CART</span></span></button>
+                                <button type="submit" title="UPDATE SHOPPING CART" class="button" id=""><span><span>UPDATE SHOPPING CART</span></span></button>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            }
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="sidebarBox">
+            <div class="sidebarBoxHeader">
+                <span>DISCOUNT CODES</span>
+                <i class="glyphicon glyphicon-chevron-down" data-status="close" onclick="toggleSideBarBox(this);"></i>
+            </div>
+            <div class="sidebarBoxContent" style="display:none;">
+                <div>Enter your coupon code if you have one.</div>
+                <input type="text" />
+                <div>
+                    <button type="button" title="Apply Coupon" class="button" onclick="window.location='@Url.Action("Checkout", "Checkout")';"><span><span>Apply Coupon</span></span></button>
+                </div>
+            </div>
+        </div>
+        <div class="sidebarBox">
+            <div class="sidebarBoxHeader">
+                <span>ESTIMATE SHIPPING AND TAX</span>
+                <i class="glyphicon glyphicon-chevron-down" data-status="close" onclick="toggleSideBarBox(this);"></i>
+            </div>
+            <div class="sidebarBoxContent" style="display:none;">Content</div>
+        </div>
+        <div class="sidebarBox">
+            <div class="sidebarBoxHeader">
+                <span>CART TOTALS</span>
+            </div>
+            <div class="sidebarBoxContent">
+                <div><span class="title">Subtotal:</span><span class="amount">$@Model.Sum(x => x.TotalPrice)</span></div>
+                <div><span class="title">VAT:</span><span class="amount">$@(String.Format("{0:F2}", Model.Sum(x => x.TotalPrice) * (decimal)0.18))</span></div>
+                <div><span class="title">Shipping:</span><span class="amount">$0,00</span></div>
+                <div><span class="title">Grand Total:</span><span class="amount">$@(String.Format("{0:F2}", Model.Sum(x => x.TotalPrice) * (decimal)1.18))</span></div>
+                <div>
+                    <button type="button" title="Proceed to Checkout" class="button" onclick="window.location='@Url.Action("Checkout", "Checkout")';"><span><span>Proceed to Checkout</span></span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts {
+    <script type="text/javascript">
+        function minusClick(variantId) {
+            
+            var inputId = 'cart[' + variantId + '][qty]';
+            var input = document.getElementById(inputId);
+            var qty = parseInt(input.value);
+            //alert('hello:' + inputId + ' qty:' + $(inputId).val());
+            if (qty > 1) {
+                qty--;
+                input.value = qty;
+            }
+        }
+        function plusClick(variantId, stock) {
+            var inputId = 'cart[' + variantId + '][qty]';
+            var input = document.getElementById(inputId);
+            var qty = parseInt(input.value);
+            if (qty < stock) {
+                qty++;
+                input.value = qty;
+            }
+        }
+        $('.deleteProduct').click(function () {
+            return confirm("Are you sure you want to delete this product?");
+        });
+        function clearAllClick() {
+            if (confirm("Are you sure you want to delete all products?")) {
+                window.location = '@Url.Action("DeleteAllCart")';
+            }
+        }
+        function toggleSideBarBox(sender) {
+            if ($(sender).data('data-status') == 'close') {
+                $(sender).data('data-status', 'open')
+                $(sender).toggleClass('glyphicon-chevron-down glyphicon-chevron-up');
+                $(sender).parent().siblings('.sidebarBoxContent').hide(200);
+            }
+            else {
+                $(sender).data('data-status', 'close')
+                $(sender).toggleClass('glyphicon-chevron-up glyphicon-chevron-down');
+                $(sender).parent().siblings('.sidebarBoxContent').show(200);
+            }
+        }
+    </script>
+}

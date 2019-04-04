@@ -1,0 +1,82 @@
+﻿@model IEnumerable<DotNetShopping.Models.PaymentMethod>
+
+@{
+    ViewBag.Title = "Payment Methods";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Payment Methods</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Domestic)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.International)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StaticCost)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PercentCost)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MinAmount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MaxAmount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PaymentInfo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PaymentDiscount)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Domestic)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.International)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StaticCost)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PercentCost)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MinAmount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MaxAmount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PaymentInfo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PaymentDiscount)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.PaymentMethodId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.PaymentMethodId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.PaymentMethodId })
+        </td>
+    </tr>
+}
+
+</table>

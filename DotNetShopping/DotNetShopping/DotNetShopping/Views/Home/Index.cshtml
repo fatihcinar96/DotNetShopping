@@ -1,0 +1,103 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+<div class="sliderBox">
+    <div class="slider">
+        <img src="~/images/slider/slide1.jpg" />
+        <img src="~/images/slider/slide2.jpg" />
+        @*<div style="position: relative; overflow: hidden;">
+            
+            <div class="text-content" style="position:absolute; display: inline-block;float:right;right: 75px; top:200px;">
+                <h2>Dresses</h2>
+                <p><span><b>Up to </b><b class="text-large">30%</b><b style="text-align:right;">OFF in the<br>collection</b></span></p>
+                <a href="#" class="btn btn-default" style="vertical-align: top; font-weight: 400;">SHOP NOW</a>
+            </div>
+        </div>
+        <div style="position:relative; overflow: hidden;">
+            
+            <div class="text-content" style="position:absolute; display: inline-block;left:75px; top:200px;">
+                <h2>Fashion</h2>
+                <p><span><b>Up to </b><b class="text-large">70%</b><b style="text-align:right;">OFF in the<br>collection</b></span></p>
+                <a href="#" class="btn btn-default" style="vertical-align: top; font-weight: 400;">SHOP NOW</a>
+            </div>
+        </div>*@
+
+    </div>
+</div>
+<div class="categoryRow row">
+    <div class="col-sm-4 categoryCol1">
+        <div class="categoryTitle">Sunglasses</div>
+        <a class="categoryButton" href="#">SHOP NOW</a>
+    </div>
+    <div class="col-sm-4 categoryCol2">
+        <div class="categoryTitle">Woman Dress</div>
+        <a class="categoryButton" href="#">SHOP NOW</a>
+    </div>
+    <div class="col-sm-4 categoryCol3">
+        <div class="categoryTitle">Woman Bags</div>
+        <a class="categoryButton" href="#">SHOP NOW</a>
+    </div>
+</div>
+<div class="featuredTitle">WEEKLY FEATURED PRODUCTS</div>
+<div class="products-slider">
+    @foreach (DotNetShopping.Models.ProductBoxModel product in ViewBag.NewProducts)
+    {
+        <div>
+            @Html.Partial("_ProductPartial", product)
+        </div>
+    }
+</div>
+@section head {
+    <link href="~/Content/Site/slick.css" rel="stylesheet" />
+    <link href="~/Content/Site/slick-theme.css" rel="stylesheet" />
+}
+@section scripts {
+    <script src="~/Scripts/slick.min.js"></script>
+}
+
+@section scriptsready {
+    $('.slider').slick({
+    arrows: true,
+    lazyLoad: 'ondemand',
+    autoplay: true,
+    autoplaySpeed: 4000,
+    fade: true
+    });
+    $('.products-slider').slick({
+    infinite: true,
+    lazyLoad: 'ondemand',
+    arrows: false,
+    slidesToShow: 4,
+    slidesToScroll: 4,
+    autoplay: true,
+    autoplaySpeed: 4000,
+    responsive: [
+    {
+    breakpoint: 1200,
+    settings: {
+    slidesToShow: 3,
+    slidesToScroll: 3,
+    infinite: true,
+    dots: true
+    }
+    },
+    {
+    breakpoint: 800,
+    settings: {
+    slidesToShow: 2,
+    slidesToScroll: 2
+    }
+    },
+    {
+    breakpoint: 480,
+    settings: {
+    slidesToShow: 1,
+    slidesToScroll: 1
+    }
+    }
+    // You can unslick at a given breakpoint now by adding:
+    // settings: "unslick"
+    // instead of a settings object
+    ]
+    });
+}

@@ -1,362 +1,423 @@
-﻿@model DotNetShopping.Models.Order
+﻿@model DotNetShopping.Models.CheckoutModel
 @{
     ViewBag.Title = "Checkout";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    IEnumerable<DotNetShopping.Models.CartListModel> cart = ViewBag.Cart;
-
+    List<DotNetShopping.Models.CartListModel> cart = ViewBag.Cart;
 }
 
 <h2>Checkout</h2>
 <div class="row">
     <div class="col-sm-9">
-        @using (Html.BeginForm())
+        @using (Html.BeginForm(null,null,FormMethod.Post,new { id = "myForm" }))
         {
-        <ol class="opc" id="checkoutSteps">
-            <li id="opc-billing" class="section">
-                <div class="step-title">
-                    <span class="number">1</span>
-                    <span class="title">Billing Information</span>
-                </div>
-                <div id="checkout-step-billing" class="checkoutContent">
-                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="input-label">@Html.LabelFor(model => model.BillingFirstName, htmlAttributes: new { @class = "control-label" })</div>
-                            <div class="input-editor">
-                                @Html.EditorFor(model => model.BillingFirstName, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.BillingFirstName, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="input-label">@Html.LabelFor(model => model.BillingLastName, htmlAttributes: new { @class = "control-label" })</div>
-                            <div class="input-editor">
-                                @Html.EditorFor(model => model.BillingLastName, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.BillingLastName, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
+            <ol class="opc" id="checkoutSteps">
+                <li id="opc-billing" class="section">
+                    <div class="step-title" onclick="billingTitleClick()">
+                        <span class="number">1</span>
+                        <span class="title">Billing Information</span>
                     </div>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="input-label">@Html.LabelFor(model => model.BillingCompany, htmlAttributes: new { @class = "control-label" })</div>
-                            <div class="input-editor">
-                                @Html.EditorFor(model => model.BillingCompany, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.BillingCompany, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="input-label">@Html.LabelFor(model => model.BillingEmail, htmlAttributes: new { @class = "control-label" })</div>
-                            <div class="input-editor">
-                                @Html.EditorFor(model => model.BillingEmail, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.BillingEmail, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="input-label">@Html.LabelFor(model => model.BillingStreet1, htmlAttributes: new { @class = "control-label" })</div>
-                            <div class="input-editor">
-                                @Html.EditorFor(model => model.BillingStreet1, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.BillingStreet1, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="input-editor">
-                                @Html.EditorFor(model => model.BillingStreet2, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.BillingStreet2, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="input-label">@Html.LabelFor(model => model.BillingCountryId, htmlAttributes: new { @class = "control-label" })</div>
-                            <div class="input-editor">
-                                @Html.DropDownList("BillingCountryId", null, htmlAttributes: new { @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.BillingCountryId, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="input-label">@Html.LabelFor(model => model.BillingStateId, htmlAttributes: new { @class = "control-label" })</div>
-                            <div class="input-editor">
-                                @Html.DropDownList("BillingStateId", null, htmlAttributes: new { @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.BillingStateId, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="input-label">@Html.LabelFor(model => model.BillingCityId, htmlAttributes: new { @class = "control-label" })</div>
-                            <div class="input-editor">
-                                @Html.DropDownList("BillingCityId", null, htmlAttributes: new { @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.BillingCityId, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="input-label">@Html.LabelFor(model => model.BillingZip, htmlAttributes: new { @class = "control-label" })</div>
-                            <div class="input-editor">
-                                @Html.EditorFor(model => model.BillingZip, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.BillingZip, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="input-label">@Html.LabelFor(model => model.BillingTelephone, htmlAttributes: new { @class = "control-label" })</div>
-                            <div class="input-editor">
-                                @Html.EditorFor(model => model.BillingTelephone, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.BillingTelephone, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-
-                        </div>
-                    </div>
-                </div>
-            </li>
-            <li id="opc-shipping" class="section">
-                <div class="step-title">
-                    <span class="number">3</span>
-                    <span class="title">Shipping Information</span>
-                </div>
-                <div id="checkout-step-shipping" class="checkoutContent">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="input-label">@Html.LabelFor(model => model.ShippingFirstName, htmlAttributes: new { @class = "control-label" })</div>
-                            <div class="input-editor">
-                                @Html.EditorFor(model => model.ShippingFirstName, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.ShippingFirstName, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="input-label">@Html.LabelFor(model => model.ShippingLastName, htmlAttributes: new { @class = "control-label" })</div>
-                            <div class="input-editor">
-                                @Html.EditorFor(model => model.ShippingLastName, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.ShippingLastName, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="input-label">@Html.LabelFor(model => model.ShippingCompany, htmlAttributes: new { @class = "control-label" })</div>
-                            <div class="input-editor">
-                                @Html.EditorFor(model => model.ShippingCompany, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.ShippingCompany, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="input-label">@Html.LabelFor(model => model.ShippingStreet1, htmlAttributes: new { @class = "control-label" })</div>
-                            <div class="input-editor">
-                                @Html.EditorFor(model => model.ShippingStreet1, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.ShippingStreet1, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="input-editor">
-                                @Html.EditorFor(model => model.ShippingStreet2, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.ShippingStreet2, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="input-label">@Html.LabelFor(model => model.ShippingCountryId, htmlAttributes: new { @class = "control-label" })</div>
-                            <div class="input-editor">
-                                @Html.DropDownList("ShippingCountryId", null, htmlAttributes: new { @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.ShippingCountryId, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="input-label">@Html.LabelFor(model => model.ShippingStateId, htmlAttributes: new { @class = "control-label" })</div>
-                            <div class="input-editor">
-                                @Html.DropDownList("ShippingStateId", null, htmlAttributes: new { @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.ShippingStateId, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="input-label">@Html.LabelFor(model => model.ShippingCityId, htmlAttributes: new { @class = "control-label" })</div>
-                            <div class="input-editor">
-                                @Html.DropDownList("ShippingCityId", null, htmlAttributes: new { @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.ShippingCityId, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="input-label">@Html.LabelFor(model => model.ShippingZip, htmlAttributes: new { @class = "control-label" })</div>
-                            <div class="input-editor">
-                                @Html.EditorFor(model => model.ShippingZip, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.ShippingZip, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="input-label">@Html.LabelFor(model => model.ShippingTelephone, htmlAttributes: new { @class = "control-label" })</div>
-                            <div class="input-editor">
-                                @Html.EditorFor(model => model.ShippingTelephone, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.ShippingTelephone, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-
-                        </div>
-                    </div>
-                </div>
-            </li>
-            <li id="opc-shipping_method" class="section">
-                <div class="step-title">
-                    <span class="number">4</span>
-                    <span class="title">Shipping Method</span>
-                </div>
-                <div id="checkout-step-shipping_method" class="checkoutContent">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="input-label">@Html.LabelFor(model => model.ShippingMethodId, htmlAttributes: new { @class = "control-label" })</div>
-                            <div class="input-editor">
-                                <select id="ShippingMethodId"></select>
-                                @Html.ValidationMessageFor(model => model.ShippingMethodId, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-
-                        <div class="col-sm-6">
-                            @{
-                                var weight = cart.Sum(x => x.Quantity) * 0.25;
-                            }
-                            <input type="hidden" id="weight" value="@weight" />
-                            <div class="ShippingCost">
-                                <span>Shipping Cost : </span><span id="ShippingCost"></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </li>
-
-
-
-
-            <li id="opc-payment_method" class="section">
-                <div class="step-title">
-                    <span class="number">4</span>
-                    <span class="title">Payment Method</span>
-                </div>
-                <div id="checkout-step-payment_method" class="checkoutContent">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="input-label">@Html.LabelFor(model => model.PaymentMethodId, htmlAttributes: new { @class = "control-label" })</div>
-                            <div class="input-editor">
-                                <select id="PaymentMethodId" class="form-control"></select>
-                                @Html.ValidationMessageFor(model => model.PaymentMethodId, "", new { @class = "text-danger" })
-                            </div>
-                            <div class="payment-credit-cart">
-                                <div class="input-label">
-                                    <label class="control-label">Card Number</label>
-                                </div>
-
+                    <div id="checkout-step-billing" class="checkoutContent">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="input-label">@Html.LabelFor(model => model.BillingFirstName, htmlAttributes: new { @class = "control-label" })</div>
                                 <div class="input-editor">
-                                    <input type="text" id="cardNumber" class="form-control" />
+                                    @Html.EditorFor(model => model.BillingFirstName, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.BillingFirstName, "", new { @class = "text-danger" })
                                 </div>
-                                <div class="input-label">
-                                    <label class="control-label">Card Holder</label>
-                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="input-label">@Html.LabelFor(model => model.BillingLastName, htmlAttributes: new { @class = "control-label" })</div>
                                 <div class="input-editor">
-                                    <input type="text" id="cardHolder" class="form-control" />
+                                    @Html.EditorFor(model => model.BillingLastName, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.BillingLastName, "", new { @class = "text-danger" })
                                 </div>
-                                <div class="card-row">
-                                    <div class="card-date">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="input-label">@Html.LabelFor(model => model.BillingCompany, htmlAttributes: new { @class = "control-label" })</div>
+                                <div class="input-editor">
+                                    @Html.EditorFor(model => model.BillingCompany, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.BillingCompany, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="input-label">@Html.LabelFor(model => model.BillingEmail, htmlAttributes: new { @class = "control-label" })</div>
+                                <div class="input-editor">
+                                    @Html.EditorFor(model => model.BillingEmail, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.BillingEmail, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="input-label">@Html.LabelFor(model => model.BillingStreet1, htmlAttributes: new { @class = "control-label" })</div>
+                                <div class="input-editor">
+                                    @Html.EditorFor(model => model.BillingStreet1, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.BillingStreet1, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="input-editor">
+                                    @Html.EditorFor(model => model.BillingStreet2, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.BillingStreet2, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="input-label">@Html.LabelFor(model => model.BillingCountryId, htmlAttributes: new { @class = "control-label" })</div>
+                                <div class="input-editor">
+                                    @Html.DropDownList("BillingCountryId", null, htmlAttributes: new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.BillingCountryId, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="input-label">@Html.LabelFor(model => model.BillingStateId, htmlAttributes: new { @class = "control-label" })</div>
+                                <div class="input-editor">
+                                    @Html.DropDownList("BillingStateId", null, htmlAttributes: new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.BillingStateId, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="input-label">@Html.LabelFor(model => model.BillingCityId, htmlAttributes: new { @class = "control-label" })</div>
+                                <div class="input-editor">
+                                    @Html.DropDownList("BillingCityId", null, htmlAttributes: new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.BillingCityId, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="input-label">@Html.LabelFor(model => model.BillingZip, htmlAttributes: new { @class = "control-label" })</div>
+                                <div class="input-editor">
+                                    @Html.EditorFor(model => model.BillingZip, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.BillingZip, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="input-label">@Html.LabelFor(model => model.BillingTelephone, htmlAttributes: new { @class = "control-label" })</div>
+                                <div class="input-editor">
+                                    @Html.EditorFor(model => model.BillingTelephone, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.BillingTelephone, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
 
-
-                                        <div class="input-label">
-                                            <label class="control-label">Card Expiration Month</label>
-                                        </div>
-
-                                        <div class="input-editor">
-                                            <input type="text" id="cardExpirationMonth" class="form-control" />
-                                        </div>
+                            </div>
+                        
+                            <div class="billing-radio">
+                                <div>
+                                    <div class="billing-radiox-item">
+                                        <input type="radio" title="Use same address for shipping" value="0" name="billingradio" checked />
+                                        <span>Use same address for shipping</span>
                                     </div>
-                                    
-                                    <div class="card-date">
-                                        <div class="input-label">
-                                            <label class="control-label">Card Expiration Year</label>
-                                        </div>
-
-                                        <div class="input-editor">
-                                            <input type="text" id="cardExpirationYear" class="form-control" />
-                                        </div>
+                                    <div class="billing-radio-item">
+                                        <input type="radio" title="Use different address for shipping" value="1" name="billingradio" />
+                                        <span>Use different address for shipping</span>
                                     </div>
-                                   
-                                </div>
-
-                                <div class="input-label">
-                                    <label class="control-label">Card CSC</label>
-                                </div>
-                                <div class="input-editor">
-                                    <input type="text" id="cardCsc" class="form-control" />
                                 </div>
                             </div>
-                            <div class="payment-paypal">
-                                <div class="input-label">
-                                    <label class="control-label">Paypal Account</label>
-                                </div>
-
+                            
+                            <div class="checkout-next">
+                                <button type="button" title="Next" class="button btn-checkout" onclick="billingNextClick();"><span>NEXT</span></button>
+                            </div>
+                           
+                        </div>
+                    </div>
+                </li>
+                <li id="opc-shipping" class="section">
+                    <div class="step-title" onclick="shippingTitleClick()"> 
+                        <span class="number">2</span>
+                        <span class="title">Shipping Information</span>
+                    </div>
+                    <div id="checkout-step-shipping" class="checkoutContent">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="input-label">@Html.LabelFor(model => model.ShippingFirstName, htmlAttributes: new { @class = "control-label" })</div>
                                 <div class="input-editor">
-                                    <input type="text" id="paypal" class="form-control" />
+                                    @Html.EditorFor(model => model.ShippingFirstName, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.ShippingFirstName, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="input-label">@Html.LabelFor(model => model.ShippingLastName, htmlAttributes: new { @class = "control-label" })</div>
+                                <div class="input-editor">
+                                    @Html.EditorFor(model => model.ShippingLastName, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.ShippingLastName, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="input-label">@Html.LabelFor(model => model.ShippingCompany, htmlAttributes: new { @class = "control-label" })</div>
+                                <div class="input-editor">
+                                    @Html.EditorFor(model => model.ShippingCompany, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.ShippingCompany, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
 
+                            </div>
+                        </div>
 
-                        <div class="col-sm-6">
-                            <div class="PaymentPadding"></div>
-                            <div class="PaymentDiscount">
-                                @{ 
-                                    var discount = cart.Sum(x => x.UnitPrice);
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="input-label">@Html.LabelFor(model => model.ShippingStreet1, htmlAttributes: new { @class = "control-label" })</div>
+                                <div class="input-editor">
+                                    @Html.EditorFor(model => model.ShippingStreet1, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.ShippingStreet1, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="input-editor">
+                                    @Html.EditorFor(model => model.ShippingStreet2, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.ShippingStreet2, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="input-label">@Html.LabelFor(model => model.ShippingCountryId, htmlAttributes: new { @class = "control-label" })</div>
+                                <div class="input-editor">
+                                    @Html.DropDownList("ShippingCountryId", null, htmlAttributes: new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.ShippingCountryId, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="input-label">@Html.LabelFor(model => model.ShippingStateId, htmlAttributes: new { @class = "control-label" })</div>
+                                <div class="input-editor">
+                                    @Html.DropDownList("ShippingStateId", null, htmlAttributes: new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.ShippingStateId, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="input-label">@Html.LabelFor(model => model.ShippingCityId, htmlAttributes: new { @class = "control-label" })</div>
+                                <div class="input-editor">
+                                    @Html.DropDownList("ShippingCityId", null, htmlAttributes: new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.ShippingCityId, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="input-label">@Html.LabelFor(model => model.ShippingZip, htmlAttributes: new { @class = "control-label" })</div>
+                                <div class="input-editor">
+                                    @Html.EditorFor(model => model.ShippingZip, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.ShippingZip, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="input-label">@Html.LabelFor(model => model.ShippingTelephone, htmlAttributes: new { @class = "control-label" })</div>
+                                <div class="input-editor">
+                                    @Html.EditorFor(model => model.ShippingTelephone, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.ShippingTelephone, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+
+                            </div>
+                            
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="checkout-next">
+                                    <button type="button" title="Next" class="button btn-checkout" onclick="shippingNextClick();"><span>NEXT</span></button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </li>
+                <li id="opc-shipping_method" class="section">
+                    <div class="step-title" onclick="shippingMethodTitleClick()">
+                        <span class="number">3</span>
+                        <span class="title">Shipping Method</span>
+                    </div>
+                    <div id="checkout-step-shipping_method" class="checkoutContent">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="input-label">@Html.LabelFor(model => model.ShippingMethodId, htmlAttributes: new { @class = "control-label" })</div>
+                                <div class="input-editor">
+                                    <select id="ShippingMethodId" class="input-editor form-control"></select>
+                                    @Html.ValidationMessageFor(model => model.ShippingMethodId, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                @{
+                                    var weight = cart.Sum(x => x.Quantity) * 0.25;
                                 }
-                                <span class="PaymentDiscount">Payment Discount : </span><span id="PaymentDiscount"></span>
-                                <input type="hidden" id="hiddenPayment" value="@discount"/>
+                                <input type="hidden" id="weight" value="@weight" />
+                                <div class="ShippingCost">
+                                    <span>Shipping Cost: </span><span id="ShippingCost"></span>
+                                </div>
                             </div>
-                            <div id="PaymentInfo">
-
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="checkout-next">
+                                    <button type="button" title="Next" class="button btn-checkout" onclick="checkoutPaymentNextClick();"><span>NEXT</span></button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </li>
-            <li id="opc-payment" class="section">
-                <div class="step-title">
-                    <span class="number">5</span>
-                    <span class="title">Payment Information</span>
-                </div>
-                <div id="checkout-step-payment" class="checkoutContent">
+                </li>
+                <li id="opc-payment" class="section">
+                    <div class="step-title" onclick="paymentTitleClick()">
+                        <span class="number">4</span>
+                        <span class="title">Payment Information</span>
+                    </div>
+                    <div id="checkout-step-payment" class="checkoutContent">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="input-label">@Html.LabelFor(model => model.PaymentMethodId, htmlAttributes: new { @class = "control-label" })</div>
+                                <div class="input-editor">
+                                    <select id="PaymentMethodId" class="input-editor form-control"></select>
+                                    @Html.ValidationMessageFor(model => model.PaymentMethodId, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="payment-creditcard">
+                                    <div class="input-label">
+                                        <label class="control-label">Card Number</label>
+                                    </div>
+                                    <div class="input-editor">
+                                        <input type="text" id="cardNumber" class="form-control">
+                                    </div>
+                                    <div class="input-label"><label class="control-label">Name on Card</label></div>
+                                    <div class="input-editor"><input type="text" id="cardHolder" class="form-control"></div>
+                                    <div class="card-row">
+                                        <div class="card-date">
+                                            <div class="input-label"><label class="control-label">Exp-Month</label></div>
+                                            <div class="input-editor"><input type="text" id="cardExpirationMonth" class="form-control"></div>
+                                        </div>
+                                        <div class="card-date">
+                                            <div class="input-label"><label class="control-label">Exp-Year</label></div>
+                                            <div class="input-editor"><input type="text" id="cardExpirationYear" class="form-control"></div>
+                                        </div>
+                                    </div>
+                                    <div class="input-label"><label class="control-label">CVV</label></div>
+                                    <div class="input-editor"><input type="text" id="cardCsc" class="form-control"></div>
 
-                </div>
-            </li>
-            <li id="opc-review" class="section">
-                <div class="step-title">
-                    <span class="number">6</span>
-                    <span class="title">Order Review</span>
-                </div>
-                <div id="checkout-step-review" class="checkoutContent">
-
-                </div>
-            </li>
-        </ol>
-            <input type="submit" value="Submit" class="btn btn-default" />
+                                </div>
+                                <div class="payment-paypal">
+                                    <div class="input-label">
+                                        <label class="control-label">PayPal Account</label>
+                                    </div>
+                                    <div class="input-editor">
+                                        <input type="text" id="paypal" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="PaymentPadding"></div>
+                                <div class="PaymentDiscount">
+                                    @{
+                                        var totalPrice = cart.Sum(x => x.TotalPrice);
+                                    }
+                                    <input type="hidden" id="totalPrice" value="@totalPrice" />
+                                    <span>Payment Discount: </span><span id="PaymentDiscount"></span>
+                                </div>
+                                <div id="PaymentInfo"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="checkout-next">
+                                        <button type="button" title="Next" class="button btn-checkout" onclick="checkoutMethodNextClick();"><span>NEXT</span></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li id="opc-review" class="section">
+                    <div class="step-title" onclick="reViewTitleClick()">
+                        <span class="number">5</span>
+                        <span class="title">Order Review</span>
+                    </div>
+                    <div id="checkout-step-review" class="checkoutContent">
+                        <table class="cartTable">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Product Name</th>
+                                    <th>Unit Price</th>
+                                    <th>Qty</th>
+                                    <th>Subtotal</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @for (int i = 0; i < cart.Count; i++)
+                                {
+                                    <tr>
+                                        <td><img src="~/ProductImage/@(cart[i].PhotoName)-1.jpg" /></td>
+                                        <td>@cart[i].VariantName @cart[i].ProductName</td>
+                                        <td>$@cart[i].UnitPrice</td>
+                                        <td>@cart[i].Quantity</td>
+                                        <td>$@cart[i].TotalPrice</td>
+                                    </tr>
+                                }
+                            </tbody>
+                            <tfoot class="checkout-total-Bg">
+                                <tr>
+                                    <td colspan="3"></td>
+                                    <td>Total</td>
+                                    <td>$@totalPrice</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3"></td>
+                                    <td>Shipping</td>
+                                    <td id="shipping-total"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3"></td>
+                                    <td>Discount</td>
+                                    <td id="discount-total"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3"></td>
+                                    <td class="grandTotalLabel">Grand Total</td>
+                                    <td id="grand-total"></td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                        <div class="checkout-footer checkout-total-Bg">
+                            <label class="conditions-container">
+                                I agree terms and conditions
+                                <input type="checkbox" id="conditions">
+                                <span class="checkmark"></span>
+                            </label>
+                            <div class="checkout-submit"><button type="submit" title="Place Order" class="button btn-checkout"><span><span>Place Order</span></span></button></div>
+                        </div>
+                        
+                    </div>
+                </li>
+            </ol>
+            
         }
     </div>
     <div class="col-sm-3">
-
+        <div class="sidebarBoxHeader">
+            <span>BILLING ADDRESS</span>
+        </div>
+        <div class="sidebarBoxContent">
+            <div>First Name Last Name</div>
+            <div>Company Name</div>
+            <div>Street1,Street2</div>
+            <div>City,State,Country</div>
+            <div>Zip Telephone</div>
+        </div>
     </div>
 </div>
 @section scripts {
     @Scripts.Render("~/bundles/jqueryval")
     <script src="~/Scripts/checkout.js"></script>
 }
+

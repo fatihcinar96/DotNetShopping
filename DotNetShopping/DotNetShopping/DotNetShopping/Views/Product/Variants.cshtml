@@ -1,0 +1,86 @@
+﻿@model IEnumerable<DotNetShopping.Models.VariantListModel>
+@{
+    ViewBag.Title = "Variants";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<p>
+    @Html.ActionLink("<- All Products", "Index")
+</p>
+<h2>Variants</h2>
+
+<div class="error">@Request.QueryString["Error"]</div>
+<p>
+    @Html.ActionLink("Create New", "VariantCreate", new { id = Model.First().ProductId })
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th></th>
+            <th>
+                @Html.DisplayNameFor(model => model.VariantName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsVisible)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cost)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UnitPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Stock)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @if (item.PhotoName != "")
+                    {
+                        <img src="~/ProductImage/@(item.PhotoName)-2.jpg" />
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.VariantName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsVisible)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cost)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UnitPrice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Stock)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "VariantEdit", new { id = item.VariantId }) |
+                    @Html.ActionLink("Delete", "VariantDelete", new { id = item.VariantId }, new { @class = "deleteVariant" }) |
+                    @Html.ActionLink("Add Photo", "PhotoAdd", "ProductImage", new { id = item.VariantId, ProductId = item.ProductId }, new { @class = "photos" })|
+                    @Html.ActionLink("Photos", "Index", "ProductImage", new { id = item.VariantId, ProductId = item.ProductId }, new { @class = "photos" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@section head{
+    <link href="http://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css">
+}
+@section scripts{
+    <script src="http://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+}
+
+@section scriptsready {
+    $('.table').DataTable();
+    $('.deleteVariant').click(function(){
+    return confirm("Are you sure you want to delete this variant?");
+    });
+}
+

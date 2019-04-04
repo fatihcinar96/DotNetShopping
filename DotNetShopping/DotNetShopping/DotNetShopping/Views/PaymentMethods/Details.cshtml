@@ -1,0 +1,91 @@
+﻿@model DotNetShopping.Models.PaymentMethod
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>PaymentMethod</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Domestic)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Domestic)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.International)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.International)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StaticCost)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StaticCost)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PercentCost)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PercentCost)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MinAmount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MinAmount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MaxAmount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MaxAmount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PaymentInfo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PaymentInfo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PaymentDiscount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PaymentDiscount)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.PaymentMethodId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

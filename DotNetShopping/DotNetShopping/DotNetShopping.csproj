@@ -197,33 +197,13 @@
     </Compile>
     <Compile Include="Helpers\ImageHelper.cs" />
     <Compile Include="Helpers\StringHelper.cs" />
-    <Compile Include="Migrations\201903121300407_InitialExpanse.cs" />
-    <Compile Include="Migrations\201903121300407_InitialExpanse.Designer.cs">
-      <DependentUpon>201903121300407_InitialExpanse.cs</DependentUpon>
+    <Compile Include="Migrations\201904041722239_InitialCreate.cs" />
+    <Compile Include="Migrations\201904041722239_InitialCreate.Designer.cs">
+      <DependentUpon>201904041722239_InitialCreate.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201903121301596_sequence.cs" />
-    <Compile Include="Migrations\201903121301596_sequence.Designer.cs">
-      <DependentUpon>201903121301596_sequence.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201903151634078_userdates.cs" />
-    <Compile Include="Migrations\201903151634078_userdates.Designer.cs">
-      <DependentUpon>201903151634078_userdates.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201903211651428_cart.cs" />
-    <Compile Include="Migrations\201903211651428_cart.Designer.cs">
-      <DependentUpon>201903211651428_cart.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201903281716543_Orders.cs" />
-    <Compile Include="Migrations\201903281716543_Orders.Designer.cs">
-      <DependentUpon>201903281716543_Orders.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201903291402008_required-fields.cs" />
-    <Compile Include="Migrations\201903291402008_required-fields.Designer.cs">
-      <DependentUpon>201903291402008_required-fields.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201904011456573_shipping.cs" />
-    <Compile Include="Migrations\201904011456573_shipping.Designer.cs">
-      <DependentUpon>201904011456573_shipping.cs</DependentUpon>
+    <Compile Include="Migrations\201904041722440_required-fields.cs" />
+    <Compile Include="Migrations\201904041722440_required-fields.Designer.cs">
+      <DependentUpon>201904041722440_required-fields.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -469,26 +449,11 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201903121300407_InitialExpanse.resx">
-      <DependentUpon>201903121300407_InitialExpanse.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201904041722239_InitialCreate.resx">
+      <DependentUpon>201904041722239_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201903121301596_sequence.resx">
-      <DependentUpon>201903121301596_sequence.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201903151634078_userdates.resx">
-      <DependentUpon>201903151634078_userdates.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201903211651428_cart.resx">
-      <DependentUpon>201903211651428_cart.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201903281716543_Orders.resx">
-      <DependentUpon>201903281716543_Orders.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201903291402008_required-fields.resx">
-      <DependentUpon>201903291402008_required-fields.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904011456573_shipping.resx">
-      <DependentUpon>201904011456573_shipping.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201904041722440_required-fields.resx">
+      <DependentUpon>201904041722440_required-fields.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

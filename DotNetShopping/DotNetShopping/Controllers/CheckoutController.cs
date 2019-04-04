@@ -90,5 +90,11 @@ namespace DotNetShopping.Controllers
 
             return View();
         }
+        [HttpPost]
+        public ActionResult Checkout(CheckoutModel checkout , CreditCardModel card,string paypal)
+        {
+
+            return RedirectToAction("Index","Home");
+        }
     }
 }
