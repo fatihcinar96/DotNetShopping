@@ -1,0 +1,29 @@
+﻿@model List<DotNetShopping.Models.OrderListModel>
+@{
+    ViewBag.Title = "My Orders";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>My Orders</h2>
+
+<table class="orderTable">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Status</th>
+            <th>Total Price</th>
+            <th>Paid</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(DotNetShopping.Models.OrderListModel order in Model)
+        {
+            <tr onclick="window.location = '@Url.Action("Order","MyOrders",new { id = order.OrderId })';" >
+                <td style="padding-left : 1%">@order.OrderDate.ToShortDateString() </td>
+                <td>@order.OrderStatus</td>
+                <td>$@order.TotalPrice</td>
+                <td>@order.Paid</td>
+            </tr>
+        }
+    </tbody>
+</table>

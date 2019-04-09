@@ -98,7 +98,8 @@ namespace DotNetShopping.Models
         public Decimal TotalPrice { get; set; }
         public Decimal TotalProfit { get; set; }
         public DateTime OrderDate { get; set; }
-        public DateTime ShippingDate { get; set; }
+      
+        public DateTime? ShippingDate { get; set; }
         public OrderStatuses OrderStatus { get; set; }
         public bool Paid { get; set; }
     }
@@ -184,4 +185,66 @@ namespace DotNetShopping.Models
         public int cardCvv { get; set; }
 
     }
+    
+    public class OrderListModel
+    {
+        public Int64 OrderId { get; set; }
+        public string UserId { get; set; }
+        public Order.OrderStatuses OrderStatus { get; set; }
+        public Decimal TotalPrice { get; set; }
+        public DateTime OrderDate { get; set; }
+        public bool Paid { get; set; }
+    }
+
+    public class OrderDetailModel
+    {
+        public Int64 OrderId { get; set; }
+        public string UserId { get; set; }
+        public Order.OrderStatuses OrderStatus { get; set; }
+        public Decimal TotalPrice { get; set; }
+        public DateTime OrderDate { get; set; }
+        public bool Paid { get; set; }
+        [Required]
+        [Display(Name = "First Name")]
+        public string ShippingFirstName { get; set; }
+        [Required]
+        [Display(Name = "Last Name")]
+        public string ShippingLastName { get; set; }
+        [Display(Name = "Company")]
+        public string ShippingCompany { get; set; }
+        [Required]
+        [Display(Name = "Street 1")]
+        public string ShippingStreet1 { get; set; }
+        [Display(Name = "Street 2")]
+        public string ShippingStreet2 { get; set; }
+        [Required]
+        [Display(Name = "City")]
+        public Int16 ShippingCityId { get; set; }
+        [Required]
+        [Display(Name = "State")]
+        public Int16 ShippingStateId { get; set; }
+        [Required]
+        [Display(Name = "Country")]
+        public Int16 ShippingCountryId { get; set; }
+        [Required]
+        [Display(Name = "Zip")]
+        public string ShippingZip { get; set; }
+        [Required]
+        [Display(Name = "Telephone")]
+        public string ShippingTelephone { get; set; }
+        [Required]
+        [Display(Name = "Shipping Method")]
+        public Int16 ShippingMethodId { get; set; }
+        public Decimal ShippingCost { get; set; }
+        [Required]
+        [Display(Name = "Payment Method")]
+        public Int16 PaymentMethodId { get; set; }
+        public string PaymentMethodName { get; set; }
+        public DateTime? ShippingDate { get; set; }
+        public string ShippingMethodName { get; set; }
+
+        public List<OrderProductListModel> OrderProducts { get; set; }
+    }
+
+    
 }

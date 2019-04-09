@@ -25,6 +25,8 @@ namespace DotNetShopping.Models
         public int Quantity { get; set; }
         public Decimal UnitPrice { get; set; }
         public Decimal TotalPrice { get; set; }
+        public Decimal Cost { get; set; }
+        public Decimal TotalCost { get; set; }
         public string VariantName { get; set; }
         public string ProductName { get; set; }
         public string PhotoName { get; set; }
@@ -48,6 +50,8 @@ namespace DotNetShopping.Models
                     ProductName = x.Product.Name,
                     UnitPrice = x.cv.Variant.UnitPrice,
                     TotalPrice = x.cv.Variant.UnitPrice * x.cv.Cart.Quantity,
+                    Cost = x.cv.Variant.Cost,
+                    TotalCost = x.cv.Variant.Cost * x.cv.Cart.Quantity,
                     Stock = x.cv.Variant.Stock,
                     PhotoName = db.ProductImages.Where(pi => pi.VariantId == x.cv.Variant.VariantId)
                     .OrderBy(pi => pi.Sequence).FirstOrDefault().FileName

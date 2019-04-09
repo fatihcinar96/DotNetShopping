@@ -183,6 +183,8 @@
     <Compile Include="Controllers\CountriesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MyOrdersController.cs" />
+    <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\PaymentMethodsController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\ProductDetailController.cs" />
@@ -204,6 +206,10 @@
     <Compile Include="Migrations\201904041722440_required-fields.cs" />
     <Compile Include="Migrations\201904041722440_required-fields.Designer.cs">
       <DependentUpon>201904041722440_required-fields.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904091252261_shippingdate.cs" />
+    <Compile Include="Migrations\201904091252261_shippingdate.Designer.cs">
+      <DependentUpon>201904091252261_shippingdate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -429,6 +435,9 @@
     <Content Include="Views\PaymentMethods\Details.cshtml" />
     <Content Include="Views\PaymentMethods\Edit.cshtml" />
     <Content Include="Views\PaymentMethods\Index.cshtml" />
+    <Content Include="Views\MyOrders\Index.cshtml" />
+    <Content Include="Views\Order\Index.cshtml" />
+    <Content Include="Views\MyOrders\Order.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -454,6 +463,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201904041722440_required-fields.resx">
       <DependentUpon>201904041722440_required-fields.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904091252261_shippingdate.resx">
+      <DependentUpon>201904091252261_shippingdate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
