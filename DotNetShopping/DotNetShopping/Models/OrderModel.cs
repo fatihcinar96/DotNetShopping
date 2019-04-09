@@ -102,6 +102,7 @@ namespace DotNetShopping.Models
         public DateTime? ShippingDate { get; set; }
         public OrderStatuses OrderStatus { get; set; }
         public bool Paid { get; set; }
+        public Decimal Discount { get; set; }
     }
 
     public class CheckoutModel
@@ -194,6 +195,8 @@ namespace DotNetShopping.Models
         public Decimal TotalPrice { get; set; }
         public DateTime OrderDate { get; set; }
         public bool Paid { get; set; }
+        public string Email { get; set; }
+        public string UserName { get; set; }
     }
 
     public class OrderDetailModel
@@ -242,7 +245,10 @@ namespace DotNetShopping.Models
         public string PaymentMethodName { get; set; }
         public DateTime? ShippingDate { get; set; }
         public string ShippingMethodName { get; set; }
-
+        public Decimal Discount { get; set; }
+        public string CityName { get; set; }
+        public string StateName { get; set; }
+        public string CountryName { get; set; }
         public List<OrderProductListModel> OrderProducts { get; set; }
     }
 

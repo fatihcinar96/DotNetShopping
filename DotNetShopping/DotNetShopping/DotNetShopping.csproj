@@ -211,6 +211,10 @@
     <Compile Include="Migrations\201904091252261_shippingdate.Designer.cs">
       <DependentUpon>201904091252261_shippingdate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201904091513575_discount.cs" />
+    <Compile Include="Migrations\201904091513575_discount.Designer.cs">
+      <DependentUpon>201904091513575_discount.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BrandModel.cs" />
@@ -438,6 +442,7 @@
     <Content Include="Views\MyOrders\Index.cshtml" />
     <Content Include="Views\Order\Index.cshtml" />
     <Content Include="Views\MyOrders\Order.cshtml" />
+    <Content Include="Views\Order\Detail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -466,6 +471,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201904091252261_shippingdate.resx">
       <DependentUpon>201904091252261_shippingdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904091513575_discount.resx">
+      <DependentUpon>201904091513575_discount.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

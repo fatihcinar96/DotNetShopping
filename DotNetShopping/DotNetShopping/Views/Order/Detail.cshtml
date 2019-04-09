@@ -1,8 +1,9 @@
-﻿@model DotNetShopping.Models.OrderDetailModel
+﻿
 @{
-    ViewBag.Title = "Order";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Detail";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
+
 
 <h2>Order</h2>
 
@@ -53,7 +54,7 @@
     </tr>
 
 </table>
-<table class="orderTable">
+<table class="orderTable table">
     <thead>
         <tr>
             <th></th>
@@ -61,7 +62,7 @@
             <th>Quantity</th>
             <th>Unit Price</th>
             <th>Total Price</th>
-            
+
         </tr>
 
 
@@ -69,7 +70,7 @@
     <tbody>
         @foreach (DotNetShopping.Models.OrderProductListModel item in Model.OrderProducts)
         {
-                var productName = DotNetShopping.Helpers.StringHelper.ClearFileName(item.VariantName + " " + item.ProductName);
+            var productName = DotNetShopping.Helpers.StringHelper.ClearFileName(item.VariantName + " " + item.ProductName);
 
             <tr onclick="window.location = '@Url.Action("Product","ProductDetail",new { id = item.VariantId , name = productName})';">
                 <td><img src="~/ProductImage/@(item.FileName)-1.jpg" /></td>
@@ -77,7 +78,7 @@
                 <td>@item.Quantity</td>
                 <td>$@item.UnitPrice</td>
                 <td>$@item.TotalPrice</td>
-                
+
             </tr>
         }
     </tbody>

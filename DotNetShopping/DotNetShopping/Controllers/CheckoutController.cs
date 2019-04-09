@@ -175,8 +175,9 @@ namespace DotNetShopping.Controllers
                 }
                 var paymentMethod = db.PaymentMethods.Find(checkout.PaymentMethodId);
                 decimal paymentDiscount = paymentMethod.PaymentDiscount;
+                order.Discount = paymentDiscount;
                 order.TotalPrice = productTotal + shippingCost - paymentDiscount;
-
+                order.ShippingCost = shippingCost;
                 decimal productCost = cart.Sum(x => x.TotalCost);
 
                 decimal paymentCost = (paymentMethod.PercentCost * order.TotalPrice) + paymentMethod.StaticCost;
@@ -208,7 +209,7 @@ namespace DotNetShopping.Controllers
                 db.Carts.RemoveRange(db.Carts.Where(x=> x.UserId == UserId));
                 db.SaveChanges();
 
-                return RedirectToAction("Index", "MyOrders");
+                return RedirectToAction("Order", "MyOrders", new { id = order.OrderId });
 
             }
             catch (Exception ex)

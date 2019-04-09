@@ -1124,6 +1124,36 @@ button.button:hover span {
             background-color : #e1ddc3;
         }
 
+    .orderTable td th{
+        padding-left : 10px;
+        padding-right : 10px;
+
+    }
+
+
+    .orderDetail {
+        width: 100%;
+        margin-bottom : 40px;
+    }
+        .orderDetail td {
+            padding-left: 10px;
+            padding-right: 10px;
+            padding-top : 2px;
+            padding-bottom : 2px;
+        }
+
+        .orderDetail .titleLabel{
+            font-weight : bold;
+            width : 120px;
+        }
+
+        .orderDetail .detailLabel{
+            
+        }
+
+
+
+
         #loading {
             position: fixed;
             width: 100%;

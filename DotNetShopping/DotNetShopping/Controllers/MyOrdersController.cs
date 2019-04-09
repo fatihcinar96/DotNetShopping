@@ -56,6 +56,10 @@ namespace DotNetShopping.Controllers
                     ShippingZip = x.osm.Order.ShippingZip,
                     TotalPrice = x.osm.Order.TotalPrice,
                     UserId = x.osm.Order.UserId,
+                    Discount = x.osm.Order.Discount,
+                    CityName = db.Cities.Where(c=> c.CityId == x.osm.Order.ShippingCityId).FirstOrDefault().Name,
+                    StateName = db.States.Where(c=> c.StateId == x.osm.Order.ShippingStateId).FirstOrDefault().Name,
+                    CountryName = db.Countries.Where(c=> c.CountryId == x.osm.Order.ShippingCountryId).FirstOrDefault().Name,
                     OrderProducts = db.OrderProducts.Where(op => op.OrderId == id)
                     .Join(db.Variants , op => op.VariantId, v=> v.VariantId,(op,v)=> new { OrderProduct = op , Variant = v})
                     .Join(db.Products , opv => opv.Variant.ProductId , p=> p.ProductId,(opv,p) => new { opv,Product = p})
@@ -71,6 +75,7 @@ namespace DotNetShopping.Controllers
                             ProductId = oplm.Product.ProductId,
                             ProductName = oplm.Product.Name,
                             VariantName = oplm.opv.Variant.Name,
+   
                             FileName = db.ProductImages.Where(pi => pi.VariantId == oplm.opv.Variant.VariantId).OrderBy(pi=> pi.Sequence).FirstOrDefault().FileName
                             
                         }).ToList()
