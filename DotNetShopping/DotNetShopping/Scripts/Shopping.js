@@ -24,7 +24,7 @@
         
     });
     $('.searchInput').on('select2:select', function (e) {
-        alert('selected');
+        window.location = '/p/'+ $('.searchInput').val();
     })
 });
 
@@ -36,6 +36,8 @@ function formatRepo(data) {
         '<div class="search-item-image"><img src="/ProductImage/' + data.PhotoName + '-1.jpg" /></div>' +
         '<div class="search-item-data">' +
         '<div class="search-item-title">' + data.text + '</div>' +
+        '<div class="search-item-description">'+'Only $' + data.UnitPrice + ' ' +'</br>'+ data.Stock + 'in stock. </div>' +
+
         '</div>';
     return markup;
 }
