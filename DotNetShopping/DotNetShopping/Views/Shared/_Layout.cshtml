@@ -7,6 +7,7 @@
     @Styles.Render("~/Content/Site/css")
     @Scripts.Render("~/bundles/modernizr")
     <link href="https://fonts.googleapis.com/css?family=Oswald|Roboto" rel="stylesheet">
+    
     @RenderSection("head", required: false)
 </head>
 <body>
@@ -28,7 +29,7 @@
                             </div>
                             <div class="navbar-collapse collapse">
                                 <ul class="navTop nav navbar-nav">
-                                    <li class="searchBox"><input type="text" class="searchInput" placeholder="Search a product.." /><i class="searchIcon glyphicon glyphicon-search"></i></li>
+                                    <li class="searchBox"><i class="searchIcon glyphicon glyphicon-search"></i><select class="searchInput" style="width : 250px;"></select></li>
                                     <li>@Html.ActionLink("DEALS", "Products", "Home")</li>
                                 </ul>
                                 @Html.Partial("_LoginPartial")
@@ -58,7 +59,7 @@
                         </div>
 
                     </div>
-                    
+
                 </div>
             </div>
         </div>
@@ -122,8 +123,10 @@
             </div>
         </div>
     </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 
     @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/select2")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/shopping")
     @RenderSection("scripts", required: false)

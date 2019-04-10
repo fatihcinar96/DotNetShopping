@@ -178,7 +178,7 @@ textarea {
     padding-top:10px;
     padding-bottom:10px;
 }
-.searchBox input:focus {
+.searchBox select:focus {
     outline: none;
 }
 
@@ -1150,6 +1150,31 @@ button.button:hover span {
         .orderDetail .detailLabel{
             
         }
+
+
+
+.search-item{
+    display : inline-block;
+    width : 100%;
+}
+.search-item-image{
+    float : left;
+    padding-right : 10px;
+}
+    .search-item-image img{
+        width : 50px;
+    }
+
+.search-item-data{
+    float : left;
+    white-space : normal;
+    display : contents;
+    
+}
+
+.search-item-title{
+    font-weight : bold;
+}
 
 
 

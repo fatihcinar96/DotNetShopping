@@ -1,4 +1,50 @@
-﻿function loadShoppingCart()
+﻿$(document).ready(function () {
+    $('.searchInput').select2({
+        ajax: {
+            url: '/Api/Search/',
+            dataType: 'json',
+            delay: 250,
+            data: function (params) {
+                return {
+                    keyword: params.term
+                };
+            },
+            processResults: function (data, params) {
+                return {
+                    results: data.results
+                };
+            },
+            cache: true
+        },
+        placeholder: 'Search for a product',
+        escapeMarkup: function (markup) { return markup; }, // let our custom formatter work
+        minimumInputLength: 1,
+        templateResult: formatRepo,
+        templateSelection: formatRepoSelection
+        
+    });
+    $('.searchInput').on('select2:select', function (e) {
+        alert('selected');
+    })
+});
+
+function formatRepo(data) {
+    if (data.loading) {
+        return data.text;
+    }
+    var markup = '<div class="search-item">' +
+        '<div class="search-item-image"><img src="/ProductImage/' + data.PhotoName + '-1.jpg" /></div>' +
+        '<div class="search-item-data">' +
+        '<div class="search-item-title">' + data.text + '</div>' +
+        '</div>';
+    return markup;
+}
+
+function formatRepoSelection(repo) {
+    return repo.full_name || repo.text;
+}
+
+function loadShoppingCart()
 {
     $.post('/Api/GetShoppingCart')
         .done(function (response, status, jqxhr) {

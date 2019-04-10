@@ -22,13 +22,22 @@ namespace DotNetShopping
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/select2").Include(
+                "~/Scripts/select2.min.js"));
+
+
             bundles.Add(new ScriptBundle("~/bundles/shopping").Include(
                       "~/Scripts/shopping.js"));
 
+
             bundles.Add(new StyleBundle("~/Content/Site/css").Include(
                       "~/Content/Bootstrap/bootstrap.css",
-                      "~/Content/Site/Site.css"));
+                      "~/Content/Site/Site.css",
+                      "~/Content/css/select2.min.css"));
 
+
+           
+        
             bundles.Add(new StyleBundle("~/Content/Admin/css").Include(
                       "~/Content/Bootstrap/bootstrap.css",
                       "~/Content/Admin/animate.min.css",
