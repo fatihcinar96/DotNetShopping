@@ -6,6 +6,7 @@
 }
 
 <h2>Checkout</h2>
+<div class="error">@Request.QueryString["Error"]</div>
 <div class="row">
     <div class="col-sm-9">
         @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "myform" }))
@@ -103,7 +104,7 @@
                             <div class="col-sm-6">
                                 <div class="input-label">@Html.LabelFor(model => model.BillingTelephone, htmlAttributes: new { @class = "control-label" })</div>
                                 <div class="input-editor">
-                                    @Html.EditorFor(model => model.BillingTelephone, new { htmlAttributes = new { @class = "form-control", maxlength = 10 } })
+                                    @Html.EditorFor(model => model.BillingTelephone, new { htmlAttributes = new { @class = "form-control", maxlength = 10 }  })
                                     @Html.ValidationMessageFor(model => model.BillingTelephone, "", new { @class = "text-danger" })
                                 </div>
                             </div>
@@ -231,7 +232,7 @@
                             <div class="col-sm-12">
                                 <div class="checkout-next"><button type="button" title="Next" class="button btn-checkout" onclick="shippingNextClick();"><span><span>NEXT</span></span></button></div>
                             </div>
-                        </div>
+                        </div>   
                     </div>
                 </li>
                 <li id="opc-shipping_method" class="section">
@@ -283,37 +284,35 @@
                                         <label class="control-label">Card Number</label>
                                     </div>
                                     <div class="input-editor">
-                                        <input type="text" id="cardNumber" class="form-control" required name="cardNumber">
-                                        <span class="field-validation-error text-danger" data-valmsg-for="cardNumber" data-valmsg-replace="true">
-                                            Card Number is required
-                                        </span>
+                                        <input type="text" id="cardNumber" name="cardNumber" class="form-control" required>
+                                        <span class="field-validation-error text-danger"
+                                              data-valmsg-for="cardNumber"
+                                              data-valmsg-replace="true">Card Number is required.</span>
                                     </div>
                                     <div class="input-label"><label class="control-label">Name on Card</label></div>
                                     <div class="input-editor">
-                                        <input type="text" id="cardHolder" class="form-control" required name="cardHolder">
-                                        <span class="field-validation-error text-danger" data-valmsg-for="cardHolder" data-valmsg-replace="true">
-                                            Name on Card is required.
-                                        </span>
+                                        <input type="text" id="cardHolder" name="cardHolder" class="form-control" required>
+                                        <span class="field-validation-error text-danger"
+                                              data-valmsg-for="cardHolder"
+                                              data-valmsg-replace="true">Name on Card is required.</span>
                                     </div>
                                     <div class="card-row">
                                         <div class="card-date">
-                                            <div class="input-label">
-                                            <label class="control-label">Exp-Month</label>
-                                            </div>
+                                            <div class="input-label"><label class="control-label">Exp-Month</label></div>
                                             <div class="input-editor">
-                                            <select id="cardExpirationMonth"class="form-control" name="cardExpirationMonth">
-                                                @for(int i = 1; i <=12; i++)
-                                                {
-                                                    <option value="@i">@i</option>
-                                                }
-                                            </select>
+                                                <select id="cardExpirationMonth" name="cardExpirationMonth" class="form-control">
+                                                    @for(int i = 1; i <= 12; i++)
+                                                    {
+                                                        <option value="@i">@i</option>
+                                                    }
+                                                </select>
                                             </div>
                                         </div>
                                         <div class="card-date">
                                             <div class="input-label"><label class="control-label">Exp-Year</label></div>
                                             <div class="input-editor">
-                                                <select id="cardExpirationYear" class="form-control" name="cardExpirationYear">
-                                                    @for (int i = DateTime.Today.Year; i <= DateTime.Today.Year +12; i++)
+                                                <select id="cardExpirationYear" name="cardExpirationYear" class="form-control">
+                                                    @for (int i = DateTime.Today.Year; i <= DateTime.Today.Year + 12; i++)
                                                     {
                                                         <option value="@i">@i</option>
                                                     }
@@ -323,10 +322,10 @@
                                     </div>
                                     <div class="input-label"><label class="control-label">CVV</label></div>
                                     <div class="input-editor">
-                                        <input type="text" id="cardCvv" class="form-control" name="cardCvv" required>
-                                        <span class="field-validation-error text-danger" data-valmsg-for="cardCvv" data-valmsg-replace="true">
-                                            CVV is required.
-                                        </span>
+                                        <input type="text" id="cardCvv" name="cardCvv" class="form-control" required>
+                                        <span class="field-validation-error text-danger"
+                                              data-valmsg-for="cardCvv"
+                                              data-valmsg-replace="true">CVV number is required.</span>
                                     </div>
 
                                 </div>
@@ -335,10 +334,10 @@
                                         <label class="control-label">PayPal Account</label>
                                     </div>
                                     <div class="input-editor">
-                                        <input type="text" id="paypal" class="form-control" name="paypal" required>
-                                        <span class="field-validation-error text-danger" data-valmsg-for="paypal" data-valmsg-replace="true">
-                                            Paypal Account is required.
-                                        </span>
+                                        <input type="text" id="paypal" name="paypal" class="form-control" required>
+                                        <span class="field-validation-error text-danger"
+                                              data-valmsg-for="paypal"
+                                              data-valmsg-replace="true">Paypal Account is required.</span>
                                     </div>
                                 </div>
                             </div>
@@ -389,7 +388,7 @@
                                     </tr>
                                 }
                             </tbody>
-                            <tfoot class="checkout-total-Bg">
+                            <tfoot  class="checkout-total-Bg">
                                 <tr>
                                     <td colspan="3"></td>
                                     <td>Total</td>
@@ -418,12 +417,12 @@
                                 <input type="checkbox" id="conditions">
                                 <span class="checkmark"></span>
                             </label>
-                            <div class="checkout-submit"><button type="submit" title="Place Order" id="PlaceOrder" class="button btn-checkout"><span><span>Place Order</span></span></button></div>
+                            <div class="checkout-submit"><button type="submit" id="PlaceOrder" title="Place Order" class="button btn-checkout"><span><span>Place Order</span></span></button></div>
                         </div>
                     </div>
                 </li>
             </ol>
-
+            
         }
     </div>
     <div class="col-sm-3">
@@ -459,3 +458,4 @@
     @Scripts.Render("~/bundles/jqueryval")
     <script src="~/Scripts/checkout.js"></script>
 }
+

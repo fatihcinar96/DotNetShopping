@@ -38,7 +38,6 @@ namespace DotNetShopping.Models
         public bool Domestic { get; set; }
         public bool International { get; set; }
         public Int16 CountryId { get; set; }
-        [Display (Name = "Country Name")]
         public string CountryName { get; set; }
         public Decimal CostHalf { get; set; }
         public Decimal CostOne { get; set; }

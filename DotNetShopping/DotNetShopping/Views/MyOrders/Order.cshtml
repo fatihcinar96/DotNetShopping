@@ -5,7 +5,6 @@
 }
 
 <h2>Order</h2>
-
 <table class="orderDetail">
     <tr>
         <td class="titleLabel">Date</td>
@@ -14,44 +13,39 @@
         <td class="detailLabel">@Model.OrderStatus</td>
         <td class="titleLabel">Ship To</td>
         <td class="detailLabel">@Model.ShippingFirstName @Model.ShippingLastName</td>
-
     </tr>
-
     <tr>
         <td class="titleLabel">Payment Method</td>
         <td class="detailLabel">@Model.PaymentMethodName</td>
-        <td class="titleLabel">Payment </td>
-        <td class="detailLabel">@(Model.Paid ? "Paid" : "Not Paid")</td>
+        <td class="titleLabel">Payment</td>
+        <td class="detailLabel">@(Model.Paid ? "Paid" : "Not Paid" )</td>
         <td class="titleLabel">Company</td>
         <td class="detailLabel">@Model.ShippingCompany</td>
-
     </tr>
-
     <tr>
-        <td class="titleLabel">Shipping Method</td>
+        <td class="titleLabel">Shipping</td>
         <td class="detailLabel">@Model.ShippingMethodName</td>
-        <td class="titleLabel">Shipping Date </td>
+        <td class="titleLabel">Shipping Date</td>
         <td class="detailLabel">@(Model.ShippingDate == null ? "Not Shipped" : Model.ShippingDate.Value.ToShortDateString() )</td>
         <td class="titleLabel">Street</td>
-        <td class="detailLabel">@Model.ShippingStreet1 ,<br /> @Model.ShippingStreet2</td>
+        <td class="detailLabel">@Model.ShippingStreet1, @Model.ShippingStreet2</td>
     </tr>
     <tr>
         <td class="titleLabel">Shipping Cost</td>
         <td class="detailLabel">@Model.ShippingCost</td>
-        <td class="titleLabel">Discount </td>
+        <td class="titleLabel">Discount</td>
         <td class="detailLabel">@Model.Discount</td>
-        <td class="titleLabel">City , State</td>
-        <td class="detailLabel">@Model.CityName , @Model.StateName</td>
+        <td class="titleLabel">City, State</td>
+        <td class="detailLabel">@Model.CityName @Model.StateName</td>
     </tr>
     <tr>
         <td class="titleLabel">Total Price</td>
         <td class="detailLabel">@Model.TotalPrice</td>
-        <td class="titleLabel">Phone </td>
+        <td class="titleLabel">Telephone</td>
         <td class="detailLabel">@Model.ShippingTelephone</td>
-        <td class="titleLabel">Country , Zip</td>
-        <td class="detailLabel">@Model.CountryName , @Model.ShippingZip</td>
+        <td class="titleLabel">Country, Zip</td>
+        <td class="detailLabel">@Model.CountryName @Model.ShippingZip</td>
     </tr>
-
 </table>
 <table class="orderTable">
     <thead>
@@ -61,23 +55,19 @@
             <th>Quantity</th>
             <th>Unit Price</th>
             <th>Total Price</th>
-            
         </tr>
-
-
     </thead>
     <tbody>
         @foreach (DotNetShopping.Models.OrderProductListModel item in Model.OrderProducts)
         {
-                var productName = DotNetShopping.Helpers.StringHelper.ClearFileName(item.VariantName + " " + item.ProductName);
+            var productName = DotNetShopping.Helpers.StringHelper.ClearFileName(item.VariantName + " " + item.ProductName);
 
-            <tr onclick="window.location = '@Url.Action("Product","ProductDetail",new { id = item.VariantId , name = productName})';">
+            <tr onclick="window.location = '@Url.Action("Product", "ProductDetail", new { id = item.VariantId, name = productName })';">
                 <td><img src="~/ProductImage/@(item.FileName)-1.jpg" /></td>
                 <td>@item.VariantName @item.ProductName</td>
                 <td>@item.Quantity</td>
                 <td>$@item.UnitPrice</td>
                 <td>$@item.TotalPrice</td>
-                
             </tr>
         }
     </tbody>

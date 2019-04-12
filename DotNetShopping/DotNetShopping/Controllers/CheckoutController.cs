@@ -67,10 +67,10 @@ namespace DotNetShopping.Controllers
         }
         public ActionResult Checkout()
         {
+            #region fillFormData
             var countries = db.Countries.OrderBy(x => x.Name).ToList();
             ViewBag.BillingCountryId = new SelectList(countries, "CountryId", "Name");
             ViewBag.ShippingCountryId = new SelectList(countries, "CountryId", "Name");
-           
 
             var selectState = new List<string>();
             ViewBag.BillingStateId = new SelectList(selectState);
@@ -89,29 +89,20 @@ namespace DotNetShopping.Controllers
             CartListModel co = new CartListModel();
             var cart = co.GetCart(User.Identity.GetUserId());
             ViewBag.Cart = cart;
-
+            #endregion
             return View();
         }
         [HttpPost]
-        public ActionResult Checkout(CheckoutModel checkout , CreditCardModel card,string paypal)
+        public ActionResult Checkout(CheckoutModel checkout, CreditCardModel card, String paypal)
         {
+            string userId = User.Identity.GetUserId();
             CartListModel co = new CartListModel();
-
-            CreditCardModel creditCart = new CreditCardModel
-            {
-                cardCvv = card.cardCvv,
-                cardExpirationMonth = card.cardExpirationMonth,
-                cardHolder = card.cardHolder,
-                cardNumber = card.cardNumber,
-                cardExpirationYear = card.cardExpirationYear
-            };
-
-            var UserId = User.Identity.GetUserId();
-            var cart = co.GetCart(User.Identity.GetUserId());
-            #region createorder
             try
             {
+                var cart = co.GetCart(User.Identity.GetUserId());
+                #region createorder 
                 var order = new Order();
+                order.UserId = userId;
                 order.BillingCityId = checkout.BillingCityId;
                 order.BillingCompany = checkout.BillingCompany;
                 order.BillingCountryId = checkout.BillingCountryId;
@@ -123,49 +114,52 @@ namespace DotNetShopping.Controllers
                 order.BillingStreet2 = checkout.BillingStreet2;
                 order.BillingTelephone = checkout.BillingTelephone;
                 order.BillingZip = checkout.BillingZip;
-
                 order.ShippingCityId = checkout.ShippingCityId;
                 order.ShippingCompany = checkout.ShippingCompany;
+                order.ShippingCost = checkout.ShippingCost;
                 order.ShippingCountryId = checkout.ShippingCountryId;
                 order.ShippingFirstName = checkout.ShippingFirstName;
                 order.ShippingLastName = checkout.ShippingLastName;
+                order.ShippingMethodId = checkout.ShippingMethodId;
                 order.ShippingStateId = checkout.ShippingStateId;
                 order.ShippingStreet1 = checkout.ShippingStreet1;
                 order.ShippingStreet2 = checkout.ShippingStreet2;
                 order.ShippingTelephone = checkout.ShippingTelephone;
-                order.ShippingCost = checkout.ShippingCost;
-                order.ShippingMethodId = checkout.ShippingMethodId;
                 order.ShippingZip = checkout.ShippingZip;
-                order.PaymentMethodId = checkout.PaymentMethodId;
-                order.UserId = UserId;
-                order.Paid = false;
-                
-                if(card.cardNumber != null)
-                {
-                    order.CardAccount = card.cardNumber.Substring(card.cardNumber.Length - 4, 4);
-                }
-                order.CardAccount = "1234";
-                order.CardHolderName = card.cardHolder;
                 order.OrderDate = DateTime.Now;
                 order.OrderStatus = Order.OrderStatuses.Received;
-                
+                order.Paid = false;
+                order.PaymentMethodId = checkout.PaymentMethodId;
+                if (card.cardNumber != null)
+                {
+                    order.CardAccount = card.cardNumber.Substring(card.cardNumber.Length - 4, 4);
+                    order.CardHolderName = card.cardHolder;
+                }
+                if(paypal != null)
+                {
+                    //TODO:
+                    //add paypal to Order
+                }
+
                 var productTotal = cart.Sum(x => x.TotalPrice);
                 var weight = cart.Sum(x => x.Quantity) * 0.25;
-                var shippingCosts = db.ShippingCosts.Where(x=> x.ShippingMethodId == checkout.ShippingMethodId && x.CountryId == checkout.ShippingCountryId).FirstOrDefault();
+                var shippingCosts = db.ShippingCosts
+                    .Where(x => x.ShippingMethodId == checkout.ShippingMethodId &&
+                    x.CountryId == checkout.ShippingCountryId).FirstOrDefault();
                 decimal shippingCost = 0;
-                if(weight <= 0.5)
+                if (weight <= 0.5)
                 {
                     shippingCost = shippingCosts.CostHalf;
                 }
-                else if(weight <= 1)
+                else if (weight <= 1)
                 {
                     shippingCost = shippingCosts.CostOne;
                 }
-                else if(weight <= 1.5)
+                else if (weight <= 1.5)
                 {
                     shippingCost = shippingCosts.CostOneHalf;
                 }
-                else if(weight <= 2)
+                else if (weight <= 2)
                 {
                     shippingCost = shippingCosts.CostTwo;
                 }
@@ -179,19 +173,17 @@ namespace DotNetShopping.Controllers
                 order.TotalPrice = productTotal + shippingCost - paymentDiscount;
                 order.ShippingCost = shippingCost;
                 decimal productCost = cart.Sum(x => x.TotalCost);
-
                 decimal paymentCost = (paymentMethod.PercentCost * order.TotalPrice) + paymentMethod.StaticCost;
-                var totalCost = productCost + paymentCost + shippingCost;
 
-                order.TotalCost = totalCost;
+                order.TotalCost = productCost + paymentCost + shippingCost;
+                
                 order.TotalProfit = order.TotalPrice - order.TotalCost;
-
 
                 db.Orders.Add(order);
                 db.SaveChanges();
                 #endregion
 
-                foreach(CartListModel item in cart)
+                foreach (CartListModel item in cart)
                 {
                     var op = new OrderProduct();
                     op.OrderId = order.OrderId;
@@ -202,23 +194,44 @@ namespace DotNetShopping.Controllers
                     op.VariantId = item.VariantId;
                     op.Cost = item.Cost;
                     db.OrderProducts.Add(op);
-
                 }
                 db.SaveChanges();
 
-                db.Carts.RemoveRange(db.Carts.Where(x=> x.UserId == UserId));
+                //TODO: Process Payment if necessary.
+
+                db.Carts.RemoveRange(db.Carts.Where(x => x.UserId == userId));
                 db.SaveChanges();
 
                 return RedirectToAction("Order", "MyOrders", new { id = order.OrderId });
-
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
                 ViewBag.Error = ex.Message;
-                return RedirectToAction("Index", "Home");
+                #region fillFormData
+                var countries = db.Countries.OrderBy(x => x.Name).ToList();
+                ViewBag.BillingCountryId = new SelectList(countries, "CountryId", "Name");
+                ViewBag.ShippingCountryId = new SelectList(countries, "CountryId", "Name");
+
+                var selectState = new List<string>();
+                ViewBag.BillingStateId = new SelectList(selectState);
+                ViewBag.ShippingStateId = new SelectList(selectState);
+
+                var selectCity = new List<string>();
+                ViewBag.BillingCityId = new SelectList(selectCity);
+                ViewBag.ShippingCityId = new SelectList(selectCity);
+
+                var selectShippingMethod = new List<string>();
+                ViewBag.ShippingMethodId = new SelectList(selectShippingMethod);
+
+                var selectPaymentMethod = new List<string>();
+                ViewBag.PaymentMethodId = new SelectList(selectPaymentMethod);
+
+                
+                var cart = co.GetCart(User.Identity.GetUserId());
+                ViewBag.Cart = cart;
+                #endregion
+                return View();
             }
-
         }
-
     }
 }

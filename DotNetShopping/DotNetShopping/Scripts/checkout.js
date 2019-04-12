@@ -32,17 +32,14 @@
             var cost = $(this).find(':selected').attr('data-cost');
             $('#ShippingCost').html('$' + cost);
             $('#shipping-total').html('$' + cost);
-            $('#shippingbox6').html('Shipping : '+$('#ShippingMethodId option:selected').text() + ' ' +  '$' + cost);
-
+            $('#shippingbox6').html('Shipping: ' + $('#ShippingMethodId option:selected').text() + ' $' + cost);
         }
         else {
             $('#ShippingCost').html('');
         }
     });
     $("#PaymentMethodId").change(function () {
-        $('#myform').validate({
-
-        });
+        
         var paymentMethodId = parseInt($(this).val());
         if (paymentMethodId > 0) {
             if (paymentMethodId === 1 || paymentMethodId === 2) {
@@ -58,7 +55,7 @@
                     $('.payment-paypal').hide(200);
                 }
             }
-
+            
             var totalPrice = parseFloat($('#totalPrice').val().replace(',', '.'));
             var cost = parseFloat($('#ShippingMethodId').find(':selected').attr('data-cost').replace(',', '.'));
             var discount = parseFloat($(this).find(':selected').attr('data-discount').replace(',', '.'));
@@ -66,10 +63,9 @@
             var grandTotal = 0;
             if (discount > 0) {
                 grandTotal = cost + totalPrice - discount;
-                $('#PaymentDiscount').html('$' + amount.toFixed(2));
-                $('#discount-total').html('$' + amount.toFixed(2));
+                $('#PaymentDiscount').html('$' + discount.toFixed(2));
+                $('#discount-total').html('$' + discount.toFixed(2));
                 $('#grand-total').html('$' + grandTotal.toFixed(2));
-                
                 $('.PaymentDiscount').show(200);
             }
             else {
@@ -88,15 +84,17 @@
             $('#grand-total').html('$0.00');
         }
         $('#PaymentInfo').html($(this).find(':selected').attr('data-info'));
+        //$('#myform').validate().resetForm();
     });
     $('#PlaceOrder').click(function () {
         if ($('#conditions').prop('checked')) {
             return true;
-        } else {
-            alert('You have to agree terms and conditions to place an order.')
+        }
+        else {
+            alert('You have to agree terms and conditions to place an order.');
             return false;
         }
-    })
+    });
 });
 function billingCountryChanged(selectedStateId, selectedCityId) {
     var countryId = $("#BillingCountryId").val();
@@ -266,7 +264,7 @@ function billingNextClick() {
         var value = parseInt($('input:radio[name=billingradio]:checked').val());
         //alert('value:' + value);
         $('#checkout-step-billing').hide(200);
-        if (value === 1) {
+        if(value === 1) {
             $('#checkout-step-shipping').show(200);
         }
         else {
@@ -298,6 +296,7 @@ function shippingMethodNextClick() {
 function paymentNextClick() {
     $('#myform').validate({ // initialize the plugin
         // rules & options
+        
     });
     if ($('#myform').valid()) {
         $('#checkout-step-payment').hide(200);
@@ -351,16 +350,16 @@ function copyAddress() {
     $('#ShippingTelephone').val($('#BillingTelephone').val());
 }
 function testValues() {
-    $('#BillingFirstName').val('Fatih');
-    $('#BillingLastName').val('Cinar');
-    $('#BillingCompany').val('Microsoft');
-    $('#BillingStreet1').val('Cincin St');
-    $('#BillingStreet2').val('Esenler');
+    $('#BillingFirstName').val('Huseyin Avni');
+    $('#BillingLastName').val('Yalcin');
+    $('#BillingCompany').val('ElephantApps');
+    $('#BillingStreet1').val('Kozyatagi');
+    $('#BillingStreet2').val('Atasehir');
     $('#BillingCountryId').val(1);
-    billingCountryChanged(3, 6);
-    $('#BillingZip').val('34200');
-    $('#BillingTelephone').val('5070728003');
-    $('#BillingEmail').val('fatihcinar96@gmail.com');
+    billingCountryChanged(2, 2);
+    $('#BillingZip').val('34770');
+    $('#BillingTelephone').val('5544331234');
+    $('#BillingEmail').val('huseyin@avniyalcin.com');
 }
 function fillBillingBox() {
     $('#billingbox1').html($('#BillingFirstName').val() + ' ' + $('#BillingLastName').val());

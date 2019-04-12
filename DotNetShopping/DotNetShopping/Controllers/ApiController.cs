@@ -109,29 +109,30 @@ namespace DotNetShopping.Controllers
                 .OrderBy(x => x.Name).ToList();
             return Json(new { Success = true, PaymentMethods = model }, JsonRequestBehavior.AllowGet);
         }
-
         public ActionResult Search(string keyword)
         {
             var model = db.Variants.Include("Product").Include("Brand")
-                .Join(db.Categories, v => v.Product.CategoryId, c => c.CategoryId, (v, c) => new { Variant = v, Category = c })
-                .Where(x => (x.Variant.Archived == false && x.Variant.IsVisible == true && x.Variant.Product.Archived == false && x.Variant.Product.IsVisible == true)
-                && (x.Variant.Name.Contains(keyword) || x.Variant.Product.Name.Contains(keyword) || x.Category.Name.Contains(keyword))).OrderBy(x => x.Variant.Stock).Take(10)
+                .Join(db.Categories, v => v.Product.CategoryId, c => c.CategoryId,
+                (v, c) => new { Variant = v, Category = c })
+                .Where(x => (x.Variant.Archived == false && x.Variant.IsVisible == true 
+                && x.Variant.Product.Archived == false && x.Variant.Product.IsVisible == true) 
+                && (x.Variant.Name.Contains(keyword) || x.Variant.Product.Name.Contains(keyword) 
+                || x.Category.Name.Contains(keyword))).OrderBy(x => x.Variant.Stock).Take(10)
                 .Select(x => new 
                 {
                     id = x.Variant.VariantId,
                     text = x.Variant.Name + " " + x.Variant.Product.Name,
-                    VariantId = x.Variant.VariantId,
                     ProductId = x.Variant.ProductId,
                     VariantName = x.Variant.Name,
+                    ProductName = x.Variant.Product.Name,
                     BrandName = x.Variant.Product.Brand.Name,
+                    UnitPrice = x.Variant.UnitPrice,
                     CategoryName = x.Category.Name,
                     Stock = x.Variant.Stock,
-                    ProductName = x.Variant.Product.Name,
-                    UnitPrice = x.Variant.UnitPrice,
-                    PhotoName = db.ProductImages.Where(pi => pi.VariantId == x.Variant.VariantId).OrderBy(pi => pi.Sequence).FirstOrDefault().FileName
+                    image = db.ProductImages.Where(pi => pi.VariantId == x.Variant.VariantId)
+                    .OrderBy(pi => pi.Sequence).FirstOrDefault().FileName
                 }).ToList();
             return Json(new { Success = true, results = model }, JsonRequestBehavior.AllowGet);
-
         }
     }
 }

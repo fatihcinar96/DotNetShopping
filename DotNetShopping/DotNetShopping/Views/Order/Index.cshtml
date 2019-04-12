@@ -3,8 +3,9 @@
     ViewBag.Title = "Orders";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
+
 <h2>Orders</h2>
-<table class="table orderTable">
+<table class="orderTable table">
     <thead>
         <tr>
             <th>Date</th>
@@ -18,8 +19,8 @@
     <tbody>
         @foreach (DotNetShopping.Models.OrderListModel order in Model)
         {
-            <tr onclick="window.location = '@Url.Action("Detail","Order",new { id = order.OrderId })';">
-                <td style="padding-left : 1%">@order.OrderDate.ToShortDateString() </td>
+            <tr onclick="window.location = '@Url.Action("Detail", "Order", new { id = order.OrderId })';">
+                <td>@order.OrderDate.ToShortDateString()</td>
                 <td>@order.OrderStatus</td>
                 <td>@order.UserName</td>
                 <td>@order.Email</td>
@@ -29,13 +30,14 @@
         }
     </tbody>
 </table>
+
 @section head{
     <link href="http://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css">
 }
 @section scripts{
     <script src="http://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 }
+
 @section scriptsready {
     $('.table').DataTable();
-   
 }

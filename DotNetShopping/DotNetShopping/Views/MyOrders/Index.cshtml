@@ -18,8 +18,8 @@
     <tbody>
         @foreach(DotNetShopping.Models.OrderListModel order in Model)
         {
-            <tr onclick="window.location = '@Url.Action("Order","MyOrders",new { id = order.OrderId })';" >
-                <td style="padding-left : 1%">@order.OrderDate.ToShortDateString() </td>
+            <tr onclick="window.location = '@Url.Action("Order", "MyOrders", new { id = order.OrderId })';">
+                <td>@order.OrderDate.ToShortDateString()</td>
                 <td>@order.OrderStatus</td>
                 <td>$@order.TotalPrice</td>
                 <td>@order.Paid</td>

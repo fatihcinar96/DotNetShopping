@@ -19,22 +19,24 @@ namespace DotNetShopping.Controllers
         public async Task<ActionResult> Index()
         {
             var model = db.ShippingCosts
-                .Join(db.ShippingMethods, sc => sc.ShippingMethodId, sm => sm.ShippingMethodId, (sc, sm) => new { ShippingCost = sc, ShippingMethod = sm })
-                .Join(db.Countries , scsm => scsm.ShippingCost.CountryId, c=> c.CountryId , (scsm,c)=> new { scsm , Country = c})
+                .Join(db.ShippingMethods, sc => sc.ShippingMethodId, sm => sm.ShippingMethodId,
+                (sc, sm) => new { ShippingCost = sc, ShippingMethod = sm })
+                .Join(db.Countries, scsm => scsm.ShippingCost.CountryId, c => c.CountryId, 
+                (scsm, c) => new { scsm, Country = c})
                 .Select(x => new ShippingListModel
-                {
-                    ShippingMethodId = x.scsm.ShippingCost.ShippingMethodId,
-                    Name = x.scsm.ShippingMethod.Name,
-                    CountryId = x.scsm.ShippingCost.CountryId,
-                    CountryName = x.Country.Name,
-                    Domestic = x.scsm.ShippingMethod.Domestic,
-                    International = x.scsm.ShippingMethod.International,
-                    CostHalf = x.scsm.ShippingCost.CostHalf,
-                    CostOne = x.scsm.ShippingCost.CostOne,
-                    CostOneHalf = x.scsm.ShippingCost.CostOneHalf,
-                    CostTwo = x.scsm.ShippingCost.CostTwo,
-                    CostTwoHalf = x.scsm.ShippingCost.CostTwoHalf
-                });
+            {
+                ShippingMethodId = x.scsm.ShippingCost.ShippingMethodId,
+                Name = x.scsm.ShippingMethod.Name,
+                CountryId = x.scsm.ShippingCost.CountryId,
+                CountryName = x.Country.Name,
+                Domestic = x.scsm.ShippingMethod.Domestic,
+                International = x.scsm.ShippingMethod.International,
+                CostHalf = x.scsm.ShippingCost.CostHalf,
+                CostOne = x.scsm.ShippingCost.CostOne,
+                CostOneHalf = x.scsm.ShippingCost.CostOneHalf,
+                CostTwo = x.scsm.ShippingCost.CostTwo,
+                CostTwoHalf = x.scsm.ShippingCost.CostTwoHalf
+            });
             return View(await model.ToListAsync());
         }
 

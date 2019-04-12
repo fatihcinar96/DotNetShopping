@@ -111,23 +111,8 @@ textarea {
         }
         .collapsing .searchBox {
             border-right: 0px;
+            margin-bottom:20px;
         }
-.navTop {
-    border-color: #808080;
-    border-bottom-width: 1px;
-    border-top-width: 0px;
-    border-right-width: 1px;
-    border-left-width: 1px;
-    border-style: solid;
-}
-.navBottom {
-    border-color: #808080;
-    border-bottom-width: 1px;
-    border-top-width: 0px;
-    border-right-width: 1px;
-    border-left-width: 1px;
-    border-style: solid;
-}
 .header {
     background-image: url('../../images/page-header.jpg');
     background-repeat: no-repeat;
@@ -169,6 +154,8 @@ textarea {
     color: white;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    float:left;
+    padding-top:2px;
 }
 .searchInput{
     background-color:transparent;
@@ -183,15 +170,20 @@ textarea {
 }
 
 .searchBox {
-    border-right-width: 1px;
-    border-right-color: #808080;
-    border-right-style: solid;
     padding-left: 10px;
     padding-right: 10px;
+    padding-top: 12px;
+    padding-bottom: 10px;
 }
-.content{
-    padding-left:20px;
-    padding-right:20px;
+.navbar-collapse.in .searchBox {
+    margin-bottom: 20px;
+}
+.searchSelect{
+    float:left;
+}
+.content {
+    padding-left: 20px;
+    padding-right: 20px;
 }
 .sliderBox {
     position: relative;
@@ -344,7 +336,6 @@ a.quickview-icon {
 }
 .product-image-area {
     position: relative;
-    background: #fff;
     overflow: hidden;
     padding: 3px;
     z-index: 0;
@@ -425,7 +416,7 @@ button.button {
     font-family: "Oswald";
     letter-spacing: 1px;
     text-transform: uppercase;
-    /*-webkit-border-fit: lines;*/
+    -webkit-border-fit: lines;
     overflow: visible;
     width: auto;
     border: 0;
@@ -811,6 +802,7 @@ button.button:hover > span {
     padding: 30px;
     border-top: 1px solid rgba(0, 0, 0, 0.20);
     background-color: #fbfbfb;
+    display:none;
 }
     .sidebarBoxContent div{
         height:30px;
@@ -862,14 +854,13 @@ button.button:hover span {
         border-radius: 0;
     }
     .opc .step-title {
-        cursor: default;
         border-bottom-width: 0;
         border-radius: 0;
         background: #f6f6f6;
         color: black;
         height:45px;
         padding:15px;
-        cursor : pointer;
+        cursor:pointer;
     }
     .opc .step-title .title {
         float: left;
@@ -887,7 +878,7 @@ button.button:hover span {
     display:block;
     font-size:14px;
     padding-top:10px;
-    padding-bottom:10px;
+    margin-bottom:10px;
 }
 .checkoutContent input, select{
     max-width:unset;
@@ -1049,166 +1040,203 @@ button.button:hover span {
     .checkout-submit button.button:hover span {
         color: black;
     }
-
 .billing-radio{
-    padding-left : 20px;
-    padding-top : 20px;
-    padding-bottom : 20px;
-    display : inline-block;
-    width : 100%;
+    padding-left:20px;
+    padding-top:20px;
+    padding-bottom:20px;
+    display:inline-block;
+    width:100%;
 }
-.billing-radio-item{
-    display : inline-block;
-    width : 100%;
+.billing-radio-item {
+    display: inline-block;
+    width: 100%;
+}
+    .billing-radio input[type=radio] {
+        width: 30px;
+        height: 30px;
+        float: left;
+    }
+    .billing-radio span {
+        float: left;
+        padding-top: 12px;
+        padding-left: 12px;
+    }
+
+.checkout-next{
+    float:right;
+    padding-bottom:20px;
+    padding-top:40px;
+}
+.checkout-next button.button > span {
+    padding: 15px 15px;
+    background-color: #e1ddc3;
+    font-weight: bold;
 }
 
-    .billing-radio input[type = radio]{
-        width : 30px;
-        height : 30px;
-        float : left;
-    }
-
-    .billing-radio span{
-        float : left;
-        padding-top : 12px;
-        padding-left : 12px;
-            
-    }
-
-    .checkout-next{
-        float : right;
-        padding-top : 40px;
-      
-    }
-    .checkout-next button.button > span{
-        background-color : #e1ddc3;
-        font-weight : bold;
-        padding : 15px 15px;
-    }
-
-     .checkout-next button.button:hover span{
-         color : black;
-     }
-
-.sidebarBoxContent{
-    display : none;
+.checkout-next button.button:hover span {
+    color: black;
 }
 .billing-radio .checkout-next span {
     padding-top: 0px;
     padding-left: 0px;
 }
-
-#checkout-step-shipping , #checkout-step-shipping-payment , #checkout-step-payment,#checkout-step-review  , #checkout-step-shipping_method{
-    display : none;
+#checkout-step-shipping, #checkout-step-shipping_method, #checkout-step-payment, #checkout-step-review{
+    display:none;
 }
-
-
 .orderTable{
-    width : 100%;
-
+    width:100%;
 }
-
     .orderTable thead tr {
-        border-bottom: 1px solid rgba(0,0,0,0.15);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.15);
         height: 40px;
     }
-
     .orderTable tbody tr {
-        border-bottom: 1px solid rgba(0,0,0,0.15);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.15);
         height: 40px;
         cursor: pointer;
-        border-left: 1px solid rgba(0,0,0,0.15);
-        border-right: 1px solid rgba(0,0,0,0.15);
     }
-        .orderTable tbody tr:hover{
-            background-color : #e1ddc3;
+        .orderTable tbody tr:hover {
+            background-color: #e1ddc3;
         }
-
-    .orderTable td th{
-        padding-left : 10px;
-        padding-right : 10px;
-
+    .orderTable td, th{
+        padding-left:10px;
+        padding-right:10px;
     }
-
-
-    .orderDetail {
-        width: 100%;
-        margin-bottom : 40px;
+.orderDetail {
+    width: 100%;
+    margin-bottom:40px;
+}
+    .orderDetail td {
+        padding-left: 10px;
+        padding-right: 10px;
+        padding-top:2px;
+        padding-bottom:2px;
     }
-        .orderDetail td {
-            padding-left: 10px;
-            padding-right: 10px;
-            padding-top : 2px;
-            padding-bottom : 2px;
-        }
-
-        .orderDetail .titleLabel{
-            font-weight : bold;
-            width : 120px;
-        }
-
-        .orderDetail .detailLabel{
-            
-        }
-
-        .search-item-description{
-
-        }
+    .orderDetail .titleLabel{
+        font-weight:bold;
+        width:120px;
+    }
+    .orderDetail .detailLabel {
+        
+    }
+.select2-container {
+    font: 10pt 'Open Sans',Arial,Helvetica,sans-serif;
+}
 .select2-container--default .select2-results > .select2-results__options {
     max-height: 500px;
     min-height: 300px;
 }
-
-.select2-results__option--highlighted[aria-selected] {
-    background-color: #efefef !important;
-    color: #333333 !important;
+.select2-selection__rendered[title] {
+    background-color: #e1ddc3;
 }
-
-.select2-container{
-    font: 10pt 'Open Sans',Arial,Helvetica,sans-serif;
+.select2-results__option--highlighted {
+    background-color: #e1ddc3 !important;
+    color:#333333 !important;
 }
-
-.select2-selection_rendered[title]{
-    background-color : #e1ddc3;
-}
-
-
-
-.search-item{
-    display : inline-block;
-    width : 100%;
+.search-item {
+    display: inline-block;
+    width: 100%;
 }
 .search-item-image{
-    float : left;
-    padding-right : 10px;
+    float:left;
+    padding-right:5px;
 }
     .search-item-image img{
-        width : 50px;
+        width:50px;
+    }
+.search-item-data {
+    float:left;
+    display:contents;
+}
+.search-item-title{
+    font-weight:bold;
+}
+.search-item-price{
+    font-size:8pt;
+    padding-top:5px;
+}
+.search-item-stock {
+    font-size: 8pt;
+    padding-top: 5px;
+}
+.select2-container--default .select2-selection--single{
+    background-color:transparent !important;
+    border:none !important;
+    outline:none;
+}
+.select2-selection__placeholder {
+    color: white !important;
+}
+.select2-container--default.select2-container--open .select2-selection--single .select2-selection__arrow b {
+    border-color: transparent transparent #ffffff transparent !important;
+}
+.select2-container--default .select2-selection--single .select2-selection__arrow b {
+    border-color: #ffffff transparent transparent transparent !important;
+}
+.FilterMenu{
+    min-height:500px;
+    border: 1px solid #e1ddc3;
+    margin-top:10px;
+    padding-left:10px;
+    padding-top:20px;
+    padding-right : 20px;
+}
+.FilterMenuTitle {
+    font: 12pt 'Open Sans',Arial,Helvetica,sans-serif;
+    font-weight: bold;
+    padding-bottom: 15px;
+}
+.FilterMenuItem {
+    font: 12pt 'Open Sans',Arial,Helvetica,sans-serif;
+    padding-bottom:10px;
+    display:flex;
+}
+.ProductList {
+}
+.Product{
+    display:inline-flex;
+    width:200px;
+    height:420px;
+    vertical-align:top;
+    padding:3px;
+    margin:3px;
+}
+    .Product :hover {
+        background-color:#ffffee;
+    }
+.details-area{
+    margin:3px;
+}
+    .details-area h2{
+        margin-top:0px;
+        margin-bottom:0px;
     }
 
-.search-item-data{
-    float : left;
-    white-space : normal;
-    display : contents;
-    
+
+.RangeSlider {
+    font: 12pt 'Open Sans',Arial,Helvetica,sans-serif;
+    padding-bottom : 10px;
+    margin-top : 20px;
 }
 
-.search-item-title{
+.RangeLink{
+    display : none;
+    color : #f6931f;
     font-weight : bold;
 }
 
 
 
+#loading {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    z-index: 999;
+    opacity: 0.7;
+    display: none;
+}
 
-        #loading {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            background-color: black;
-            z-index: 999;
-            opacity: 0.7;
-            display: none;
-        }
 #loader {
     position: fixed;
     left: 50%;

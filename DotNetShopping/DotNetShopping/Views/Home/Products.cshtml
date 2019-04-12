@@ -1,0 +1,52 @@
+﻿
+@{
+    ViewBag.Title = "Products";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Products</h2>
+<div class="row">
+    <div class="col-sm-4 col-md-3">
+        <div class="FilterMenu">
+            <div class="FilterMenuTitle">CATEGORIES</div>
+            @foreach (DotNetShopping.Models.Category category in ViewBag.Categories)
+            {
+                <a class="FilterMenuItem" href="@Url.Action("Products", "Home", new { Category = category.CategoryId })">@category.Name</a>
+            }
+                <div class="RangeSlider">
+                    <label for="amount">PRICE RANGE:</label>
+                    <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
+                    <a class="RangeLink" href="">GO</a>
+
+                </div>
+
+            <div id="slider-range"></div>
+        </div>
+    </div>
+    <div class="ProductList col-sm-8 col-md-19">
+        @foreach (DotNetShopping.Models.ProductBoxModel product in ViewBag.Products)
+        {
+            <div class="Product">
+                @Html.Partial("_ProductSmallPartial", product)
+            </div>
+        }
+    </div>
+</div>
+
+@section scriptsready {
+    
+        $("#slider-range").slider({
+            range: true,
+            min: 0,
+            max: 1000,
+            values: [@ViewBag.Min, @ViewBag.Max],
+            slide: function (event, ui) {
+                $("#amount").val("$" + ui.values[0] + " - $" + ui.values[1]);
+                $(".RangeLink").attr("href", '/Home/Products?Category=@ViewBag.SelectedCategory&min=' + ui.values[0] + '&max=' + ui.values[1]);
+                $(".RangeLink").show(200);
+            }
+        });
+        $("#amount").val("$" + $("#slider-range").slider("values", 0) +
+            " - $" + $("#slider-range").slider("values", 1));
+
+}

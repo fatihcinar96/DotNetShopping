@@ -1,5 +1,4 @@
-﻿body{
-
+﻿body {
 }
 .navbar-right {
     margin-right: -10px;
@@ -8,11 +7,15 @@
     color:red;
     font-weight:bold;
 }
-
 .orderTable tbody tr{
-    cursor : pointer;
+    cursor:pointer;
 }
-
+.orderTable .odd:hover {
+    background-color: #e1ddc3;
+}
+.orderTable .even:hover {
+    background-color: #e1ddc3;
+}
 .orderDetail {
     width: 100%;
     margin-bottom: 40px;
@@ -26,14 +29,9 @@
     }
 
     .orderDetail .titleLabel {
-        font-weight: bold;                                                                                                                                                                            
+        font-weight: bold;
         width: 120px;
     }
 
-    .orderTable .odd:hover {
-        background-color : #e1ddc3;
-    }
-
-    .orderTable .even:hover {
-        background-color : #e1ddc3;
+    .orderDetail .detailLabel {
     }

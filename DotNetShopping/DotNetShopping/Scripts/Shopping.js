@@ -1,7 +1,7 @@
 ﻿$(document).ready(function () {
     $('.searchInput').select2({
         ajax: {
-            url: '/Api/Search/',
+            url: '/Api/Search',
             dataType: 'json',
             delay: 250,
             data: function (params) {
@@ -17,33 +17,34 @@
             cache: true
         },
         placeholder: 'Search for a product',
-        escapeMarkup: function (markup) { return markup; }, // let our custom formatter work
+        escapeMarkup: function (markup) { return markup; },
         minimumInputLength: 1,
         templateResult: formatRepo,
         templateSelection: formatRepoSelection
-        
     });
     $('.searchInput').on('select2:select', function (e) {
-        window.location = '/p/'+ $('.searchInput').val();
-    })
+        //alert('selected' + $('.searchInput').val());
+        window.location = '/p/' + $('.searchInput').val();
+    });
 });
 
 function formatRepo(data) {
     if (data.loading) {
         return data.text;
     }
+
     var markup = '<div class="search-item">' +
-        '<div class="search-item-image"><img src="/ProductImage/' + data.PhotoName + '-1.jpg" /></div>' +
+        '<div class="search-item-image"><img src="/ProductImage/' + data.image + '-1.jpg" /></div>' +
         '<div class="search-item-data">' +
         '<div class="search-item-title">' + data.text + '</div>' +
-        '<div class="search-item-description">'+'Only $' + data.UnitPrice + ' ' +'</br>'+ data.Stock + 'in stock. </div>' +
-
+        '<div class="search-item-price">Only $' + data.UnitPrice + '</div>' +
+        '<div class="search-item-stock">' + data.Stock + ' in stock</div>' +
         '</div>';
     return markup;
 }
 
-function formatRepoSelection(repo) {
-    return repo.full_name || repo.text;
+function formatRepoSelection(data) {
+    return data.text;
 }
 
 function loadShoppingCart()

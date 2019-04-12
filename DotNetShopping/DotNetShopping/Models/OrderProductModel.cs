@@ -22,7 +22,6 @@ namespace DotNetShopping.Models
         public Decimal TotalCost { get; set; }
         public Decimal TotalPrice { get; set; }
     }
-
     public class OrderProductListModel
     {
         public Int64 OrderId { get; set; }
@@ -36,6 +35,5 @@ namespace DotNetShopping.Models
         public string ProductName { get; set; }
         public Int64 ProductId { get; set; }
         public string FileName { get; set; }
-
     }
 }
