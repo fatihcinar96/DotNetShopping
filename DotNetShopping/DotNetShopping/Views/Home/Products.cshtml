@@ -9,6 +9,12 @@
     <div class="col-sm-4 col-md-3">
         <div class="FilterMenu">
             <div class="FilterMenuTitle">CATEGORIES</div>
+            @if(ViewBag.SelectedCategory != null)
+            {
+                DotNetShopping.Models.Category c = ViewBag.SelectedCategory;
+                <a class="FilterMenuItemSelected" href="@Url.Action("Products", "Home", new { Category = c.ParentId ,min = ViewBag.Min , max = ViewBag.Max, Brand = ViewBag.Brand})">@c.Name &nbsp;&nbsp;
+            <i class="glyphicon glyphicon-remove-circle"></i></a>
+            }
             @foreach (DotNetShopping.Models.Category category in ViewBag.Categories)
             {
                 <a class="FilterMenuItem" href="@Url.Action("Products", "Home", new { Category = category.CategoryId ,min = ViewBag.Min , max = ViewBag.Max, Brand = ViewBag.Brand})">@category.Name</a>

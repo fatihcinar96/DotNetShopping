@@ -59,20 +59,39 @@ namespace DotNetShopping.Controllers
         }
         public ActionResult Products(Int16? Category,Decimal? min , Decimal? max , Int16? BrandId)
         {
-
-            ViewBag.SelectedCategory = Category ?? 0;
-            ViewBag.Min = min ?? 100;
-            ViewBag.Max = max ?? 400;
+            Category = Category ?? 0;
+            if(Category > 0)
+            {
+                var SelectedCategory = db.Categories.Find(Category);
+                ViewBag.SelectedCategory = SelectedCategory;
+            }
+            min = min ?? 0;
+            ViewBag.Min = min ?? 0;
+            max = max ?? 1000;
+            ViewBag.Max = max ?? 1000;
+            BrandId = BrandId ?? 0;
             ViewBag.Brand = BrandId ?? 0;
             ViewBag.SelectedBrand = BrandId == 0;
             try
             {
-                var products = db.Variants.Include("Product").Include("Brand")
+                var productsQuery = db.Variants.Include("Product").Include("Brand")
                 .Where(x => x.Archived == false && x.Product.Archived == false
                 && x.IsVisible == true && x.Stock > 0 && x.Product.OnSale == true)
                 .Join(db.Categories, v => v.Product.CategoryId,
-                c => c.CategoryId, (v, c) => new { Variant = v, Category = c })
-                .OrderByDescending(x => x.Variant.CreateDate)
+                c => c.CategoryId, (v, c) => new { Variant = v, Category = c });
+
+                if(Category > 0)
+                {
+                    productsQuery = productsQuery.Where(x => x.Category.CategoryId == Category || x.Category.ParentId == Category);
+                }
+
+                productsQuery = productsQuery.Where(x => x.Variant.UnitPrice > min && x.Variant.UnitPrice < max);
+                if(BrandId > 0)
+                {
+                    productsQuery = productsQuery.Where(x => x.Variant.Product.BrandId == BrandId);
+                }
+
+                var products = productsQuery.OrderByDescending(x => x.Variant.CreateDate)
                 .Take(12).Select(x => new ProductBoxModel
                 {
                     ProductId = x.Variant.ProductId,
