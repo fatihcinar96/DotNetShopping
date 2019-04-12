@@ -57,12 +57,14 @@ namespace DotNetShopping.Controllers
 
             return View();
         }
-        public ActionResult Products(Int16? Category,Decimal? min , Decimal? max)
+        public ActionResult Products(Int16? Category,Decimal? min , Decimal? max , Int16? BrandId)
         {
 
             ViewBag.SelectedCategory = Category ?? 0;
             ViewBag.Min = min ?? 100;
             ViewBag.Max = max ?? 400;
+            ViewBag.Brand = BrandId ?? 0;
+            ViewBag.SelectedBrand = BrandId == 0;
             try
             {
                 var products = db.Variants.Include("Product").Include("Brand")
@@ -90,6 +92,8 @@ namespace DotNetShopping.Controllers
                 var categories = db.Categories.Where(x => x.ParentId == (Category ?? 0))
                     .OrderBy(x => x.Name)
                     .ToList();
+                var brands = db.Brands.OrderBy(x => x.Name).ToList();
+                ViewBag.Brands = brands;
                 ViewBag.Categories = categories;
             }
             catch (Exception ex)

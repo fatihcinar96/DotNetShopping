@@ -1178,18 +1178,26 @@ button.button:hover span {
     border: 1px solid #e1ddc3;
     margin-top:10px;
     padding-left:10px;
-    padding-top:20px;
     padding-right : 20px;
 }
 .FilterMenuTitle {
     font: 12pt 'Open Sans',Arial,Helvetica,sans-serif;
     font-weight: bold;
     padding-bottom: 15px;
+    padding-top: 30px;
 }
 .FilterMenuItem {
     font: 12pt 'Open Sans',Arial,Helvetica,sans-serif;
     padding-bottom:10px;
     display:flex;
+}
+
+.FilterMenuItemSelected {
+    font: 12pt 'Open Sans',Arial,Helvetica,sans-serif;
+    padding-bottom: 10px;
+    display: flex;
+    color: #f6931f;
+    font-weight : bold;
 }
 .ProductList {
 }
