@@ -9,16 +9,28 @@
     <div class="col-sm-4 col-md-3">
         <div class="FilterMenu">
             <div class="FilterMenuTitle">CATEGORIES</div>
-            @if(ViewBag.SelectedCategory != null)
+            @if (ViewBag.SelectedCategory != null)
             {
                 DotNetShopping.Models.Category c = ViewBag.SelectedCategory;
-                <a class="FilterMenuItemSelected" href="@Url.Action("Products", "Home", new { Category = c.ParentId ,min = ViewBag.Min , max = ViewBag.Max, Brand = ViewBag.Brand})">@c.Name &nbsp;&nbsp;
-            <i class="glyphicon glyphicon-remove-circle"></i></a>
+                <a class="FilterMenuItemSelected" href="@Url.Action("Products", "Home", new { Category = c.ParentId ,min = ViewBag.Min , max = ViewBag.Max, Brand = ViewBag.Brand})">
+                    @c.Name &nbsp;&nbsp;
+                    <i class="glyphicon glyphicon-remove-circle"></i>
+                </a>
             }
             @foreach (DotNetShopping.Models.Category category in ViewBag.Categories)
             {
                 <a class="FilterMenuItem" href="@Url.Action("Products", "Home", new { Category = category.CategoryId ,min = ViewBag.Min , max = ViewBag.Max, Brand = ViewBag.Brand})">@category.Name</a>
             }
+            @{ 
+                DotNetShopping.Models.Category ct = ViewBag.SelectedCategory; 
+            }
+            <script>
+                var minValue = @ViewBag.Min;
+                var maxValue = @ViewBag.Max;
+                var count = 0;
+                var brandId = @ViewBag.Brand;
+                var category = @(ct == null ? 0 : @ct.CategoryId);
+            </script>
             <div class="RangeSlider">
                 <label for="amount">PRICE RANGE:</label>
                 <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
@@ -46,23 +58,27 @@
     </div>
 </div>
 
+
 @section scriptsready {
-    
-        $("#slider-range").slider({
-            range: true,
-            min: 0,
-            max: 1000,
-            values: [@ViewBag.Min, @ViewBag.Max],
-            slide: function (event, ui) {
-                $("#amount").val("$" + ui.values[0] + " - $" + ui.values[1]);
-                $(".RangeLink").attr("href", '/Home/Products?Category=@ViewBag.SelectedCategory&min=' + ui.values[0] + '&max=' + ui.values[1]+ '&Brand=@ViewBag.Brand');
-                $(".RangeLink").show(200);
-            }
-        });
-        $("#amount").val("$" + $("#slider-range").slider("values", 0) +
-            " - $" + $("#slider-range").slider("values", 1));
+
+    $("#slider-range").slider({
+    range: true,
+    min: 0,
+    max: 1000,
+    values: [@ViewBag.Min, @ViewBag.Max],
+    slide: function (event, ui) {
+    $("#amount").val("$" + ui.values[0] + " - $" + ui.values[1]);
+    $(".RangeLink").attr("href", '/Home/Products?Category=@ViewBag.SelectedCategory&min=' + ui.values[0] + '&max=' + ui.values[1]+ '&Brand=@ViewBag.Brand');
+    $(".RangeLink").show(200);
+    }
+    });
+    $("#amount").val("$" + $("#slider-range").slider("values", 0) +
+    " - $" + $("#slider-range").slider("values", 1));
 
 
- 
+}
 
+@section scripts{
+
+    <script src="~/Scripts/Products.js"></script>
 }

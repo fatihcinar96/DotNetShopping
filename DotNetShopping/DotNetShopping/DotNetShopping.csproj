@@ -430,6 +430,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\light-bootstrap-dashboard.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\Products.js" />
     <Content Include="Scripts\select2.js" />
     <Content Include="Scripts\select2.min.js" />
     <Content Include="Scripts\shopping.js" />
@@ -537,11 +538,11 @@
     <Content Include="Views\Order\Detail.cshtml" />
     <Content Include="Views\Home\Products.cshtml" />
     <Content Include="Views\Shared\_ProductSmallPartial.cshtml" />
+    <Content Include="Views\Api\LoadMoreProductsPartialView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="ProductImage\" />
-    <Folder Include="Views\Api\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff2" />
