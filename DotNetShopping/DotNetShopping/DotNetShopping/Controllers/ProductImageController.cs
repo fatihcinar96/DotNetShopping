@@ -37,7 +37,7 @@ namespace DotNetShopping.Controllers
         }
 
         [HttpPost]
-        public ActionResult PhotoAdd(PhotoAddModel model)
+        public ActionResult PhotoAdd(PhotoAddModel model,Int64 ProductId)
         {
             ViewBag.Error = "";
             try
@@ -59,7 +59,7 @@ namespace DotNetShopping.Controllers
                         }
                     }
                 }
-                return RedirectToAction("Index", new { id = model.VariantId, ProductId = model.ProductId });
+                return RedirectToAction("Index", new { id = model.VariantId, ProductId = ProductId });
             }
             catch (Exception ex)
             {

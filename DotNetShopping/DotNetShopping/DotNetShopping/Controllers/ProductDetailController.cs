@@ -36,14 +36,13 @@ namespace DotNetShopping.Controllers
                     Images = db.ProductImages
                     .Where(i => i.VariantId == x.Variant.VariantId)
                     .OrderBy(i => i.Sequence).ToList()
-                }).FirstOrDefault();
+                })
+                .FirstOrDefault();
             if (model == null)
             {
                 return RedirectToAction("Index", "Home");
             }
             return View(model);
         }
-
-        
     }
 }

@@ -12,13 +12,13 @@
             <div class="slider-for">
                 @foreach (DotNetShopping.Models.ProductImage pi in Model.Images)
                 {
-                    <img src="~/ProductImage/@(pi.FileName)-6.jpg" />
+                    <img src="~/ProductImage/@(pi.FileName)-10.jpg" />
                 }
             </div>
             <div class="slider-nav">
                 @foreach (DotNetShopping.Models.ProductImage pi in Model.Images)
                 {
-                    <img src="~/ProductImage/@(pi.FileName)-2.jpg" />
+                    <img src="~/ProductImage/@(pi.FileName)-6.jpg" />
                 }
             </div>
         </div>
@@ -37,21 +37,24 @@
                             <a href="javascript:minusClick();" class="qty_dec"><i class="glyphicon glyphicon-minus"></i></a>
                         </div>
                     </div>
-
                     @if (User.Identity.IsAuthenticated)
                     {
-                        <button type="button" title="Add to Cart" class="button btn-cart" onclick="addToCart(@Model.VariantId, parseInt($('#qty').val()));"><span><span>Add to Cart</span></span></button>
+                        <button type="button" title="Add to Cart" class="button btn-cart" onclick="addToCart(@Model.VariantId, parseInt($('#qty').val()));">
+                            <span class="button_border"><span>Add to Cart</span></span>
+                        </button>
                     }
                     else
                     {
-                        <button type="button" title="Add to Cart" class="button btn-cart" onclick="window.location = '@Url.Action("Login", "Account", new { returnUrl = Url.Action("Product", "ProductDetail", new { id = Model.VariantId, name = DotNetShopping.Helpers.StringHelper.ClearFileName(Model.VariantName + " " + Model.ProductName) }) })';"><span><span>Add to Cart</span></span></button>
+                        <button type="button" title="Add to Cart" class="button btn-cart" onclick="window.location='@Url.Action("Login","Account",new { returnUrl = Url.Action("Product", "ProductDetail", new { id = Model.VariantId, name = DotNetShopping.Helpers.StringHelper.ClearFileName(Model.VariantName + " " + Model.ProductName) }) })';">
+                            <span class="button_border"><span>Add to Cart</span></span>
+                        </button>
                     }
 
+                    <span id="ajax_loader" style="display:none"><i class="ajax-loader small animate-spin"></i></span>
                 </div>
                 <ul class="add-to-links">
                     <li><a href="#" onclick="" class="link-wishlist"><i class="glyphicon glyphicon-heart"></i><span>Add to Wishlist</span></a></li>
                     <li><a href="#" onclick="" class="link-compare"><i class="glyphicon glyphicon-signal"></i><span>Add to Compare</span></a></li>
-
                 </ul>
             </div>
         </div>
@@ -78,8 +81,23 @@
                 $('#qty').val(qty);
             }
         }
+        //function AddToCart(variantId) {
+        //    var qty = parseInt($('#qty').val());
+        //    var dataToPost = {
+        //        VariantId:variantId,
+        //        Qty: qty
+        //    }
+        //    $.post('/Api/AddToCart', dataToPost)
+        //        .done(function (response, status, jqxhr) {
+        //            //alert(response['Success']);
+        //        })
+        //        .fail(function (jqxhr, status, error) {
+        //            alert(response['Error!']);
+        //        })
+        //}
     </script>
 }
+
 @section scriptsready {
     $('.slider-for').slick({
     slidesToShow: 1,
@@ -96,5 +114,4 @@
     centerMode: true,
     focusOnSelect: true
     });
-
 }

@@ -1,4 +1,4 @@
-﻿@model DotNetShopping.Models.Order
+﻿@model DotNetShopping.Models.CheckoutModel
 @{
     ViewBag.Title = "Checkout";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -6,13 +6,14 @@
 }
 
 <h2>Checkout</h2>
+<div class="error">@Request.QueryString["Error"]</div>
 <div class="row">
     <div class="col-sm-9">
-        @using (Html.BeginForm())
+        @using (Html.BeginForm("CheckoutPay", "Checkout", FormMethod.Post, new { id = "myform" }))
         {
             <ol class="opc" id="checkoutSteps">
                 <li id="opc-billing" class="section">
-                    <div class="step-title">
+                    <div class="step-title" onclick="billingTitleClick();">
                         <span class="number">1</span>
                         <span class="title">Billing Information</span>
                     </div>
@@ -71,14 +72,14 @@
                             <div class="col-sm-6">
                                 <div class="input-label">@Html.LabelFor(model => model.BillingCountryId, htmlAttributes: new { @class = "control-label" })</div>
                                 <div class="input-editor">
-                                    @Html.DropDownList("BillingCountryId", null, htmlAttributes: new { @class = "form-control" })
+                                    @Html.DropDownList("BillingCountryId", null, "Please Select", htmlAttributes: new { @class = "form-control", required = "Please Select" })
                                     @Html.ValidationMessageFor(model => model.BillingCountryId, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="input-label">@Html.LabelFor(model => model.BillingStateId, htmlAttributes: new { @class = "control-label" })</div>
                                 <div class="input-editor">
-                                    @Html.DropDownList("BillingStateId", null, htmlAttributes: new { @class = "form-control" })
+                                    @Html.DropDownList("BillingStateId", null, "Please Select", htmlAttributes: new { @class = "form-control" })
                                     @Html.ValidationMessageFor(model => model.BillingStateId, "", new { @class = "text-danger" })
                                 </div>
                             </div>
@@ -87,7 +88,7 @@
                             <div class="col-sm-6">
                                 <div class="input-label">@Html.LabelFor(model => model.BillingCityId, htmlAttributes: new { @class = "control-label" })</div>
                                 <div class="input-editor">
-                                    @Html.DropDownList("BillingCityId", null, htmlAttributes: new { @class = "form-control" })
+                                    @Html.DropDownList("BillingCityId", null, "Please Select", htmlAttributes: new { @class = "form-control", required = "Please Select" })
                                     @Html.ValidationMessageFor(model => model.BillingCityId, "", new { @class = "text-danger" })
                                 </div>
                             </div>
@@ -103,7 +104,7 @@
                             <div class="col-sm-6">
                                 <div class="input-label">@Html.LabelFor(model => model.BillingTelephone, htmlAttributes: new { @class = "control-label" })</div>
                                 <div class="input-editor">
-                                    @Html.EditorFor(model => model.BillingTelephone, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.EditorFor(model => model.BillingTelephone, new { htmlAttributes = new { @class = "form-control", maxlength = 10 } })
                                     @Html.ValidationMessageFor(model => model.BillingTelephone, "", new { @class = "text-danger" })
                                 </div>
                             </div>
@@ -111,10 +112,29 @@
 
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="billing-radio">
+                                    <div>
+                                        <div class="billing-radio-item">
+                                            <input type="radio" title="Use same address for shipping" value="0" name="billingradio" checked />
+                                            <span>Use same address for shipping</span>
+                                        </div>
+                                        <div class="billing-radio-item">
+                                            <input type="radio" title="Use different address for shipping" value="1" name="billingradio" />
+                                            <span>Use different address for shipping</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="checkout-next"><button type="button" title="Next" class="button btn-checkout" onclick="billingNextClick();"><span><span>NEXT</span></span></button></div>
+                            </div>
+                        </div>
                     </div>
                 </li>
                 <li id="opc-shipping" class="section">
-                    <div class="step-title">
+                    <div class="step-title" onclick="shippingTitleClick();">
                         <span class="number">2</span>
                         <span class="title">Shipping Information</span>
                     </div>
@@ -168,7 +188,7 @@
                             <div class="col-sm-6">
                                 <div class="input-label">@Html.LabelFor(model => model.ShippingCountryId, htmlAttributes: new { @class = "control-label" })</div>
                                 <div class="input-editor">
-                                    @Html.DropDownList("ShippingCountryId", null, htmlAttributes: new { @class = "form-control" })
+                                    @Html.DropDownList("ShippingCountryId", null, "Please Select", htmlAttributes: new { @class = "form-control", required = "Please Select" })
                                     @Html.ValidationMessageFor(model => model.ShippingCountryId, "", new { @class = "text-danger" })
                                 </div>
                             </div>
@@ -184,7 +204,7 @@
                             <div class="col-sm-6">
                                 <div class="input-label">@Html.LabelFor(model => model.ShippingCityId, htmlAttributes: new { @class = "control-label" })</div>
                                 <div class="input-editor">
-                                    @Html.DropDownList("ShippingCityId", null, htmlAttributes: new { @class = "form-control" })
+                                    @Html.DropDownList("ShippingCityId", null, "Please Select", htmlAttributes: new { @class = "form-control", required = "Please Select" })
                                     @Html.ValidationMessageFor(model => model.ShippingCityId, "", new { @class = "text-danger" })
                                 </div>
                             </div>
@@ -200,7 +220,7 @@
                             <div class="col-sm-6">
                                 <div class="input-label">@Html.LabelFor(model => model.ShippingTelephone, htmlAttributes: new { @class = "control-label" })</div>
                                 <div class="input-editor">
-                                    @Html.EditorFor(model => model.ShippingTelephone, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.EditorFor(model => model.ShippingTelephone, new { htmlAttributes = new { @class = "form-control", maxlength = 10 } })
                                     @Html.ValidationMessageFor(model => model.ShippingTelephone, "", new { @class = "text-danger" })
                                 </div>
                             </div>
@@ -208,10 +228,15 @@
 
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="checkout-next"><button type="button" title="Next" class="button btn-checkout" onclick="shippingNextClick();"><span><span>NEXT</span></span></button></div>
+                            </div>
+                        </div>
                     </div>
                 </li>
                 <li id="opc-shipping_method" class="section">
-                    <div class="step-title">
+                    <div class="step-title" onclick="shippingMethodTitleClick();">
                         <span class="number">3</span>
                         <span class="title">Shipping Method</span>
                     </div>
@@ -220,7 +245,7 @@
                             <div class="col-sm-6">
                                 <div class="input-label">@Html.LabelFor(model => model.ShippingMethodId, htmlAttributes: new { @class = "control-label" })</div>
                                 <div class="input-editor">
-                                    <select id="ShippingMethodId" class="input-editor form-control"></select>
+                                    @Html.DropDownListFor(model => model.ShippingMethodId, null, "Please Select", htmlAttributes: new { @class = "form-control", required = "Please Select" })
                                     @Html.ValidationMessageFor(model => model.ShippingMethodId, "", new { @class = "text-danger" })
                                 </div>
                             </div>
@@ -234,10 +259,15 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="checkout-next"><button type="button" title="Next" class="button btn-checkout" onclick="shippingMethodNextClick();"><span><span>NEXT</span></span></button></div>
+                            </div>
+                        </div>
                     </div>
                 </li>
                 <li id="opc-payment" class="section">
-                    <div class="step-title">
+                    <div class="step-title" onclick="paymentTitleClick();">
                         <span class="number">4</span>
                         <span class="title">Payment Information</span>
                     </div>
@@ -246,7 +276,7 @@
                             <div class="col-sm-6">
                                 <div class="input-label">@Html.LabelFor(model => model.PaymentMethodId, htmlAttributes: new { @class = "control-label" })</div>
                                 <div class="input-editor">
-                                    <select id="PaymentMethodId" class="input-editor form-control"></select>
+                                    @Html.DropDownListFor(model => model.PaymentMethodId, null, "Please Select", htmlAttributes: new { @class = "form-control", required = "Please Select" })
                                     @Html.ValidationMessageFor(model => model.PaymentMethodId, "", new { @class = "text-danger" })
                                 </div>
                                 <div class="payment-creditcard">
@@ -254,22 +284,49 @@
                                         <label class="control-label">Card Number</label>
                                     </div>
                                     <div class="input-editor">
-                                        <input type="text" id="cardNumber" class="form-control">
+                                        <input type="text" id="cardNumber" name="cardNumber" class="form-control" required>
+                                        <span class="field-validation-error text-danger"
+                                              data-valmsg-for="cardNumber"
+                                              data-valmsg-replace="true">Card Number is required.</span>
                                     </div>
                                     <div class="input-label"><label class="control-label">Name on Card</label></div>
-                                    <div class="input-editor"><input type="text" id="cardHolder" class="form-control"></div>
+                                    <div class="input-editor">
+                                        <input type="text" id="cardHolder" name="cardHolder" class="form-control" required>
+                                        <span class="field-validation-error text-danger"
+                                              data-valmsg-for="cardHolder"
+                                              data-valmsg-replace="true">Name on Card is required.</span>
+                                    </div>
                                     <div class="card-row">
                                         <div class="card-date">
                                             <div class="input-label"><label class="control-label">Exp-Month</label></div>
-                                            <div class="input-editor"><input type="text" id="cardExpirationMonth" class="form-control"></div>
+                                            <div class="input-editor">
+                                                <select id="cardExpirationMonth" name="cardExpirationMonth" class="form-control">
+                                                    @for (int i = 1; i <= 12; i++)
+                                                    {
+                                                        <option value="@i">@i</option>
+                                                    }
+                                                </select>
+                                            </div>
                                         </div>
                                         <div class="card-date">
                                             <div class="input-label"><label class="control-label">Exp-Year</label></div>
-                                            <div class="input-editor"><input type="text" id="cardExpirationYear" class="form-control"></div>
+                                            <div class="input-editor">
+                                                <select id="cardExpirationYear" name="cardExpirationYear" class="form-control">
+                                                    @for (int i = DateTime.Today.Year; i <= DateTime.Today.Year + 12; i++)
+                                                    {
+                                                        <option value="@i">@i</option>
+                                                    }
+                                                </select>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="input-label"><label class="control-label">CVV</label></div>
-                                    <div class="input-editor"><input type="text" id="cardCsc" class="form-control"></div>
+                                    <div class="input-editor">
+                                        <input type="text" id="cardCvv" name="cardCvv" class="form-control" required>
+                                        <span class="field-validation-error text-danger"
+                                              data-valmsg-for="cardCvv"
+                                              data-valmsg-replace="true">CVV number is required.</span>
+                                    </div>
 
                                 </div>
                                 <div class="payment-paypal">
@@ -277,7 +334,10 @@
                                         <label class="control-label">PayPal Account</label>
                                     </div>
                                     <div class="input-editor">
-                                        <input type="text" id="paypal" class="form-control">
+                                        <input type="text" id="paypal" name="paypal" class="form-control" required>
+                                        <span class="field-validation-error text-danger"
+                                              data-valmsg-for="paypal"
+                                              data-valmsg-replace="true">Paypal Account is required.</span>
                                     </div>
                                 </div>
                             </div>
@@ -293,10 +353,15 @@
                                 <div id="PaymentInfo"></div>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="checkout-next"><button type="button" title="Next" class="button btn-checkout" onclick="paymentNextClick();"><span><span>NEXT</span></span></button></div>
+                            </div>
+                        </div>
                     </div>
                 </li>
                 <li id="opc-review" class="section">
-                    <div class="step-title">
+                    <div class="step-title" onclick="reviewClick();">
                         <span class="number">5</span>
                         <span class="title">Order Review</span>
                     </div>
@@ -323,7 +388,7 @@
                                     </tr>
                                 }
                             </tbody>
-                            <tfoot  class="checkout-total-Bg">
+                            <tfoot class="checkout-total-Bg">
                                 <tr>
                                     <td colspan="3"></td>
                                     <td>Total</td>
@@ -352,16 +417,41 @@
                                 <input type="checkbox" id="conditions">
                                 <span class="checkmark"></span>
                             </label>
-                            <div class="checkout-submit"><button type="submit" title="Place Order" class="button btn-checkout"><span><span>Place Order</span></span></button></div>
+                            <div class="checkout-submit"><button type="submit" id="PlaceOrder" title="Place Order" class="button btn-checkout"><span><span>Place Order</span></span></button></div>
                         </div>
                     </div>
                 </li>
             </ol>
-            
+
         }
     </div>
     <div class="col-sm-3">
-
+        <div class="sidebarBox">
+            <div class="sidebarBoxHeader">
+                <span>BILLING ADDRESS</span>
+            </div>
+            <div class="sidebarBoxContent" id="billingbox">
+                <div id="billingbox1">First Name Last Name</div>
+                <div id="billingbox2">Company Name</div>
+                <div id="billingbox3">Street1, Street2</div>
+                <div id="billingbox4">City, State, Country</div>
+                <div id="billingbox5">Zip Telephone</div>
+                <div id="billingbox6">Email</div>
+            </div>
+        </div>
+        <div class="sidebarBox">
+            <div class="sidebarBoxHeader">
+                <span>SHIPPING ADDRESS</span>
+            </div>
+            <div class="sidebarBoxContent" id="shippingbox">
+                <div id="shippingbox1">First Name Last Name</div>
+                <div id="shippingbox2">Company Name</div>
+                <div id="shippingbox3">Street1, Street2</div>
+                <div id="shippingbox4">City, State, Country</div>
+                <div id="shippingbox5">Zip Telephone</div>
+                <div id="shippingbox6"></div>
+            </div>
+        </div>
     </div>
 </div>
 @section scripts {

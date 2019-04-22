@@ -28,7 +28,12 @@
                             </div>
                             <div class="navbar-collapse collapse">
                                 <ul class="navTop nav navbar-nav">
-                                    <li class="searchBox"><input type="text" class="searchInput" placeholder="Search a product.." /><i class="searchIcon glyphicon glyphicon-search"></i></li>
+                                    <li class="searchBox">
+                                        <i class="searchIcon glyphicon glyphicon-search"></i>
+                                        <div class="searchSelect">
+                                            <select class="searchInput" style="width:200px;"></select>
+                                        </div>
+                                    </li>
                                     <li>@Html.ActionLink("DEALS", "Products", "Home")</li>
                                 </ul>
                                 @Html.Partial("_LoginPartial")
@@ -43,10 +48,10 @@
                                     <li>@Html.ActionLink("CONTACT", "About", "Home")</li>
                                     <li>
                                         <div class="cart">
-                                            <a href="@Url.Action("Cart", "Checkout")">
+                                            <a href="@Url.Action("Cart","Checkout")">
                                                 <i class="cartIcon glyphicon glyphicon-shopping-cart"></i>
                                                 <span class="cartQty" id="cartQty">0</span>
-                                                <div class="cartText">ITEMS</div>
+                                                <div class="cartText">Items</div>
                                             </a>
                                             <div class="cartArea"></div>
                                             <div class="cartContent" id="cartContent"></div>
@@ -54,11 +59,8 @@
                                     </li>
                                 </ul>
                             </div>
-
                         </div>
-
                     </div>
-                    
                 </div>
             </div>
         </div>
@@ -69,13 +71,15 @@
         <div class="content">
             @RenderBody()
         </div>
+
         <hr />
+
     </div>
     <footer>
         <div class="container">
             <div class="row">
                 <div class="col-sm-4">
-                    <div class="footerTitle">CONTACT INFORMATION</div>
+                    <div class="footerTitle">CONACT INFORMATION</div>
                     <ul class="contact-info">
                         <li><i class="glyphicon glyphicon-map-marker">&nbsp;</i><p><b style="color: #fff;text-transform:uppercase;">Address</b><br>123 Street Name, City, England</p></li>
                         <li><i class="glyphicon glyphicon-phone">&nbsp;</i><p><b style="color: #fff;text-transform:uppercase;">Phone</b><br>(123) 456-7890</p></li>
@@ -89,7 +93,7 @@
                         <li><i class="glyphicon glyphicon-triangle-right"></i><a href="#" title="About us">About us</a></li>
                         <li><i class="glyphicon glyphicon-triangle-right"></i><a href="#" title="Contact Us">Contact us</a></li>
                         <li><i class="glyphicon glyphicon-triangle-right"></i><a href="#" title="My Account">My Account</a></li>
-                        <li><i class="glyphicon glyphicon-triangle-right"></i><a href="#" title="My Account">Order history</a></li>
+                        <li><i class="glyphicon glyphicon-triangle-right"></i><a href="@Url.Action("Index","MyOrders")" title="My Account">Order History</a></li>
                         <li><i class="glyphicon glyphicon-triangle-right"></i><a href="#" title="Contact us">Advanced search</a></li>
                     </ul>
                 </div>
@@ -124,9 +128,12 @@
     </footer>
 
     @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryui")
+    @Scripts.Render("~/bundles/select2")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/shopping")
     @RenderSection("scripts", required: false)
+
     <script type="text/javascript">
         $(document).ready(function () {
             @RenderSection("scriptsready", required: false)
@@ -155,6 +162,5 @@
             });
         });
     </script>
-
 </body>
 </html>

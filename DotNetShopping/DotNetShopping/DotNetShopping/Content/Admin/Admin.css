@@ -7,3 +7,78 @@
     color:red;
     font-weight:bold;
 }
+.orderTable tbody tr {
+    cursor: pointer;
+}
+
+    .orderTable tbody tr:hover {
+        background-color: #e1ddc3;
+    }
+.orderTable {
+    width: 100%;
+}
+
+    .orderTable thead tr {
+        border-bottom: 1px solid rgba(0,0,0,0.15);
+    }
+
+    .orderTable tbody tr {
+        border-bottom: 1px solid rgba(0,0,0,0.15);
+        height: 40px;
+        cursor: pointer;
+    }
+
+        .orderTable tbody tr:hover {
+            background-color: #e1ddc3;
+        }
+
+    .orderTable td, th {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+.orderDetail {
+    width: 100%;
+    margin-bottom: 40px;
+}
+
+    .orderDetail td {
+        padding-left: 10px;
+        padding-right: 10px;
+        padding-top: 2px;
+        padding-bottom: 2px;
+    }
+
+    .orderDetail .titleLabel {
+        font-weight: bold;
+        width: 130px;
+    }
+
+    .orderDetail .detailLabel {
+    }
+
+
+    .ManageOrder{
+        width : 300px;
+        border : 1px dotted #e7e7e7;
+        margin : 10px;
+    }
+
+    .ManageOrder td{
+        padding : 10px;
+    }
+
+    .ManageOrder caption{
+        font-weight : bold;
+    }
+    
+    .ManagerOrder select{
+        float : left;
+        width : 150px;
+    }
+
+    .ManageOrder button{
+        float : left;
+        margin-top : 5px;
+        margin-left : 5px;
+    }

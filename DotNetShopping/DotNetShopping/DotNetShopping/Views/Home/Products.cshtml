@@ -1,0 +1,54 @@
+﻿
+@{
+    ViewBag.Title = "Products";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    DotNetShopping.Models.Category c = ViewBag.SelectedCategory;
+}
+<script>
+    var minValue = @ViewBag.min;
+    var maxValue = @ViewBag.max;
+    var category = @(c == null ? 0 : c.CategoryId);
+    var brand = @(ViewBag.Brand ?? 0);
+</script>
+<h2>Products</h2>
+<div class="row">
+    <div class="col-sm-4 col-md-3">
+        <div class="FilterMenu">
+            <div class="FilterMenuTitle">CATEGORIES</div>
+            @if (c != null)
+            {
+                <a class="FilterMenuItemSelected" href="@Url.Action("Products", "Home", new { Category = c.ParentId, min = ViewBag.Min, max = ViewBag.Max,Brand=ViewBag.Brand })">@c.Name &nbsp;&nbsp;<i class="glyphicon glyphicon-remove-circle"></i></a>
+            }
+            @foreach (DotNetShopping.Models.Category category in ViewBag.Categories)
+            {
+                <a class="FilterMenuItem" href="@Url.Action("Products", "Home", new { Category = category.CategoryId, min = ViewBag.Min, max = ViewBag.Max,Brand=ViewBag.Brand })">@category.Name</a>
+            }
+
+            <div class="RangeSlider">
+                <label for="amount">PRICE RANGE:</label>
+                <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
+                <a class="RangeLink" href="">GO</a>
+            </div>
+
+            <div id="slider-range"></div>
+
+            <div class="FilterMenuTitle">BRANDS</div>
+            @foreach (DotNetShopping.Models.Brand brand in ViewBag.Brands)
+            {
+                <a class="@(brand.BrandId== ViewBag.Brand ? "FilterMenuItemSelected" :"FilterMenuItem")" href="@Url.Action("Products","Home",new { Category=ViewBag.SelectedCategory, Brand = brand.BrandId, min=ViewBag.Min,max=ViewBag.Max})">@brand.Name</a>
+            }
+        </div>
+    </div>
+    <div class="ProductList col-sm-8 col-md-9">
+        @foreach (DotNetShopping.Models.ProductBoxModel product in ViewBag.Products)
+        {
+            <div class="Product">
+                @Html.Partial("_ProductSmallPartial", product)
+            </div>
+        }
+    </div>
+</div>
+
+@section scripts{
+    <script src="~/Scripts/products.js"></script>
+}

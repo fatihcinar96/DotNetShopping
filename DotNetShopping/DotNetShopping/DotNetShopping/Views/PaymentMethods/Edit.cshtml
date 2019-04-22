@@ -29,20 +29,20 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Domestic, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-               
+                <div class="checkbox">
                     @Html.EditorFor(model => model.Domestic)
                     @Html.ValidationMessageFor(model => model.Domestic, "", new { @class = "text-danger" })
-       
+                </div>
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.International, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-           
+                <div class="checkbox">
                     @Html.EditorFor(model => model.International)
                     @Html.ValidationMessageFor(model => model.International, "", new { @class = "text-danger" })
- 
+                </div>
             </div>
         </div>
 

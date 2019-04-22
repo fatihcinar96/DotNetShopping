@@ -17,6 +17,11 @@ namespace DotNetShopping.Helpers
             FileName = FileName.Replace(" ", "_");
             return FileName;
         }
-
+        public static string GetOrderNo(Int64 OrderId,DateTime OrderDate)
+        {
+            //201904220000022
+            string orderNo = OrderDate.Year.ToString() + OrderDate.Month.ToString("D2") + OrderDate.Day.ToString("D2") + OrderId.ToString("D6");
+            return orderNo;
+        }
     }
 }

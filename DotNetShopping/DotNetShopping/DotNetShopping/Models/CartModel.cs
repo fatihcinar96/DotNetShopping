@@ -25,6 +25,8 @@ namespace DotNetShopping.Models
         public int Quantity { get; set; }
         public Decimal UnitPrice { get; set; }
         public Decimal TotalPrice { get; set; }
+        public Decimal Cost { get; set; }
+        public Decimal TotalCost { get; set; }
         public string VariantName { get; set; }
         public string ProductName { get; set; }
         public string PhotoName { get; set; }
@@ -33,7 +35,6 @@ namespace DotNetShopping.Models
         public IEnumerable<CartListModel> GetCart(string UserId)
         {
             ApplicationDbContext db = new ApplicationDbContext();
-
             var model = db.Carts
                 .Join(db.Variants, c => c.VariantId, v => v.VariantId, (c, v) => new { Cart = c, Variant = v })
                 .Join(db.Products, cv => cv.Variant.ProductId, p => p.ProductId, (cv, p) => new { cv, Product = p })
@@ -45,15 +46,16 @@ namespace DotNetShopping.Models
                     ProductId = x.cv.Variant.ProductId,
                     Quantity = x.cv.Cart.Quantity,
                     VariantName = x.cv.Variant.Name,
-                    ProductName = x.Product.Name,
+                    ProductName = x.cv.Variant.Product.Name,
                     UnitPrice = x.cv.Variant.UnitPrice,
                     TotalPrice = x.cv.Variant.UnitPrice * x.cv.Cart.Quantity,
-                    Stock = x.cv.Variant.Stock,
+                    Cost = x.cv.Variant.Cost,
+                    TotalCost = x.cv.Variant.Cost * x.cv.Cart.Quantity,
+                    Stock=x.cv.Variant.Stock,
                     PhotoName = db.ProductImages.Where(pi => pi.VariantId == x.cv.Variant.VariantId)
                     .OrderBy(pi => pi.Sequence).FirstOrDefault().FileName
                 }).ToList();
             return model;
         }
     }
-    
 }

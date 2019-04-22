@@ -45,6 +45,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Iyzipay, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Iyzipay.2.1.22\lib\net45\Iyzipay.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -163,9 +169,6 @@
     <Reference Include="Microsoft.AspNet.TelemetryCorrelation">
       <HintPath>..\packages\Microsoft.AspNet.TelemetryCorrelation.1.0.0\lib\net45\Microsoft.AspNet.TelemetryCorrelation.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
-      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -183,6 +186,8 @@
     <Compile Include="Controllers\CountriesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MyOrdersController.cs" />
+    <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\PaymentMethodsController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\ProductDetailController.cs" />
@@ -197,33 +202,45 @@
     </Compile>
     <Compile Include="Helpers\ImageHelper.cs" />
     <Compile Include="Helpers\StringHelper.cs" />
-    <Compile Include="Migrations\201903121300407_InitialExpanse.cs" />
-    <Compile Include="Migrations\201903121300407_InitialExpanse.Designer.cs">
-      <DependentUpon>201903121300407_InitialExpanse.cs</DependentUpon>
+    <Compile Include="Migrations\201903211706196_InitialCreate.cs" />
+    <Compile Include="Migrations\201903211706196_InitialCreate.Designer.cs">
+      <DependentUpon>201903211706196_InitialCreate.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201903121301596_sequence.cs" />
-    <Compile Include="Migrations\201903121301596_sequence.Designer.cs">
-      <DependentUpon>201903121301596_sequence.cs</DependentUpon>
+    <Compile Include="Migrations\201903211706533_cart.cs" />
+    <Compile Include="Migrations\201903211706533_cart.Designer.cs">
+      <DependentUpon>201903211706533_cart.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201903151634078_userdates.cs" />
-    <Compile Include="Migrations\201903151634078_userdates.Designer.cs">
-      <DependentUpon>201903151634078_userdates.cs</DependentUpon>
+    <Compile Include="Migrations\201903281716549_Orders.cs" />
+    <Compile Include="Migrations\201903281716549_Orders.Designer.cs">
+      <DependentUpon>201903281716549_Orders.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201903211651428_cart.cs" />
-    <Compile Include="Migrations\201903211651428_cart.Designer.cs">
-      <DependentUpon>201903211651428_cart.cs</DependentUpon>
+    <Compile Include="Migrations\201903291403087_reqired.cs" />
+    <Compile Include="Migrations\201903291403087_reqired.Designer.cs">
+      <DependentUpon>201903291403087_reqired.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201903281716543_Orders.cs" />
-    <Compile Include="Migrations\201903281716543_Orders.Designer.cs">
-      <DependentUpon>201903281716543_Orders.cs</DependentUpon>
+    <Compile Include="Migrations\201904011456576_shipping.cs" />
+    <Compile Include="Migrations\201904011456576_shipping.Designer.cs">
+      <DependentUpon>201904011456576_shipping.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201903291402008_required-fields.cs" />
-    <Compile Include="Migrations\201903291402008_required-fields.Designer.cs">
-      <DependentUpon>201903291402008_required-fields.cs</DependentUpon>
+    <Compile Include="Migrations\201904041708284_requiredorder.cs" />
+    <Compile Include="Migrations\201904041708284_requiredorder.Designer.cs">
+      <DependentUpon>201904041708284_requiredorder.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201904011456573_shipping.cs" />
-    <Compile Include="Migrations\201904011456573_shipping.Designer.cs">
-      <DependentUpon>201904011456573_shipping.cs</DependentUpon>
+    <Compile Include="Migrations\201904091301431_shippingdate.cs" />
+    <Compile Include="Migrations\201904091301431_shippingdate.Designer.cs">
+      <DependentUpon>201904091301431_shippingdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904091513541_discount.cs" />
+    <Compile Include="Migrations\201904091513541_discount.Designer.cs">
+      <DependentUpon>201904091513541_discount.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904191515399_conversation.cs" />
+    <Compile Include="Migrations\201904191515399_conversation.Designer.cs">
+      <DependentUpon>201904191515399_conversation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904221429538_shippingCode.cs" />
+    <Compile Include="Migrations\201904221429538_shippingCode.Designer.cs">
+      <DependentUpon>201904221429538_shippingCode.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -256,8 +273,18 @@
     <Content Include="Content\Bootstrap\bootstrap.min.css" />
     <Content Include="Content\Admin\light-bootstrap-dashboard.css" />
     <Content Include="Content\Admin\pe-icon-7-stroke.css" />
+    <Content Include="Content\css\select2.css" />
+    <Content Include="Content\css\select2.min.css" />
+    <Content Include="Content\images\ui-icons_444444_256x240.png" />
+    <Content Include="Content\images\ui-icons_555555_256x240.png" />
+    <Content Include="Content\images\ui-icons_777620_256x240.png" />
+    <Content Include="Content\images\ui-icons_777777_256x240.png" />
+    <Content Include="Content\images\ui-icons_cc0000_256x240.png" />
+    <Content Include="Content\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Content\jquery-ui.css" />
+    <Content Include="Content\jquery-ui.structure.css" />
+    <Content Include="Content\jquery-ui.theme.css" />
     <Content Include="Content\Site\ajax-loader.gif" />
-    <Content Include="Content\Site\fonts\slick.svg" />
     <Content Include="Content\Site\slick-theme.css" />
     <Content Include="Content\Site\slick.css" />
     <Content Include="favicon.ico" />
@@ -328,6 +355,7 @@
     <Content Include="Content\Admin\sass\lbd\_variables.scss" />
     <Content Include="Content\Admin\sass\light-bootstrap-dashboard.scss" />
     <Content Include="Content\Site\fonts\slick.eot" />
+    <Content Include="Content\Site\fonts\slick.svg" />
     <Content Include="Content\Site\fonts\slick.ttf" />
     <Content Include="Content\Site\fonts\slick.woff" />
     <Content Include="Content\Site\config.rb" />
@@ -339,17 +367,76 @@
     <Content Include="Scripts\chartist.min.js" />
     <Content Include="Scripts\checkout.js" />
     <Content Include="Scripts\demo.js" />
+    <Content Include="Scripts\i18n\af.js" />
+    <Content Include="Scripts\i18n\ar.js" />
+    <Content Include="Scripts\i18n\az.js" />
+    <Content Include="Scripts\i18n\bg.js" />
+    <Content Include="Scripts\i18n\bs.js" />
+    <Content Include="Scripts\i18n\ca.js" />
+    <Content Include="Scripts\i18n\cs.js" />
+    <Content Include="Scripts\i18n\da.js" />
+    <Content Include="Scripts\i18n\de.js" />
+    <Content Include="Scripts\i18n\dsb.js" />
+    <Content Include="Scripts\i18n\el.js" />
+    <Content Include="Scripts\i18n\en.js" />
+    <Content Include="Scripts\i18n\es.js" />
+    <Content Include="Scripts\i18n\et.js" />
+    <Content Include="Scripts\i18n\eu.js" />
+    <Content Include="Scripts\i18n\fa.js" />
+    <Content Include="Scripts\i18n\fi.js" />
+    <Content Include="Scripts\i18n\fr.js" />
+    <Content Include="Scripts\i18n\gl.js" />
+    <Content Include="Scripts\i18n\he.js" />
+    <Content Include="Scripts\i18n\hi.js" />
+    <Content Include="Scripts\i18n\hr.js" />
+    <Content Include="Scripts\i18n\hsb.js" />
+    <Content Include="Scripts\i18n\hu.js" />
+    <Content Include="Scripts\i18n\hy.js" />
+    <Content Include="Scripts\i18n\id.js" />
+    <Content Include="Scripts\i18n\is.js" />
+    <Content Include="Scripts\i18n\it.js" />
+    <Content Include="Scripts\i18n\ja.js" />
+    <Content Include="Scripts\i18n\km.js" />
+    <Content Include="Scripts\i18n\ko.js" />
+    <Content Include="Scripts\i18n\lt.js" />
+    <Content Include="Scripts\i18n\lv.js" />
+    <Content Include="Scripts\i18n\mk.js" />
+    <Content Include="Scripts\i18n\ms.js" />
+    <Content Include="Scripts\i18n\nb.js" />
+    <Content Include="Scripts\i18n\nl.js" />
+    <Content Include="Scripts\i18n\pl.js" />
+    <Content Include="Scripts\i18n\ps.js" />
+    <Content Include="Scripts\i18n\pt-BR.js" />
+    <Content Include="Scripts\i18n\pt.js" />
+    <Content Include="Scripts\i18n\ro.js" />
+    <Content Include="Scripts\i18n\ru.js" />
+    <Content Include="Scripts\i18n\sk.js" />
+    <Content Include="Scripts\i18n\sl.js" />
+    <Content Include="Scripts\i18n\sr-Cyrl.js" />
+    <Content Include="Scripts\i18n\sr.js" />
+    <Content Include="Scripts\i18n\sv.js" />
+    <Content Include="Scripts\i18n\th.js" />
+    <Content Include="Scripts\i18n\tr.js" />
+    <Content Include="Scripts\i18n\uk.js" />
+    <Content Include="Scripts\i18n\vi.js" />
+    <Content Include="Scripts\i18n\zh-CN.js" />
+    <Content Include="Scripts\i18n\zh-TW.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery-ui.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\light-bootstrap-dashboard.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\order.js" />
+    <Content Include="Scripts\products.js" />
+    <Content Include="Scripts\select2.js" />
+    <Content Include="Scripts\select2.min.js" />
     <Content Include="Scripts\shopping.js" />
     <Content Include="Scripts\slick.min.js" />
     <Content Include="Web.config" />
@@ -449,6 +536,15 @@
     <Content Include="Views\PaymentMethods\Details.cshtml" />
     <Content Include="Views\PaymentMethods\Edit.cshtml" />
     <Content Include="Views\PaymentMethods\Index.cshtml" />
+    <Content Include="Views\Order\Index.cshtml" />
+    <Content Include="Views\MyOrders\Index.cshtml" />
+    <Content Include="Views\MyOrders\Order.cshtml" />
+    <Content Include="Views\Order\Detail.cshtml" />
+    <Content Include="Views\Home\Products.cshtml" />
+    <Content Include="Views\Shared\_ProductSmallPartial.cshtml" />
+    <Content Include="Views\Shared\_ProductSmallPartialList.cshtml" />
+    <Content Include="Views\Home\FeaturedProducts.cshtml" />
+    <Content Include="Views\Checkout\CheckoutPay.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -469,26 +565,35 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201903121300407_InitialExpanse.resx">
-      <DependentUpon>201903121300407_InitialExpanse.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201903211706196_InitialCreate.resx">
+      <DependentUpon>201903211706196_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201903121301596_sequence.resx">
-      <DependentUpon>201903121301596_sequence.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201903211706533_cart.resx">
+      <DependentUpon>201903211706533_cart.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201903151634078_userdates.resx">
-      <DependentUpon>201903151634078_userdates.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201903281716549_Orders.resx">
+      <DependentUpon>201903281716549_Orders.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201903211651428_cart.resx">
-      <DependentUpon>201903211651428_cart.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201903291403087_reqired.resx">
+      <DependentUpon>201903291403087_reqired.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201903281716543_Orders.resx">
-      <DependentUpon>201903281716543_Orders.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201904011456576_shipping.resx">
+      <DependentUpon>201904011456576_shipping.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201903291402008_required-fields.resx">
-      <DependentUpon>201903291402008_required-fields.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201904041708284_requiredorder.resx">
+      <DependentUpon>201904041708284_requiredorder.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904011456573_shipping.resx">
-      <DependentUpon>201904011456573_shipping.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201904091301431_shippingdate.resx">
+      <DependentUpon>201904091301431_shippingdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904091513541_discount.resx">
+      <DependentUpon>201904091513541_discount.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904191515399_conversation.resx">
+      <DependentUpon>201904191515399_conversation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904221429538_shippingCode.resx">
+      <DependentUpon>201904221429538_shippingCode.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

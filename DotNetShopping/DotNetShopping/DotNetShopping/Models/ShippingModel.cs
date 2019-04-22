@@ -10,7 +10,7 @@ namespace DotNetShopping.Models
 {
     public class ShippingMethod
     {
-        //[HiddenInput(DisplayValue = false)]
+        [HiddenInput(DisplayValue = false)]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Int16 ShippingMethodId { get; set; }
         public string Name { get; set; }
@@ -38,6 +38,7 @@ namespace DotNetShopping.Models
         public bool Domestic { get; set; }
         public bool International { get; set; }
         public Int16 CountryId { get; set; }
+        public string CountryName { get; set; }
         public Decimal CostHalf { get; set; }
         public Decimal CostOne { get; set; }
         public Decimal CostOneHalf { get; set; }
