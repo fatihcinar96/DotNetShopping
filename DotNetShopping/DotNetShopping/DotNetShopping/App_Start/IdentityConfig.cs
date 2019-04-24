@@ -11,6 +11,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using DotNetShopping.Models;
+using DotNetShopping.Helpers;
 
 namespace DotNetShopping
 {
@@ -19,7 +20,13 @@ namespace DotNetShopping
         public Task SendAsync(IdentityMessage message)
         {
             // Plug in your email service here to send an email.
-            return Task.FromResult(0);
+            var emailHelper = new EmailHelper();
+            var emailModel = new EmailModel();
+            emailModel.MailTo = message.Destination;
+            emailModel.Title = message.Subject;
+            emailModel.Body = message.Body;
+            string error = "";
+            return Task.FromResult(emailHelper.SendEmail(emailModel, ref error));
         }
     }
 
