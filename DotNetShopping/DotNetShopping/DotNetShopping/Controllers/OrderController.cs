@@ -1,4 +1,6 @@
-﻿using DotNetShopping.Models;
+﻿using DotNetShopping.Helpers;
+using DotNetShopping.Models;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -102,6 +104,13 @@ namespace DotNetShopping.Controllers
                             
                         }
                         db.SaveChanges();
+                        if(status == Order.OrderStatuses.Shipped)
+                        {
+                            var emailHelper = new EmailHelper();
+                            var userId = User.Identity.GetUserId();
+                            var user = db.Users.Find(userId);
+                            emailHelper.SendOrderShipped(orderId, Request, Url, user);
+                        }
                         return Json(new { Success = true });
                     }
                     else

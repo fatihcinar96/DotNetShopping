@@ -13,6 +13,7 @@ using System.Diagnostics;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System.Configuration;
+using DotNetShopping.Helpers;
 
 namespace DotNetShopping.Controllers
 {
@@ -181,7 +182,7 @@ namespace DotNetShopping.Controllers
                 order.TotalPrice = productTotal + shippingCost - paymentDiscount;
                 order.ShippingCost = shippingCost;
                 decimal productCost = cart.Sum(x => x.TotalCost);
-                decimal paymentCost = (paymentMethod.PercentCost * order.TotalPrice) + paymentMethod.StaticCost;
+                decimal paymentCost = (paymentMethod.PercentCost * order.TotalPrice/100) + paymentMethod.StaticCost;
 
                 order.TotalCost = productCost + paymentCost + shippingCost;
 
@@ -228,6 +229,8 @@ namespace DotNetShopping.Controllers
                         db.SaveChanges();
                     }
                 }
+                var emailHelper = new EmailHelper();
+                emailHelper.SendOrderReceived(order,Request,Url);
                 return RedirectToAction("Order", "MyOrders", new { id = order.OrderId, message = errorMessage });
             }
             catch (Exception ex)

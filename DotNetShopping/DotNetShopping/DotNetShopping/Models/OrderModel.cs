@@ -10,6 +10,7 @@ namespace DotNetShopping.Models
 {
     public class Order
     {
+      
         public enum OrderStatuses
         {
             Received = 0,
@@ -18,6 +19,7 @@ namespace DotNetShopping.Models
             Shipped = 3,
             Delivered = 4
         }
+        #region properties
         [HiddenInput(DisplayValue = false)]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Int64 OrderId { get; set; }
@@ -105,6 +107,63 @@ namespace DotNetShopping.Models
         public Decimal Discount { get; set; }
         public string ConversationId { get; set; }
         public string PaymentError { get; set; }
+        #endregion
+        public OrderDetailModel GetOrderDetail(Int64 OrderId)
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            var model = db.Orders.Where(x => x.OrderId == OrderId)
+               .Join(db.ShippingMethods, o => o.ShippingMethodId, sm => sm.ShippingMethodId, (o, sm) => new { Order = o, ShippingMethod = sm })
+               .Join(db.PaymentMethods, osm => osm.Order.PaymentMethodId, pm => pm.PaymentMethodId, (osm, pm) => new { osm, PaymentMethod = pm })
+               .Select(x => new OrderDetailModel
+               {
+                   OrderId = x.osm.Order.OrderId,
+                   OrderDate = x.osm.Order.OrderDate,
+                   OrderStatus = x.osm.Order.OrderStatus,
+                   Paid = x.osm.Order.Paid,
+                   PaymentError = x.osm.Order.PaymentError,
+                   PaymentMethodId = x.osm.Order.PaymentMethodId,
+                   PaymentMethodName = x.PaymentMethod.Name,
+                   ShippingCityId = x.osm.Order.ShippingCityId,
+                   ShippingCompany = x.osm.Order.ShippingCompany,
+                   ShippingCost = x.osm.Order.ShippingCost,
+                   ShippingCountryId = x.osm.Order.ShippingCountryId,
+                   ShippingDate = x.osm.Order.ShippingDate,
+                   ShippingFirstName = x.osm.Order.ShippingFirstName,
+                   ShippingLastName = x.osm.Order.ShippingLastName,
+                   ShippingMethodId = x.osm.Order.ShippingMethodId,
+                   ShippingMethodName = x.osm.ShippingMethod.Name,
+                   ShippingStateId = x.osm.Order.ShippingStateId,
+                   ShippingStreet1 = x.osm.Order.ShippingStreet1,
+                   ShippingStreet2 = x.osm.Order.ShippingStreet2,
+                   ShippingTelephone = x.osm.Order.ShippingTelephone,
+                   ShippingCode = x.osm.Order.ShippingCode,
+                   ShippingZip = x.osm.Order.ShippingZip,
+                   TotalPrice = x.osm.Order.TotalPrice,
+                   UserId = x.osm.Order.UserId,
+                   Discount = x.osm.Order.Discount,
+                   CityName = db.Cities.Where(c => c.CityId == x.osm.Order.ShippingCityId).FirstOrDefault().Name,
+                   StateName = db.States.Where(s => s.StateId == x.osm.Order.ShippingStateId).FirstOrDefault().Name,
+                   CountryName = db.Countries.Where(c => c.CountryId == x.osm.Order.ShippingCountryId).FirstOrDefault().Name,
+                   OrderProducts = db.OrderProducts.Where(op => op.OrderId == OrderId)
+                   .Join(db.Variants, op => op.VariantId, v => v.VariantId, (op, v) => new { OrderProduct = op, Variant = v })
+                   .Join(db.Products, opv => opv.Variant.ProductId, p => p.ProductId, (opv, p) => new { opv, Product = p })
+                   .Select(oplm => new OrderProductListModel
+                   {
+                       OrderId = oplm.opv.OrderProduct.OrderId,
+                       Cost = oplm.opv.OrderProduct.Cost,
+                       Quantity = oplm.opv.OrderProduct.Quantity,
+                       TotalCost = oplm.opv.OrderProduct.TotalCost,
+                       TotalPrice = oplm.opv.OrderProduct.TotalPrice,
+                       UnitPrice = oplm.opv.OrderProduct.UnitPrice,
+                       VariantId = oplm.opv.OrderProduct.VariantId,
+                       ProductId = oplm.Product.ProductId,
+                       ProductName = oplm.Product.Name,
+                       VariantName = oplm.opv.Variant.Name,
+                       FileName = db.ProductImages.Where(pi => pi.VariantId == oplm.opv.Variant.VariantId).OrderBy(pi => pi.Sequence).FirstOrDefault().FileName
+                   }).ToList()
+               }).FirstOrDefault();
+            return model;
+        }
     }
     public class CheckoutModel
     {
