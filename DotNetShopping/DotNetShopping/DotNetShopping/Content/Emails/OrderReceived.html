@@ -8,10 +8,8 @@
             font-family: 'Segoe UI';
         }
         .header {
-            font-size: 22pt;
-            color: rgba(238, 160, 20, 0.83);
             font-weight: bold;
-            width: 50%;
+            width: 550px;
             margin: auto;
         }
 
@@ -52,42 +50,42 @@
 <body>
   
     <div class="header">
-        <h1 style="text-align : center; padding-right: 10%;">DotNetShopping</h1>
+        <img src="https://live.staticflickr.com/65535/40733503973_d843937ea7.jpg" alt="logo" border="0" />
     </div>
 
     <div class="maintableDiv">
         <div class="leftSide" style="width : 49%; float : left; height : 100%; color : rgba(53, 40, 40, 0.65)">
             <div class="mainItem">
                 ORDER NO :
-                <span>[#ORDERNO#]</span>
+                <span style="font-weight : 900;">[#ORDERNO#]</span>
             </div>
             
             <div class="mainItem">
                 ORDER DATE : 
-                <span>[#ORDERDATE#]</span>
+                <span style="font-weight : 900;">[#ORDERDATE#]</span>
             </div>
         </div>
         <div class="rightSide" style="width : 50%; float : right; height : 100%; color : rgba(53, 40, 40, 0.65)">
-            <div class="mainItem">
+            <div class="mainItem" >
                 TOTAL PRICE :
-                <span>[#TOTALPRICE#]</span>
+                <span style="font-weight : 900;">[#TOTALPRICE#]</span>
             </div>
             <div class="mainItem">
                 PAYMENT :
-                <span>[#PAYMENT#]</span>
+                <span style="font-weight : 900;">[#PAYMENT#]</span>
             </div>
         </div>
     </div>
     <div class="productContentDiv">
         <table style="font-size : 9pt;">
             <tr class="productDiv" style="font-size : 12pt; letter-spacing : 1px; color : rgba(53, 40, 40, 0.65)">
-                <td></td>
-                <td>Product Name</td>
-                <td>Quantity</td>
-                <td>Unit Price</td>
-                <td>Total Price</td>
+                <td style="border-bottom : 1px solid rgba(53,40,40,0.45);"></td>
+                <td style="border-bottom : 1px solid rgba(53,40,40,0.45);">Product Name</td>
+                <td style="border-bottom : 1px solid rgba(53,40,40,0.45);">Quantity</td>
+                <td style="border-bottom : 1px solid rgba(53,40,40,0.45);">Unit Price</td>
+                <td style="border-bottom : 1px solid rgba(53,40,40,0.45);">Total Price</td>
             </tr>
-            <tbody style="text-align : center;">
+            <tbody style="text-align : center; font-weight : 600;">
                 [#PRODUCTS#]
             </tbody>
         </table>

@@ -178,6 +178,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\AdminPageController.cs" />
     <Compile Include="Controllers\ApiController.cs" />
     <Compile Include="Controllers\BrandsController.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
@@ -244,6 +245,10 @@
     <Compile Include="Migrations\201904221429538_shippingCode.Designer.cs">
       <DependentUpon>201904221429538_shippingCode.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201904261300041_pages.cs" />
+    <Compile Include="Migrations\201904261300041_pages.Designer.cs">
+      <DependentUpon>201904261300041_pages.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BrandModel.cs" />
@@ -256,6 +261,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\OrderModel.cs" />
     <Compile Include="Models\OrderProductModel.cs" />
+    <Compile Include="Models\PageModel.cs" />
     <Compile Include="Models\PaymentModel.cs" />
     <Compile Include="Models\ProductImageModel.cs" />
     <Compile Include="Models\ProductModel.cs" />
@@ -1159,6 +1165,7 @@
     <Folder Include="Scripts\ckeditor\plugins\smiley\" />
     <Folder Include="Scripts\ckeditor\plugins\styles\" />
     <Folder Include="Scripts\ckeditor\plugins\table\" />
+    <Folder Include="Views\AdminPage\" />
     <Folder Include="Views\Api\" />
   </ItemGroup>
   <ItemGroup>
@@ -1204,6 +1211,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201904221429538_shippingCode.resx">
       <DependentUpon>201904221429538_shippingCode.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904261300041_pages.resx">
+      <DependentUpon>201904261300041_pages.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
