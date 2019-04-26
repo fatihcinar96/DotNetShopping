@@ -1,0 +1,59 @@
+﻿@model  IEnumerable<DotNetShopping.Models.PageViewModel>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Index</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.PageId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PageTitle)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PageBody)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Keywords)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+           
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                
+                <td>
+                    @Html.DisplayFor(modelItem => item.PageId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PageTitle)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PageBody)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Keywords)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.PageId })
+                    @Html.ActionLink("Delete", "Delete", new { PageId = item.PageId })
+                    @Html.ActionLink("Create", "Create", new { PageId = item.PageId })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

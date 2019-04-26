@@ -190,6 +190,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MyOrdersController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
+    <Compile Include="Controllers\PageController.cs" />
     <Compile Include="Controllers\PaymentMethodsController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\ProductDetailController.cs" />
@@ -248,6 +249,10 @@
     <Compile Include="Migrations\201904261300041_pages.cs" />
     <Compile Include="Migrations\201904261300041_pages.Designer.cs">
       <DependentUpon>201904261300041_pages.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904261446164_page-date.cs" />
+    <Compile Include="Migrations\201904261446164_page-date.Designer.cs">
+      <DependentUpon>201904261446164_page-date.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -1151,6 +1156,10 @@
     <Content Include="Views\Home\FeaturedProducts.cshtml" />
     <Content Include="Views\Checkout\CheckoutPay.cshtml" />
     <Content Include="Views\Email\Index.cshtml" />
+    <Content Include="Views\AdminPage\Create.cshtml" />
+    <Content Include="Views\AdminPage\Edit.cshtml" />
+    <Content Include="Views\AdminPage\Index.cshtml" />
+    <Content Include="Views\Page\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1165,7 +1174,6 @@
     <Folder Include="Scripts\ckeditor\plugins\smiley\" />
     <Folder Include="Scripts\ckeditor\plugins\styles\" />
     <Folder Include="Scripts\ckeditor\plugins\table\" />
-    <Folder Include="Views\AdminPage\" />
     <Folder Include="Views\Api\" />
   </ItemGroup>
   <ItemGroup>
@@ -1214,6 +1222,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201904261300041_pages.resx">
       <DependentUpon>201904261300041_pages.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904261446164_page-date.resx">
+      <DependentUpon>201904261446164_page-date.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
