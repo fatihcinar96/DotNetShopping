@@ -4,8 +4,8 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 <style type="text/css">
-    .description{
-        height : 150px;
+    .description {
+        height: 150px;
     }
 </style>
 <div>@ViewBag.Error</div>
@@ -64,4 +64,13 @@
         </div>
 
     </div>
+}
+
+
+@section scripts {
+
+    <script src="~/Content/ckeditor/ckeditor.js"></script>
+}
+@section scriptsready {
+    CKEDITOR.replace( 'PageBody' );
 }

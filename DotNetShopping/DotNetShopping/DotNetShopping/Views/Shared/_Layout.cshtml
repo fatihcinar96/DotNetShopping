@@ -43,9 +43,9 @@
                             <div class="navbar-collapse collapse">
                                 <ul class="navBottom nav navbar-nav">
                                     <li>@Html.ActionLink("HOME", "Index", "Home")</li>
-                                    <li>@Html.ActionLink("CATEGORIES", "Categories", "Home")</li>
                                     <li>@Html.ActionLink("PRODUCTS", "Products", "Home")</li>
-                                    <li>@Html.ActionLink("CONTACT", "About", "Home")</li>
+                                    <li>@Html.ActionLink("About", "Index", "Page", new { PageId = "About" }, new { })</li>
+                                    <li>@Html.ActionLink("CONTACT", "Index", "Page", new { PageId = "Contact" }, new { })</li>
                                     <li>
                                         <div class="cart">
                                             <a href="@Url.Action("Cart","Checkout")">
@@ -79,11 +79,11 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-4">
-                    <div class="footerTitle">CONACT INFORMATION</div>
+                    <div class="footerTitle">CONTACT INFORMATION</div>
                     <ul class="contact-info">
-                        <li><i class="glyphicon glyphicon-map-marker">&nbsp;</i><p><b style="color: #fff;text-transform:uppercase;">Address</b><br>123 Street Name, City, England</p></li>
-                        <li><i class="glyphicon glyphicon-phone">&nbsp;</i><p><b style="color: #fff;text-transform:uppercase;">Phone</b><br>(123) 456-7890</p></li>
-                        <li><i class="glyphicon glyphicon-envelope">&nbsp;</i><p><b style="color: #fff;text-transform:uppercase;">Email</b><br><a href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;tf=1&amp;to=mail@example.com" target="_blank">mail@example.com</a></p></li>
+                        <li><i class="glyphicon glyphicon-map-marker">&nbsp;</i><p><b style="color: #fff;text-transform:uppercase;">Address</b><br>34200 Cincin St, Istanbul, Turkey</p></li>
+                        <li><i class="glyphicon glyphicon-phone">&nbsp;</i><p><b style="color: #fff;text-transform:uppercase;">Phone</b><br>(507) 072-8003</p></li>
+                        <li><i class="glyphicon glyphicon-envelope">&nbsp;</i><p><b style="color: #fff;text-transform:uppercase;">Email</b><br><a href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;tf=1&amp;to=fatihcinar96@gmail.com" target="_blank">mail@example.com</a></p></li>
                         <li><i class="glyphicon glyphicon-time">&nbsp;</i><p><b style="color: #fff;text-transform:uppercase;">Working Days/Hours</b><br>Mon - Sun / 9:00AM - 8:00PM</p></li>
                     </ul>
                 </div>

@@ -1,0 +1,13 @@
+﻿
+@{
+    Layout = null;
+}
+
+<div class="products-slider">
+    @foreach (DotNetShopping.Models.ProductBoxModel product in ViewBag.NewProducts)
+    {
+        <div>
+            @Html.Partial("_ProductPartial", product)
+        </div>
+    }
+</div>

@@ -14,11 +14,22 @@ namespace DotNetShopping.Controllers
         public ActionResult Index(string PageId)
         {
             var page = db.Pages.Find(PageId);
-            ViewBag.Title = page.PageTitle;
-            ViewBag.Body = page.PageBody;
-            ViewBag.Keywords = page.Keywords;
-            ViewBag.Description = page.Description;
-            return View(page);
+            
+            if(page!= null)
+            {
+                ViewBag.Title = page.PageTitle;
+                ViewBag.Body = page.PageBody;
+                ViewBag.Keywords = page.Keywords;
+                ViewBag.Description = page.Description;
+                return View(page);
+            }
+            else
+            {
+                return RedirectToAction("PageNotFound", "Home");
+            }
+            
         }
+
+        
     }
 }

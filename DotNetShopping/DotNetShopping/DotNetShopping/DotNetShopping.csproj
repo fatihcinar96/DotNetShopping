@@ -1160,6 +1160,8 @@
     <Content Include="Views\AdminPage\Edit.cshtml" />
     <Content Include="Views\AdminPage\Index.cshtml" />
     <Content Include="Views\Page\Index.cshtml" />
+    <Content Include="Views\Home\PageNotFound.cshtml" />
+    <Content Include="Views\Home\BestSellerProducts.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

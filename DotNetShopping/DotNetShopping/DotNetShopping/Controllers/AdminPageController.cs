@@ -39,7 +39,8 @@ namespace DotNetShopping.Controllers
         }
 
         [Authorize(Roles = "Admin")]
-        [HttpPost]
+        
+        [HttpPost,ValidateInput(false)]
         public ActionResult Create(PageCreateModel model)
         {
             try
