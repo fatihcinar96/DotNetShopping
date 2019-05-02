@@ -42,7 +42,8 @@ namespace DotNetShopping
                       "~/Content/Admin/animate.min.css",
                       "~/Content/Admin/light-bootstrap-dashboard.css",
                       "~/Content/Admin/pe-icon-7-stroke.css",
-                      "~/Content/Admin/Admin.css"));
+                      "~/Content/Admin/Admin.css",
+                      "~/Content/jquery-ui.css"));
         }
     }
 }

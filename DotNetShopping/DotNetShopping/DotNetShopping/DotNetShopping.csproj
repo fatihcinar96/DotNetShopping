@@ -181,6 +181,7 @@
     <Compile Include="Controllers\AdminPageController.cs" />
     <Compile Include="Controllers\ApiController.cs" />
     <Compile Include="Controllers\BrandsController.cs" />
+    <Compile Include="Controllers\CampaignsController.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\CheckoutController.cs" />
     <Compile Include="Controllers\CitiesController.cs" />
@@ -254,9 +255,26 @@
     <Compile Include="Migrations\201904261446164_page-date.Designer.cs">
       <DependentUpon>201904261446164_page-date.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201905021326010_Campaigns.cs" />
+    <Compile Include="Migrations\201905021326010_Campaigns.Designer.cs">
+      <DependentUpon>201905021326010_Campaigns.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905021334396_Campaigns1.cs" />
+    <Compile Include="Migrations\201905021334396_Campaigns1.Designer.cs">
+      <DependentUpon>201905021334396_Campaigns1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905021437556_Campaigns2.cs" />
+    <Compile Include="Migrations\201905021437556_Campaigns2.Designer.cs">
+      <DependentUpon>201905021437556_Campaigns2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905021506081_Campaigns3.cs" />
+    <Compile Include="Migrations\201905021506081_Campaigns3.Designer.cs">
+      <DependentUpon>201905021506081_Campaigns3.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BrandModel.cs" />
+    <Compile Include="Models\CampaignModel.cs" />
     <Compile Include="Models\CartModel.cs" />
     <Compile Include="Models\CategoryModel.cs" />
     <Compile Include="Models\CityModel.cs" />
@@ -1162,6 +1180,11 @@
     <Content Include="Views\Page\Index.cshtml" />
     <Content Include="Views\Home\PageNotFound.cshtml" />
     <Content Include="Views\Home\BestSellerProducts.cshtml" />
+    <Content Include="Views\Campaigns\Create.cshtml" />
+    <Content Include="Views\Campaigns\Delete.cshtml" />
+    <Content Include="Views\Campaigns\Details.cshtml" />
+    <Content Include="Views\Campaigns\Edit.cshtml" />
+    <Content Include="Views\Campaigns\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1227,6 +1250,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201904261446164_page-date.resx">
       <DependentUpon>201904261446164_page-date.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905021326010_Campaigns.resx">
+      <DependentUpon>201905021326010_Campaigns.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905021334396_Campaigns1.resx">
+      <DependentUpon>201905021334396_Campaigns1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905021437556_Campaigns2.resx">
+      <DependentUpon>201905021437556_Campaigns2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905021506081_Campaigns3.resx">
+      <DependentUpon>201905021506081_Campaigns3.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

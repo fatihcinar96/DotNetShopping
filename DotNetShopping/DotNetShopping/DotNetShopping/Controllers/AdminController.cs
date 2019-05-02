@@ -30,7 +30,7 @@ namespace DotNetShopping.Controllers
             if (!roleManager.RoleExists("Admin"))
             {
 
-                // first we create Admin rool    
+                // first we create Admin role  
                 var role = new IdentityRole();
                 role.Name = "Admin";
                 roleManager.Create(role);

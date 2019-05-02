@@ -50,5 +50,8 @@ namespace DotNetShopping.Models
         public DbSet<ShippingMethod>ShippingMethods { get; set; }
         public DbSet<ShippingCost>ShippingCosts { get; set; }
         public DbSet<Page>Pages { get; set; }
+        public DbSet<Campaign> Campaigns { get; set; }
+        public DbSet<PromoCode> PromoCodes { get; set; }
+        public DbSet<PromoCodeUsage> PromoCodeUsages { get; set; }
     }
 }

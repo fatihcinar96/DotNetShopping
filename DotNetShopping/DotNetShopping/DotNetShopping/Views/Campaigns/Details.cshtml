@@ -1,0 +1,131 @@
+﻿@model DotNetShopping.Models.Campaign
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Campaign</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Code)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Code)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DiscountPercent)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DiscountPercent)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProductCampaign)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProductCampaign)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.VariantCampaign)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.VariantCampaign)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Enabled)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Enabled)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OneTimeUse)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OneTimeUse)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FreeShipping)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FreeShipping)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StartDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StartDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EndDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EndDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UseCount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UseCount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TotalDiscount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TotalDiscount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TotalProfit)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TotalProfit)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.CampaignId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

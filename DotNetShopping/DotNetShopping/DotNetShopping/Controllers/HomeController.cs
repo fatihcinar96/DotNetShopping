@@ -136,48 +136,74 @@ namespace DotNetShopping.Controllers
             try
             {
 
-            }
-            catch (Exception)
-            {
+                var day = DateTime.Now.AddDays(-30);
+                var products = db.Orders
+                    .Join(db.OrderProducts, o => o.OrderId, op => op.OrderId, (o, op) => new { Order = o, OrderProduct = op })
+                    .Join(db.Variants, oop => oop.OrderProduct.VariantId, v => v.VariantId, (oop, v) => new { oop, Variant = v })
+                    .Join(db.Products, oopv => oopv.Variant.ProductId, p => p.ProductId, (oopv, p) => new { oopv, Product = p })
+                    .Join(db.Categories, oopvp => oopvp.Product.CategoryId, c => c.CategoryId, (oopvp, c) => new { oopvp, Category = c })
+                    .Join(db.Brands, oopvpc => oopvpc.oopvp.Product.Brand.BrandId, b => b.BrandId, (oopvpc, b) => new { oopvpc, Brand = b })
+                    .Where(x => x.oopvpc.oopvp.oopv.Variant.Archived == false &&
+                    x.oopvpc.oopvp.oopv.Variant.IsVisible == true &&
+                    x.oopvpc.oopvp.Product.IsVisible == true &&
+                    x.oopvpc.oopvp.Product.OnSale == true &&
+                    x.oopvpc.oopvp.Product.Archived == false &&
+                    x.oopvpc.oopvp.oopv.Variant.Stock > 0 &&
+                    x.oopvpc.oopvp.oopv.oop.Order.OrderDate > day
+                    
+                    )
+                    .GroupBy(x => new
+                    {
+                        ProductId = x.oopvpc.oopvp.Product.ProductId,
+                        VariantId = x.oopvpc.oopvp.oopv.Variant.VariantId,
+                        ProductName = x.oopvpc.oopvp.oopv.Variant.Product.Name,
+                        VariantName = x.oopvpc.oopvp.oopv.Variant.Name,
+                        BrandName = x.Brand.Name,
+                        CategoryName = x.oopvpc.Category.Name,
+                        UnitPrice = x.oopvpc.oopvp.oopv.Variant.UnitPrice
 
-                throw;
-            }
-            return View();
-        }
+                    })
+                    .Select(group => new
+                    {
+                        ProductBox = group.Key,
+                        Sold = group.Sum(x => x.oopvpc.oopvp.oopv.oop.OrderProduct.Quantity)
+                    })
+                    .Select(x => new
+                    {
+                        ProductId = x.ProductBox.ProductId,
+                        VariantId = x.ProductBox.VariantId,
+                        ProductName = x.ProductBox.ProductName,
+                        VariantName = x.ProductBox.VariantName,
+                        BrandName = x.ProductBox.BrandName,
+                        CategoryName = x.ProductBox.CategoryName,
+                        UnitPrice = x.ProductBox.UnitPrice,
+                        Sold = x.Sold
+                    })
 
-        public ActionResult xxxdelete()
-        {
-            try
-            {
-                var newProducts = db.Variants.Include("Product").Include("Brand")
-                .Where(x => x.Archived == false && x.Product.Archived == false
-                && x.IsVisible == true && x.Stock > 0 && x.Product.OnSale == true)
-                .Join(db.Categories, v => v.Product.CategoryId,
-                c => c.CategoryId, (v, c) => new { Variant = v, Category = c })
-                .OrderByDescending(x => x.Variant.CreateDate)
-                .Take(12).Select(x => new ProductBoxModel
-                {
-                    ProductId = x.Variant.ProductId,
-                    VariantId = x.Variant.VariantId,
-                    ProductName = x.Variant.Product.Name,
-                    VariantName = x.Variant.Name,
-                    BrandName = x.Variant.Product.Brand.Name,
-                    CategoryName = x.Category.Name,
-                    UnitPrice = x.Variant.UnitPrice,
-                    PhotoName = db.ProductImages
-                    .Where(i => i.VariantId == x.Variant.VariantId)
-                    .OrderBy(i => i.Sequence).FirstOrDefault().FileName
-                })
-                .ToList();
-                ViewBag.NewProducts = newProducts;
+                    .OrderByDescending(x => x.Sold)
+                    .Take(12)
+                    .Select(x => new ProductBoxModel
+                    {
+                        ProductId = x.ProductId,
+                        VariantId = x.VariantId,
+                        ProductName = x.ProductName,
+                        VariantName = x.VariantName,
+                        BrandName = x.BrandName,
+                        CategoryName = x.CategoryName,
+                        UnitPrice = x.UnitPrice,
+                        PhotoName = db.ProductImages.Where(i => i.VariantId == x.VariantId)
+                        .OrderBy(i => i.Sequence).FirstOrDefault().FileName
+                    }).ToList();
+                ViewBag.Products = products;
+              
             }
             catch (Exception ex)
             {
-                ViewBag.NewProducts = new List<ProductBoxModel>();
                 ViewBag.Error = ex.Message;
             }
-
             return View();
         }
+    
+       
     }
 }
