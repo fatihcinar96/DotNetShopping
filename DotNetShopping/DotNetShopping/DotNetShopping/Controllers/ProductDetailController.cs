@@ -35,13 +35,30 @@ namespace DotNetShopping.Controllers
                     Unit = x.Variant.Product.Unit,
                     Images = db.ProductImages
                     .Where(i => i.VariantId == x.Variant.VariantId)
-                    .OrderBy(i => i.Sequence).ToList()
+                    .OrderBy(i => i.Sequence).ToList(),
+                    CampaignName = x.Variant.Product.CampaignId == 0 ? "" : db.Campaigns.Where(c => c.CampaignId == x.Variant.Product.CampaignId).FirstOrDefault().Name
+
                 })
                 .FirstOrDefault();
             if (model == null)
             {
                 return RedirectToAction("Index", "Home");
             }
+
+            var otherVariants = db.Variants.Where(x => x.Archived == false && x.Product.Archived == false
+                && x.IsVisible == true && x.Stock > 0 && x.Product.OnSale == true && x.ProductId == model.ProductId && x.VariantId != id)
+                .Select(x => new ProductBoxModel
+                {
+                    ProductId = x.ProductId,
+                    VariantId = x.VariantId,
+                    VariantName = x.Name,
+                    UnitPrice = x.UnitPrice,
+                    PhotoName = db.ProductImages
+                    .Where(i => i.VariantId == x.VariantId)
+                    .OrderBy(i => i.Sequence).FirstOrDefault().FileName
+                })
+                .ToList();
+            ViewBag.OtherVariants = otherVariants;
             return View(model);
         }
     }

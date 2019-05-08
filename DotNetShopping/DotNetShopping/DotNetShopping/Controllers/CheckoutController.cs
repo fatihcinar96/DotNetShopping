@@ -25,6 +25,8 @@ namespace DotNetShopping.Controllers
         {
             CartListModel co = new CartListModel();
             var cart = co.GetCart(User.Identity.GetUserId());
+            Decimal discount = co.CalculateDiscount(cart);
+            ViewBag.Discount = discount;
             return View(cart);
         }
         [HttpPost]
@@ -43,6 +45,8 @@ namespace DotNetShopping.Controllers
             db.SaveChanges();
             CartListModel co = new CartListModel();
             var model = co.GetCart(User.Identity.GetUserId());
+            Decimal discount = co.CalculateDiscount(model);
+            ViewBag.Discount = discount;
             return View(model);
         }
         public ActionResult DeleteCart(Int64 VariantId)
@@ -98,6 +102,8 @@ namespace DotNetShopping.Controllers
             CartListModel co = new CartListModel();
             var cart = co.GetCart(User.Identity.GetUserId());
             ViewBag.Cart = cart;
+            Decimal discount = co.CalculateDiscount(cart);
+            ViewBag.Discount = discount;
             #endregion
             return View();
         }

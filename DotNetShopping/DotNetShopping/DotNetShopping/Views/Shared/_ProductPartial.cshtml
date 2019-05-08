@@ -8,7 +8,10 @@
             <div class="item-area">
                 <div class="product-image-area">
                     <img src="~/ProductImage/@(Model.PhotoName)-3.jpg">
-                    <div class="product-label"><span class="sale-product-icon">NEW</span></div>
+                    @if (Model.CampaignName != "")
+                    {
+                        <div class="product-label"><span class="sale-product-icon">@Model.CampaignName</span></div>
+                    }
                 </div>
                 <div class="details-area">
                     <h2 class="product-name">@Model.VariantName - @Model.ProductName</h2>

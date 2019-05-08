@@ -3,6 +3,8 @@
     ViewBag.Title = "Checkout";
     Layout = "~/Views/Shared/_Layout.cshtml";
     List<DotNetShopping.Models.CartListModel> cart = ViewBag.Cart;
+    var discount = (decimal)ViewBag.Discount;
+
 }
 
 <h2>Checkout</h2>
@@ -376,18 +378,33 @@
                                     <th>Subtotal</th>
                                 </tr>
                             </thead>
+
                             <tbody>
                                 @for (int i = 0; i < cart.Count; i++)
                                 {
+                                    var productName = DotNetShopping.Helpers.StringHelper.ClearFileName(cart[i].VariantName + " " + cart[i].ProductName);
                                     <tr>
-                                        <td><img src="~/ProductImage/@(cart[i].PhotoName)-1.jpg" /></td>
-                                        <td>@cart[i].VariantName @cart[i].ProductName</td>
+                                        <td>
+                                            <a href="@Url.Action("Product", "ProductDetail", new { id = cart[i].VariantId, name = productName })">
+                                                <img src="~/ProductImage/@(cart[i].PhotoName)-1.jpg" />
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a href="@Url.Action("Product", "ProductDetail", new { id = cart[i].VariantId, name = productName })">
+                                                <span style="width:100%; float:left; padding-bottom:20px;">@cart[i].VariantName @cart[i].ProductName</span>
+                                            </a>
+                                            @if (cart[i].Campaign != null)
+                                            {
+                                                <div class="productdetail-label"><span class="sale-product-icon">@cart[i].Campaign.Name</span></div>
+                                            }
+                                        </td>
                                         <td>$@cart[i].UnitPrice</td>
                                         <td>@cart[i].Quantity</td>
                                         <td>$@cart[i].TotalPrice</td>
                                     </tr>
                                 }
                             </tbody>
+                            
                             <tfoot class="checkout-total-Bg">
                                 <tr>
                                     <td colspan="3"></td>
@@ -396,14 +413,20 @@
                                 </tr>
                                 <tr>
                                     <td colspan="3"></td>
+                                    <td>Discount</td>
+                                    <td id="discount-total">@discount</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3"></td>
                                     <td>Shipping</td>
                                     <td id="shipping-total"></td>
                                 </tr>
                                 <tr>
                                     <td colspan="3"></td>
-                                    <td>Discount</td>
-                                    <td id="discount-total"></td>
+                                    <td>VAT</td>
+                                    <td id="vat-total"></td>
                                 </tr>
+
                                 <tr>
                                     <td colspan="3"></td>
                                     <td class="grandTotalLabel">Grand Total</td>

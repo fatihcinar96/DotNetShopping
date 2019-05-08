@@ -404,6 +404,17 @@ a.quickview-icon {
     z-index: 3;
 }
 
+.productdetail-label {
+    font-size: 14px;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1;
+    z-index: 3;
+    display: inline-block;
+    float: left;
+    margin-bottom: 20px;
+}
+
 span.sale-product-icon {
     background-color: #e27c7c;
     display: block;
@@ -769,6 +780,18 @@ button.button {
     font-size: 14pt;
     text-align: right;
 }
+
+.cartDiscount {
+    display: inline-block;
+    padding: 10px 10px 10px 0px;
+    margin-left: 20px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.10);
+    width: 260px;
+    font-size: 14pt;
+    text-align: right;
+    color : green;
+}
+
 
 .cartButtons {
     padding: 10px 10px 40px 0px;
@@ -1422,11 +1445,26 @@ button.button:hover span {
     font-weight:bold;
 }
 
-.Error {
-    font-weight: bold;
-    color: red;
-    font: 14pt;
+.OtherVariants{
+    width : 100%;
+    display : inline-block;
 }
+    .OtherVariants .Item {
+        float : left;
+        margin-right : 10px;
+    }
+    .OtherVariants img{
+        width : 50px;
+
+    }
+    .OtherVariants .Selected{
+        border : solid 1px #e1ddc3;
+    }
+    .Error {
+        font-weight: bold;
+        color: red;
+        font: 14pt;
+    }
 
 
 

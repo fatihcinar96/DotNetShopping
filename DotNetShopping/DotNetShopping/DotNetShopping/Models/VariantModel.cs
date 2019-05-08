@@ -26,6 +26,8 @@ namespace DotNetShopping.Models
         public Decimal Cost { get; set; }
         public Int16 Stock { get; set; }
 
+        public Int16 CampaignId { get; set; }
+
         public DateTime CreateDate { get; set; }
         public string CreateUser { get; set; }
         public DateTime UpdateDate { get; set; }

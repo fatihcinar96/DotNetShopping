@@ -60,8 +60,10 @@ function loadShoppingCart() {
 function displayShoppingCart(cart) {
     var qty = 0;
     var totalPrice = 0;
+    var discount = 0;
     var cartContent = '';
     var cartTotalContent = '';
+    var discountContent;
     for (var i = 0; i < cart.length; i++) {
         qty += parseInt(cart[i]['Quantity']);
         totalPrice += parseInt(cart[i]['Quantity']) * parseFloat(cart[i]['UnitPrice']);
@@ -69,12 +71,17 @@ function displayShoppingCart(cart) {
     }
     $('#cartQty').html(qty);
     if (qty > 0) {
+        discount = calculateCampaignDiscounts(cart);
+        if (discount > 0) {
+            totalPrice -= discount;
+            discountContent = '<div class=\'cartDiscount\'>Discount: $' + discount.toFixed(2) + '</div>';
+        }
         cartTotalContent = getCartTotalContent(totalPrice);
     }
     else {
         cartContent = '<div class=\'cartItem\' style=\'text-align:center;\'>Your cart is empty.</div>'
     }
-    $('#cartContent').html(cartContent + cartTotalContent);
+    $('#cartContent').html(cartContent + discountContent + cartTotalContent);
 }
 function getCartContent(item) {
     var content = '<div class=\'cartItem\'>' +
@@ -124,4 +131,35 @@ function addToCart(variantId, qty) {
         .fail(function (jqxhr, status, error) {
             alert(response['Error!']);
         });
+}
+
+function calculateCampaignDiscounts(cart) {
+    var discount = 0;
+    var campaignProducts = [];
+    for (var i = 0; i < cart.length; i++) {
+        if (cart[i]['Campaign']['CampaignId'] > 0) {
+            var productId = cart[i]['ProductId'];
+            if (cart[i]['Campaign']['CampaignId'] == 1) {
+                if (jQuery.inArray(productId, campaignProducts) === -1) {
+                    campaignProducts.push(productId);
+                    var productCount = countOfProducts(cart, cart[i]['ProductId']);
+                    var discountCount = parseInt(productCount / 2);
+                    discount += discountCount * cart[i]['UnitPrice'] * cart[i]['Campaign']['DiscountPercent'] / 100;
+                    alert('Campaign found! ' + cart[i]['Campaign']['Name'] + 'Discount for : ' + discountCount + 'Total Discount : $' + discount);
+                }
+                
+            }
+        }
+    }
+    return discount;
+}
+
+function countOfProducts(cart,productId) {
+    var productCount = 0;
+    for (var i = 0; i < cart.length; i++) {
+        if (cart[i]['ProductId'] === productId) {
+            productCount += cart[i]['Quantity'];
+        }
+    }
+    return productCount;
 }

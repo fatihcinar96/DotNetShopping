@@ -39,6 +39,8 @@ namespace DotNetShopping.Models
         public string Description { get; set; }
         public ProductUnit Unit { get; set; }
 
+        public Int16 CampaignId { get; set; }
+
         public DateTime CreateDate { get; set; }
         public string CreateUser { get; set; }
         public DateTime UpdateDate { get; set; }
@@ -67,6 +69,7 @@ namespace DotNetShopping.Models
         public Decimal UnitPrice { get; set; }
         public Decimal Cost { get; set; }
         public Int16 Stock { get; set; }
+        public Int16? CampaignId { get; set; }
         public HttpPostedFileBase UploadedFile { get; set; }
     }
     public class ProductEditModel
@@ -81,6 +84,8 @@ namespace DotNetShopping.Models
         public Product.ProductUnit Unit { get; set; }
         public bool OnSale { get; set; }
         public bool IsVisible { get; set; }
+        public Int16? CampaignId { get; set; }
+
     }
     public class ProductListModel
     {
@@ -113,6 +118,7 @@ namespace DotNetShopping.Models
         public string CategoryName { get; set; }
         public Decimal UnitPrice { get; set; }
         public string PhotoName { get; set; }
+        public string CampaignName { get; set; }
     }
     public class ProductDetailModel
     {
@@ -133,5 +139,6 @@ namespace DotNetShopping.Models
         public Decimal UnitPrice { get; set; }
         public Int16 Stock { get; set; }
         public IEnumerable<ProductImage> Images { get; set; }
+        public string CampaignName { get; set; }
     }
 }

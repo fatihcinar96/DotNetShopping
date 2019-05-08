@@ -46,6 +46,8 @@ namespace DotNetShopping.Controllers
             ViewBag.SupplierId = new SelectList(db.Suppliers.OrderBy(x => x.Name), "SupplierId", "Name");
             ViewBag.BrandId = new SelectList(db.Brands.OrderBy(x => x.Name), "BrandId", "Name");
             ViewBag.CategoryId = new SelectList(db.Categories.OrderBy(x => x.Name), "CategoryId", "Name");
+            ViewBag.CampaignId = new SelectList(db.Campaigns.Where(x=> x.ProductCampaign == true).OrderBy(x => x.Name), "CampaignId", "Name");
+
             return View();
         }
 
@@ -77,6 +79,7 @@ namespace DotNetShopping.Controllers
                             p.OnSale = model.OnSale;
                             p.IsVisible = model.IsVisible;
                             p.Description = model.Description;
+                            p.CampaignId = model.CampaignId ?? 0;
                             db.Products.Add(p);
                             db.SaveChanges();
 
@@ -116,6 +119,8 @@ namespace DotNetShopping.Controllers
             ViewBag.SupplierId = new SelectList(db.Suppliers.OrderBy(x => x.Name), "SupplierId", "Name", model.SupplierId);
             ViewBag.BrandId = new SelectList(db.Brands.OrderBy(x => x.Name), "BrandId", "Name", model.BrandId);
             ViewBag.CategoryId = new SelectList(db.Categories.OrderBy(x => x.Name), "CategoryId", "Name", model.CategoryId);
+            ViewBag.CampaignId = new SelectList(db.Campaigns.Where(x => x.ProductCampaign == true).OrderBy(x => x.Name), "CampaignId", "Name");
+
             return View();
         }
 
@@ -132,6 +137,7 @@ namespace DotNetShopping.Controllers
                     SupplierId = product.SupplierId,
                     CategoryId = product.CategoryId,
                     Description = product.Description,
+                    CampaignId = product.CampaignId,
                     IsVisible = product.IsVisible,
                     OnSale = product.OnSale,
                     Unit = product.Unit
@@ -139,6 +145,8 @@ namespace DotNetShopping.Controllers
                 ViewBag.SupplierId = new SelectList(db.Suppliers.OrderBy(x => x.Name), "SupplierId", "Name", model.SupplierId);
                 ViewBag.BrandId = new SelectList(db.Brands.OrderBy(x => x.Name), "BrandId", "Name", model.BrandId);
                 ViewBag.CategoryId = new SelectList(db.Categories.OrderBy(x => x.Name), "CategoryId", "Name", model.CategoryId);
+                ViewBag.CampaignId = new SelectList(db.Campaigns.Where(x => x.ProductCampaign == true).OrderBy(x => x.Name), "CampaignId", "Name",model.CampaignId);
+
                 return View(model);
             }
             else
@@ -163,6 +171,7 @@ namespace DotNetShopping.Controllers
                 product.Unit = model.Unit;
                 product.UpdateDate = DateTime.Today;
                 product.UpdateUser = User.Identity.GetUserId();
+                product.CampaignId = model.CampaignId ?? 0;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -171,6 +180,7 @@ namespace DotNetShopping.Controllers
                 ViewBag.SupplierId = new SelectList(db.Suppliers.OrderBy(x => x.Name), "SupplierId", "Name", model.SupplierId);
                 ViewBag.BrandId = new SelectList(db.Brands.OrderBy(x => x.Name), "BrandId", "Name", model.BrandId);
                 ViewBag.CategoryId = new SelectList(db.Categories.OrderBy(x => x.Name), "CategoryId", "Name", model.CategoryId);
+                ViewBag.CampaignId = new SelectList(db.Campaigns.Where(x => x.ProductCampaign == true).OrderBy(x => x.Name), "CampaignId", "Name");
                 return View(model);
             }
         }

@@ -4,7 +4,7 @@
 }
 
 <div class="products-slider">
-    @foreach (DotNetShopping.Models.ProductBoxModel product in ViewBag.Products)
+    @foreach (DotNetShopping.Models.ProductBoxModel product in ViewBag.BestSellerProducts)
     {
         <div>
             @Html.Partial("_ProductPartial", product)

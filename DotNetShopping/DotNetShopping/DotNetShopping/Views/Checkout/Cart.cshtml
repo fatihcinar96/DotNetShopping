@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "Cart";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var discount = (decimal)ViewBag.Discount;
 }
 <h2>Cart</h2>
 <div class="row">
@@ -22,14 +23,30 @@
                     <tbody>
                         @for (int i = 0; i < Model.Count; i++)
                         {
+                            var productName = DotNetShopping.Helpers.StringHelper.ClearFileName(Model[i].VariantName + " " + Model[i].ProductName);
+
                             <tr>
                                 <td>
                                     <a href="@Url.Action("DeleteCart", "Checkout", new { VariantId = Model[i].VariantId })" class="deleteProduct">
                                         <i class="glyphicon glyphicon-remove-circle"></i>
                                     </a>
                                 </td>
-                                <td><img src="~/ProductImage/@(Model[i].PhotoName)-1.jpg" /></td>
-                                <td>@Model[i].VariantName @Model[i].ProductName</td>
+                                <td>
+                                    <a href="@Url.Action("Product","ProductDetail",new { id = Model[i].VariantId , name = productName})">
+                                        <img src="~/ProductImage/@(Model[i].PhotoName)-1.jpg" />
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="@Url.Action("Product","ProductDetail",new { id = Model[i].VariantId , name = productName})">
+                                        <span style="width:100%; float:left; padding-bottom : 20px;">
+                                            @Model[i].VariantName @Model[i].ProductName
+                                        </span>
+                                        </a>
+                                        @if (Model[i].Campaign != null)
+                                        {
+                                            <div class="productdetail-label"><span class="sale-product-icon">@Model[i].Campaign.Name</span></div>
+                                        }
+                                </td>
                                 <td>$@Model[i].UnitPrice</td>
                                 <td>
                                     <div class="qty-holder">
@@ -83,11 +100,15 @@
             <div class="sidebarBoxHeader">
                 <span>CART TOTALS</span>
             </div>
-            <div class="sidebarBoxContent">
+            <div class="sidebarBoxContent" style="display:block;">
                 <div><span class="title">Subtotal : </span><span class="amount">$@Model.Sum(x => x.TotalPrice)</span></div>
-                <div><span class="title">VAT : </span><span class="amount">$@(String.Format("{0:F2}", Model.Sum(x => x.TotalPrice) * (decimal)0.18))</span></div>
+                @if (discount > 0)
+                {
+                    <div><span class="title">Discount : </span><span class="amount" style="color : green;">-$@String.Format("{0:F2}", discount)</span></div>
+                }
+                <div><span class="title">VAT : </span><span class="amount">$@(String.Format("{0:F2}", (Model.Sum(x => x.TotalPrice) - discount)* (decimal)0.18))</span></div>
                 <div><span class="title">Shipping : </span><span class="amount">$0.00</span></div>
-                <div><span class="title">Grand Total : </span><span class="amount">$@(String.Format("{0:F2}", Model.Sum(x => x.TotalPrice) * (decimal)1.18))</span></div>
+                <div><span class="title">Grand Total : </span><span class="amount">$@(String.Format("{0:F2}",( Model.Sum(x => x.TotalPrice) - discount )* (decimal)1.18))</span></div>
                 <div><button type="button" title="Proceed to Checkout" class="button" onclick="window.location='@Url.Action("Checkout","Checkout")';"><span><span>Proceed to Checkout</span></span></button></div>
             </div>
         </div>

@@ -31,8 +31,9 @@ namespace DotNetShopping.Models
         public string ProductName { get; set; }
         public string PhotoName { get; set; }
         public int Stock { get; set; }
+        public Campaign Campaign { get; set; }
 
-        public IEnumerable<CartListModel> GetCart(string UserId)
+        public List<CartListModel> GetCart(string UserId)
         {
             ApplicationDbContext db = new ApplicationDbContext();
             var model = db.Carts
@@ -53,9 +54,47 @@ namespace DotNetShopping.Models
                     TotalCost = x.cv.Variant.Cost * x.cv.Cart.Quantity,
                     Stock=x.cv.Variant.Stock,
                     PhotoName = db.ProductImages.Where(pi => pi.VariantId == x.cv.Variant.VariantId)
-                    .OrderBy(pi => pi.Sequence).FirstOrDefault().FileName
+                    .OrderBy(pi => pi.Sequence).FirstOrDefault().FileName,
+                    Campaign = db.Campaigns.Where(c=> c.CampaignId == x.cv.Variant.Product.CampaignId).FirstOrDefault()
                 }).ToList();
             return model;
+        }
+
+        public Decimal CalculateDiscount(List<CartListModel> cart)
+        {
+            Decimal discount = 0;
+            List<Int64> campaignProducts = new List<Int64>();
+            for(var i = 0; i < cart.Count; i++)
+            {
+                if(cart[i].Campaign.CampaignId > 0)
+                {
+                    var productId = cart[i].ProductId;
+                    if(cart[i].Campaign.CampaignId == 1)
+                    {
+                        if (!campaignProducts.Contains(productId))
+                        {
+                            campaignProducts.Add(productId);
+                            var productCount = CountOfProducts(cart, productId);
+                            var discountCount = Convert.ToInt16(productCount / 2);
+                            discount += discountCount * cart[i].UnitPrice * cart[i].Campaign.DiscountPercent / 100;
+                        }
+                    }
+                }
+            }
+            return discount;
+        }
+
+        public int CountOfProducts(List<CartListModel> cart,Int64 productId)
+        {
+            var productCount = 0;
+            for(var i = 0; i< cart.Count; i++)
+            {
+                if(cart[i].ProductId == productId)
+                {
+                    productCount += cart[i].Quantity;
+                }
+            }
+            return productCount;
         }
     }
 }

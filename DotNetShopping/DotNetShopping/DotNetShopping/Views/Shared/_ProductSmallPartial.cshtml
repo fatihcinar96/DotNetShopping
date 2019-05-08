@@ -9,6 +9,10 @@
             <div class="item-area">
                 <div class="product-image-area">
                     <img src="~/ProductImage/@(Model.PhotoName)-3.jpg" />
+                    @if (Model.CampaignName != "")
+                    {
+                        <div class="product-label"><span class="sale-product-icon">@Model.CampaignName</span></div>
+                    }
                     <div class="product-label"><span class="sale-product-icon">New</span></div>
                 </div>
                 <div class="details-area">

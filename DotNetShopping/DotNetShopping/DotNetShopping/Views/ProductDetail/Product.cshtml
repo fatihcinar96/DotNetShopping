@@ -27,6 +27,33 @@
             <div><p>@Model.Description</p></div>
             <div><p>Availability : @(Model.Stock > 0 ? "In Stock" : "Out of Stock")</p></div>
             <div class="price"><i class="glyphicon glyphicon-tag"></i><p>$@(Model.UnitPrice)</p></div>
+            @if (Model.CampaignName != "")
+            {
+                <div class="product-label"><span class="sale-product-icon">@Model.CampaignName</span></div>
+            }
+            @{
+                List<DotNetShopping.Models.ProductBoxModel> otherVariants = ViewBag.OtherVariants;
+                if (otherVariants.Count > 0)
+                {
+                    <div class="OtherVariants">
+                        <div class="Item Selected">
+                            <img src="~/ProductImage/@(Model.Images.First().FileName)-1.jpg" />
+                            <div>@Model.VariantName</div>
+                        </div>
+                        @foreach (DotNetShopping.Models.ProductBoxModel item in otherVariants)
+                        {
+                            <a href="@Url.Action("Product","ProductDetail",new { id = Model.VariantId , name = DotNetShopping.Helpers.StringHelper.ClearFileName(item.VariantName + " " + Model.ProductName)})">
+
+                                <div>
+                                    <img src="~/ProductImage//@(item.PhotoName)-1.jpg" />
+                                    <div>@item.VariantName</div>
+                                </div>
+                            </a>
+
+                        }
+                    </div>
+                }
+            }
             <div class="add-to-box">
                 <div class="add-to-cart">
                     <label for="qty">Qty:</label>
@@ -37,6 +64,7 @@
                             <a href="javascript:minusClick();" class="qty_dec"><i class="glyphicon glyphicon-minus"></i></a>
                         </div>
                     </div>
+
                     @if (User.Identity.IsAuthenticated)
                     {
                         <button type="button" title="Add to Cart" class="button btn-cart" onclick="addToCart(@Model.VariantId, parseInt($('#qty').val()));">

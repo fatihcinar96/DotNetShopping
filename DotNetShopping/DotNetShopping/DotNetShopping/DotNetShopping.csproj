@@ -271,6 +271,10 @@
     <Compile Include="Migrations\201905021506081_Campaigns3.Designer.cs">
       <DependentUpon>201905021506081_Campaigns3.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201905071332085_productCampaign.cs" />
+    <Compile Include="Migrations\201905071332085_productCampaign.Designer.cs">
+      <DependentUpon>201905071332085_productCampaign.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BrandModel.cs" />
@@ -1262,6 +1266,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201905021506081_Campaigns3.resx">
       <DependentUpon>201905021506081_Campaigns3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905071332085_productCampaign.resx">
+      <DependentUpon>201905071332085_productCampaign.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

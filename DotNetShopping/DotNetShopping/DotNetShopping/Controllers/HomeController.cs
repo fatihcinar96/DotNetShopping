@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 
@@ -36,10 +37,13 @@ namespace DotNetShopping.Controllers
                     UnitPrice = x.Variant.UnitPrice,
                     PhotoName = db.ProductImages
                     .Where(i => i.VariantId == x.Variant.VariantId)
-                    .OrderBy(i => i.Sequence).FirstOrDefault().FileName
+                    .OrderBy(i => i.Sequence).FirstOrDefault().FileName,
+                    CampaignName = x.Variant.Product.CampaignId == 0 ? "" : db.Campaigns.Where(c=> c.CampaignId == x.Variant.Product.CampaignId).FirstOrDefault().Name
+
                 })
                 .ToList();
                 ViewBag.NewProducts = newProducts;
+                    
             }
             catch (Exception ex)
             {
@@ -107,7 +111,9 @@ namespace DotNetShopping.Controllers
                     UnitPrice = x.Variant.UnitPrice,
                     PhotoName = db.ProductImages
                     .Where(i => i.VariantId == x.Variant.VariantId)
-                    .OrderBy(i => i.Sequence).FirstOrDefault().FileName
+                    .OrderBy(i => i.Sequence).FirstOrDefault().FileName,
+                    CampaignName = x.Variant.Product.CampaignId == 0 ? "" : db.Campaigns.Where(c => c.CampaignId == x.Variant.Product.CampaignId).FirstOrDefault().Name
+
                 })
                 .ToList();
                 ViewBag.Products = products;
@@ -150,7 +156,7 @@ namespace DotNetShopping.Controllers
                     x.oopvpc.oopvp.Product.Archived == false &&
                     x.oopvpc.oopvp.oopv.Variant.Stock > 0 &&
                     x.oopvpc.oopvp.oopv.oop.Order.OrderDate > day
-                    
+
                     )
                     .GroupBy(x => new
                     {
@@ -160,7 +166,8 @@ namespace DotNetShopping.Controllers
                         VariantName = x.oopvpc.oopvp.oopv.Variant.Name,
                         BrandName = x.Brand.Name,
                         CategoryName = x.oopvpc.Category.Name,
-                        UnitPrice = x.oopvpc.oopvp.oopv.Variant.UnitPrice
+                        UnitPrice = x.oopvpc.oopvp.oopv.Variant.UnitPrice,
+                        CampaignId = x.oopvpc.oopvp.Product.CampaignId
 
                     })
                     .Select(group => new
@@ -177,7 +184,8 @@ namespace DotNetShopping.Controllers
                         BrandName = x.ProductBox.BrandName,
                         CategoryName = x.ProductBox.CategoryName,
                         UnitPrice = x.ProductBox.UnitPrice,
-                        Sold = x.Sold
+                        Sold = x.Sold,
+                        CampaignId = x.ProductBox.CampaignId
                     })
 
                     .OrderByDescending(x => x.Sold)
@@ -192,10 +200,12 @@ namespace DotNetShopping.Controllers
                         CategoryName = x.CategoryName,
                         UnitPrice = x.UnitPrice,
                         PhotoName = db.ProductImages.Where(i => i.VariantId == x.VariantId)
-                        .OrderBy(i => i.Sequence).FirstOrDefault().FileName
+                        .OrderBy(i => i.Sequence).FirstOrDefault().FileName,
+                        CampaignName = x.CampaignId == 0 ? "" : db.Campaigns.Where(c => c.CampaignId == x.CampaignId).FirstOrDefault().Name
+
                     }).ToList();
-                ViewBag.Products = products;
-              
+                ViewBag.BestSellerProducts = products;
+
             }
             catch (Exception ex)
             {
@@ -203,7 +213,7 @@ namespace DotNetShopping.Controllers
             }
             return View();
         }
-    
-       
+
+
     }
 }
